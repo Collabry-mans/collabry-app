@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  flutter_native_splash: ^2.4.4
 
 dev_dependencies:
   flutter_test:
@@ -74,19 +75,26 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Allerta-button
+    - family: Allerta_button
       fonts:
         - asset: assets/fonts/Allerta-button.ttf
-    - family: ABeeZee-button
+    - family: ABeeZee_button
       fonts:
         - asset: assets/fonts/ABeeZee-button.ttf
-    - family: Barlow-header
+    - family: Barlow_header
       fonts:
         - asset: assets/fonts/Barlow-header.ttf
-    - family: Belanosima-text
+    - family: Belanosima_text
       fonts:
         - asset: assets/fonts/Belanosima-text.ttf
         
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_assets:
+  assets_path: assets/images/
+  output_path: lib/core/utils/
+  filename: app_assets.dart
+  field_prefix: 
+  ignore_comments: true

@@ -1,8 +1,8 @@
 import 'package:collabry/core/utils/app_constants.dart';
-import 'package:collabry/features/on_boarding/presentation/view/onboarding1_view.dart';
-import 'package:collabry/features/on_boarding/presentation/view/onboarding2_view.dart';
-import 'package:collabry/features/on_boarding/presentation/view/onboarding3_view.dart';
-import 'package:collabry/features/on_boarding/presentation/view/onboarding4_view.dart';
+import 'package:collabry/features/on_boarding/presentation/widgets/onboarding1_view.dart';
+import 'package:collabry/features/on_boarding/presentation/widgets/onboarding2_view.dart';
+import 'package:collabry/features/on_boarding/presentation/widgets/onboarding3_view.dart';
+import 'package:collabry/features/on_boarding/presentation/widgets/onboarding4_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
