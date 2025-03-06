@@ -1,8 +1,17 @@
 import 'package:collabry/core/routes/app_routes.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Collabry());
+  runApp(
+    DevicePreview(
+      enabled: true,
+      tools: const [
+        ...DevicePreview.defaultTools,
+      ],
+      builder: (context) => const Collabry(),
+    ),
+  );
 }
 
 class Collabry extends StatelessWidget {
