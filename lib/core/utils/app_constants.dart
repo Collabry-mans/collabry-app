@@ -2,8 +2,11 @@ import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/on_boarding/model/on_boarding_model.dart';
 
-const String onBoardingScreen = '/';
+const String onBoardingScreen = 'onBoardingScreen/';
 const String logInScreen = 'logInScreen/';
+
+const String firstTimeBoxName = 'firstTimeBox';
+const String kFirstTime = 'firstTimeBoxKey';
 
 List<OnBoardingModel> boardingScreens = [
   OnBoardingModel(

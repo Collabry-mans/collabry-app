@@ -10,9 +10,11 @@ class AppRoutes {
       case onBoardingScreen:
         return MaterialPageRoute(
             builder: (context) => const OnBoardingScreen());
+
+      //* authentication
       case logInScreen:
         return MaterialPageRoute(builder: (context) => const LogInView());
-      //* authentication
+
       default:
         return null;
     }
