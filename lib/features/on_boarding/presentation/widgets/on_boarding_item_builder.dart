@@ -1,4 +1,5 @@
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingItemBuilder extends StatelessWidget {
@@ -13,31 +14,33 @@ class OnBoardingItemBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset(
-          image,
-          width: double.infinity,
-          height: MediaQuery.sizeOf(context).height * 0.5,
-          fit: BoxFit.cover,
-        ),
-        const SizedBox(height: 15),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.headerColor,
-              fontFamily: 'Barlow_header',
-              fontSize: 45,
-              fontWeight: FontWeight.w600,
-            ),
+        Expanded(
+          child: Image.asset(
+            image,
+            width: double.infinity,
+            fit: BoxFit.cover,
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
+            title,
+            style: TextStyle(
+              color: AppColors.headerColor,
+              fontFamily: 'Barlow_header',
+              fontSize: title == AppStrings.unlimitedCollaboration ? 40 : 48,
+              fontWeight: FontWeight.w900,
+              height: 0,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          child: Text(
             text,
             style: const TextStyle(
-              color: AppColors.headerColor,
+              color: AppColors.onBoardinTxtColor,
               fontFamily: 'Belanosima_text',
               fontSize: 16,
             ),

@@ -8,7 +8,7 @@ class AppStrings {
   static const String onBoard4Txt =
       'Host virtual events to present and discuss content, connect with others through live streaming, and be part of meaningful conversations that improve  your knowledge!';
   static const String welcome = 'Welcome';
-  static const String unlimitedCollaboration = 'Unlimited Collaboration';
+  static const String unlimitedCollaboration = 'Unlimited\nCollaboration';
   static const String powerOfAI = 'Power of AI';
   static const String liveAndConnect = 'Live & Connect';
   static const String continue_ = 'Continue';
