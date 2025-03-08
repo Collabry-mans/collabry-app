@@ -18,7 +18,7 @@ class _LogInViewState extends State<LogInView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.selectedColor,
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.sizeOf(context).height,
@@ -27,7 +27,7 @@ class _LogInViewState extends State<LogInView> {
             children: [
               Image.asset(
                 Assets.imagesUpperAuth,
-                height: MediaQuery.sizeOf(context).height / 7,
+                height: MediaQuery.sizeOf(context).height / 6.5,
                 fit: BoxFit.cover,
               ),
               const Padding(
@@ -38,7 +38,7 @@ class _LogInViewState extends State<LogInView> {
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(left: 18, bottom: 60),
+                padding: EdgeInsets.only(left: 18, bottom: 40),
                 child: Text(
                   AppStrings.welcomeBack,
                   style: AppTextStyles.belanosimaSize12White,
@@ -76,7 +76,8 @@ class _LogInViewState extends State<LogInView> {
                                 .copyWith(color: AppColors.whiteColor),
                           ),
                           const SizedBox(height: 50),
-                          const Expanded(child: AuthBottomSection())
+                          const Expanded(child: AuthBottomSection()),
+                          const SizedBox(height: 15),
                         ],
                       ),
                     ),

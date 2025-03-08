@@ -5,6 +5,7 @@ import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
+import 'package:collabry/features/authentication/presentation/widgets/customized_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordView extends StatelessWidget {
@@ -19,7 +20,7 @@ class ForgotPasswordView extends StatelessWidget {
         children: [
           Image.asset(
             Assets.imagesUpperAuth,
-            height: MediaQuery.sizeOf(context).height / 7,
+            height: MediaQuery.sizeOf(context).height / 6.5,
             fit: BoxFit.cover,
           ),
           const SizedBox(height: 24),
@@ -38,23 +39,7 @@ class ForgotPasswordView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 28, 0, 40),
-                    child: InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.arrow_back,
-                              color: AppColors.selectedColor),
-                          Text(
-                            AppStrings.backToLogin,
-                            style: AppTextStyles.belanosimaSize16Purple
-                                .copyWith(fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  const CustomizedAppBar(),
                   Center(
                     child: Image.asset(
                       Assets.imagesForgetPass,

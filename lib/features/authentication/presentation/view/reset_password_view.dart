@@ -1,3 +1,10 @@
+import 'package:collabry/core/utils/app_assets.dart';
+import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_strings.dart';
+import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/core/widgets/custom_button.dart';
+import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
+import 'package:collabry/features/authentication/presentation/widgets/customized_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordView extends StatelessWidget {
@@ -5,6 +12,74 @@ class ResetPasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: AppColors.selectedColor,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset(
+            Assets.imagesUpperAuth,
+            height: MediaQuery.sizeOf(context).height / 6.5,
+            fit: BoxFit.cover,
+          ),
+          const SizedBox(height: 24),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+              decoration: const BoxDecoration(
+                color: AppColors.bgColor,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(50),
+                  topLeft: Radius.circular(50),
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CustomizedAppBar(),
+                  Center(
+                    child: Image.asset(
+                      Assets.imagesSendVerification,
+                      height: MediaQuery.sizeOf(context).height / 4.5,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    AppStrings.resetPass,
+                    style: AppTextStyles.belanosimaSize16Purple
+                        .copyWith(fontSize: 24),
+                  ),
+                  const SizedBox(height: 40),
+                  const CustomTxtField(
+                    text: AppStrings.newPass,
+                    icon: Icons.lock_outline_rounded,
+                    color: AppColors.txtColor,
+                    isPass: true,
+                  ),
+                  const SizedBox(height: 10),
+                  const CustomTxtField(
+                    text: AppStrings.confirmPassword,
+                    icon: Icons.lock_outline_rounded,
+                    color: AppColors.txtColor,
+                    isPass: true,
+                  ),
+                  const SizedBox(height: 40),
+                  CustomButton(
+                    onTap: () {},
+                    text: AppStrings.resetPass,
+                    textStyle: AppTextStyles.belanosimaSize24W600Purple
+                        .copyWith(color: AppColors.whiteColor),
+                  ),
+                  const Expanded(child: SizedBox()),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

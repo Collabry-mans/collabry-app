@@ -39,6 +39,7 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
       child: TextField(
         obscureText: obscure,
         decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
           hintText: widget.text,
           hintStyle: AppTextStyles.barlowSize14W600Grey,
           prefixIcon: Icon(
