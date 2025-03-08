@@ -18,6 +18,7 @@ class AppStrings {
   static const String logIn = 'Login';
   static const String email = 'Email';
   static const String pass = 'Password';
+  static const String name = 'Name';
   static const String rememberMe = 'Remember Me';
   static const String forgotPassword = 'Forgot Password?';
   static const String orLoginWith = 'Or Login with';

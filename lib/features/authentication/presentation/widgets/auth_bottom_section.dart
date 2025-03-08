@@ -1,37 +1,44 @@
 import 'package:collabry/core/utils/app_colors.dart';
-import 'package:collabry/core/utils/app_strings.dart';
+import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/authentication/presentation/widgets/o_auth_buttons.dart';
 import 'package:flutter/material.dart';
 
 class AuthBottomSection extends StatelessWidget {
-  const AuthBottomSection({super.key});
+  const AuthBottomSection(
+      {super.key,
+      required this.title,
+      required this.text,
+      required this.textButtonTxt});
+  final String title, text, textButtonTxt;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        const Row(
+        Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Expanded(child: Divider(color: AppColors.txtColor, thickness: 1)),
+            const Expanded(
+                child: Divider(color: AppColors.txtColor, thickness: 1)),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                AppStrings.orLoginWith,
-                style: TextStyle(
+                title,
+                style: const TextStyle(
                   color: AppColors.txtColor,
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Divider(color: AppColors.txtColor, thickness: 1),
             ),
           ],
         ),
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             OAuthButtons(icon: Icons.facebook),
             SizedBox(width: 10),
@@ -40,24 +47,23 @@ class AuthBottomSection extends StatelessWidget {
             OAuthButtons(icon: Icons.apple),
           ],
         ),
-        Center(
-          child: Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: AppStrings.dontHaveAnAccount,
-                  style:
-                      AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 16),
-                ),
-                TextSpan(
-                  text: AppStrings.signUp,
-                  style: AppTextStyles.belanosimaSize24W600Purple.copyWith(
-                    fontSize: 12,
-                  ),
-                ),
-              ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$text ',
+              style: AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 12),
             ),
-          ),
+            InkWell(
+              onTap: () => Navigator.pushNamed(context, signUpScreen),
+              child: Text(
+                textButtonTxt,
+                style: AppTextStyles.belanosimaSize24W600Purple.copyWith(
+                  fontSize: 12,
+                ),
+              ),
+            )
+          ],
         )
       ],
     );

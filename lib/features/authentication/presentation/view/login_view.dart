@@ -76,7 +76,13 @@ class _LogInViewState extends State<LogInView> {
                                 .copyWith(color: AppColors.whiteColor),
                           ),
                           const SizedBox(height: 50),
-                          const Expanded(child: AuthBottomSection()),
+                          const Expanded(
+                            child: AuthBottomSection(
+                              title: AppStrings.orLoginWith,
+                              text: AppStrings.dontHaveAnAccount,
+                              textButtonTxt: AppStrings.signUp,
+                            ),
+                          ),
                           const SizedBox(height: 15),
                         ],
                       ),

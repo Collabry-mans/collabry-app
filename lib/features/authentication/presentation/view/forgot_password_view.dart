@@ -27,7 +27,7 @@ class ForgotPasswordView extends StatelessWidget {
           Expanded(
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+              padding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
               decoration: const BoxDecoration(
                 color: AppColors.bgColor,
                 borderRadius: BorderRadius.only(
