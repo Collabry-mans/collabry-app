@@ -1,4 +1,5 @@
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
@@ -52,7 +53,9 @@ class _LoginTextFieldsState extends State<LoginTextFields> {
               ],
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, forgotPasswordScreen);
+              },
               child: const Text(
                 AppStrings.forgotPassword,
                 style: AppTextStyles.belanosimaSize16Purple,

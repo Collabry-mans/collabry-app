@@ -26,7 +26,7 @@ class _LogInViewState extends State<LogInView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(
-                Assets.imagesUpperLogin,
+                Assets.imagesUpperAuth,
                 height: MediaQuery.sizeOf(context).height / 7,
                 fit: BoxFit.cover,
               ),

@@ -5,6 +5,12 @@ import 'package:collabry/features/on_boarding/model/on_boarding_model.dart';
 //* Screens Routes
 const String onBoardingScreen = 'onBoardingScreen/';
 const String logInScreen = 'logInScreen/';
+const String forgotPasswordScreen = 'forgotPasswordScreen/';
+const String forgotPasswordVerificationScreen =
+    'forgotPasswordVerificationScreen/';
+const String resetPasswordScreen = 'resetPasswordScreen/';
+const String signUpScreen = 'signUpScreen/';
+const String signUpVerificationScreen = 'signUpVerificationScreen/';
 
 //* Boxes Stuff
 const String firstTimeBoxName = 'firstTimeBox';
