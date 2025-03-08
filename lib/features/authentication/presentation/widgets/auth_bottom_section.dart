@@ -4,8 +4,8 @@ import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/authentication/presentation/widgets/o_auth_buttons.dart';
 import 'package:flutter/material.dart';
 
-class BottomSection extends StatelessWidget {
-  const BottomSection({super.key});
+class AuthBottomSection extends StatelessWidget {
+  const AuthBottomSection({super.key});
 
   @override
   Widget build(BuildContext context) {

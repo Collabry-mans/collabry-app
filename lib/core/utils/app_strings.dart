@@ -28,7 +28,7 @@ class AppStrings {
   static const String dontWorryEnterTheEmail =
       'Don’t worry! It happens. Please enter the email address associated with your account.';
   static const String verificationMsg =
-      'Please enter the 6-digit code sent to your email contact';
+      'Please enter the 6-digit code sent to your \nemail';
   static const String forVerification = 'for verification';
   static const String didntReceiveAnyCode = 'Didn’t receive any code? ';
   static const String requestNewCodeIn = 'Request new code in';

@@ -1,3 +1,4 @@
+import 'package:collabry/core/functions/functions.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -73,17 +74,10 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
               : null,
           filled: true,
           fillColor: AppColors.whiteColor,
-          enabledBorder: outLineInputBorder(),
-          focusedBorder: outLineInputBorder(),
+          enabledBorder: outLineInputBorder(20),
+          focusedBorder: outLineInputBorder(20),
         ),
       ),
-    );
-  }
-
-  OutlineInputBorder outLineInputBorder() {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(20),
-      borderSide: const BorderSide(color: AppColors.whiteColor),
     );
   }
 }

@@ -13,7 +13,7 @@ class ForgotPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: AppColors.selectedColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -22,6 +22,7 @@ class ForgotPasswordView extends StatelessWidget {
             height: MediaQuery.sizeOf(context).height / 7,
             fit: BoxFit.cover,
           ),
+          const SizedBox(height: 24),
           Expanded(
             child: Container(
               width: double.infinity,

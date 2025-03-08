@@ -3,7 +3,7 @@ import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
-import 'package:collabry/features/authentication/presentation/widgets/bottom_section.dart';
+import 'package:collabry/features/authentication/presentation/widgets/auth_bottom_section.dart';
 import 'package:collabry/features/authentication/presentation/widgets/login_text_fields.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +76,7 @@ class _LogInViewState extends State<LogInView> {
                                 .copyWith(color: AppColors.whiteColor),
                           ),
                           const SizedBox(height: 50),
-                          const Expanded(child: BottomSection())
+                          const Expanded(child: AuthBottomSection())
                         ],
                       ),
                     ),
