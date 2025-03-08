@@ -1,17 +1,31 @@
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
-class CustomTxtField extends StatelessWidget {
+class CustomTxtField extends StatefulWidget {
   const CustomTxtField({
     super.key,
     required this.text,
     required this.icon,
-    required this.textColor,
-    required this.iconColor,
+    required this.color,
+    this.isPass = false,
   });
   final String text;
   final IconData icon;
-  final Color textColor, iconColor;
+  final Color color;
+  final bool isPass;
+
+  @override
+  State<CustomTxtField> createState() => _CustomTxtFieldState();
+}
+
+class _CustomTxtFieldState extends State<CustomTxtField> {
+  late bool obscure;
+  @override
+  void initState() {
+    super.initState();
+    obscure = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +36,41 @@ class CustomTxtField extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
+        obscureText: obscure,
         decoration: InputDecoration(
-          hintText: text,
-          hintStyle: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.w600,
-          ),
+          hintText: widget.text,
+          hintStyle: AppTextStyles.barlowSize14W600Grey,
           prefixIcon: Icon(
-            icon,
-            color: iconColor,
+            widget.icon,
+            color: widget.color,
+            size: 30,
           ),
+          suffixIcon: widget.isPass
+              ? IntrinsicHeight(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const VerticalDivider(
+                        color: AppColors.txtColor,
+                        thickness: 0.5,
+                        width: 1,
+                        endIndent: 7,
+                        indent: 7,
+                      ),
+                      const SizedBox(width: 8),
+                      InkWell(
+                        onTap: () => setState(() => obscure = !obscure),
+                        child: Icon(
+                          obscure ? Icons.visibility_off : Icons.visibility,
+                          color: AppColors.txtColor,
+                          size: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : null,
           filled: true,
           fillColor: AppColors.whiteColor,
           enabledBorder: outLineInputBorder(),
@@ -44,9 +83,7 @@ class CustomTxtField extends StatelessWidget {
   OutlineInputBorder outLineInputBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(20),
-      borderSide: const BorderSide(
-        color: AppColors.whiteColor,
-      ),
+      borderSide: const BorderSide(color: AppColors.whiteColor),
     );
   }
 }

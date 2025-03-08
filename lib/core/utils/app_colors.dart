@@ -10,4 +10,6 @@ class AppColors {
   static const Color txtColor = Color(0xffa4a7ae);
   static const Color textFieldBorder = Color(0xfff4f4f4);
   static const Color whiteColor = Colors.white;
+  static const Color oAuthColor = Color(0xff0063e6);
+  static const Color oAuthBorderColor = Color(0xff8ab7f4);
 }

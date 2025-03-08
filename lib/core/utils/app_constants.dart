@@ -2,12 +2,21 @@ import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/on_boarding/model/on_boarding_model.dart';
 
+//* Screens Routes
 const String onBoardingScreen = 'onBoardingScreen/';
 const String logInScreen = 'logInScreen/';
 
+//* Boxes Stuff
 const String firstTimeBoxName = 'firstTimeBox';
 const String kFirstTime = 'firstTimeBoxKey';
 
+//* Fonts
+const String fontABeeZee = 'ABeeZee_button';
+const String fontAllerta = 'Allerta_button';
+const String fontBarlow = 'Barlow_header';
+const String fontBelanosima = 'Belanosima_text';
+
+//* Lists
 List<OnBoardingModel> boardingScreens = [
   OnBoardingModel(
       image: Assets.imagesOnBoard1,

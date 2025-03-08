@@ -1,5 +1,6 @@
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
+import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingItemBuilder extends StatelessWidget {
@@ -39,11 +40,8 @@ class OnBoardingItemBuilder extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Text(
             text,
-            style: const TextStyle(
-              color: AppColors.onBoardinTxtColor,
-              fontFamily: 'Belanosima_text',
-              fontSize: 16,
-            ),
+            style: AppTextStyles.belanosimaSize16Purple
+                .copyWith(color: AppColors.onBoardinTxtColor),
             textAlign: TextAlign.center,
           ),
         ),
