@@ -1,5 +1,4 @@
 import 'package:collabry/core/utils/app_colors.dart';
-import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
@@ -7,7 +6,8 @@ import 'package:collabry/features/authentication/presentation/widgets/otp_verifi
 import 'package:flutter/material.dart';
 
 class VerificationBottomSection extends StatelessWidget {
-  const VerificationBottomSection({super.key});
+  const VerificationBottomSection({super.key, required this.onTap});
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,7 @@ class VerificationBottomSection extends StatelessWidget {
           children: List.generate(6, (_) => const OTPVerificationComponent()),
         ),
         CustomButton(
-          onTap: () =>
-              Navigator.pushReplacementNamed(context, resetPasswordScreen),
+          onTap: onTap,
           text: AppStrings.verify,
           textStyle: AppTextStyles.belanosimaSize24W600Purple
               .copyWith(color: AppColors.whiteColor),

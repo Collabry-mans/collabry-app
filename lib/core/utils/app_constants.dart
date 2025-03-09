@@ -11,6 +11,7 @@ const String forgotPasswordVerificationScreen =
 const String resetPasswordScreen = 'resetPasswordScreen/';
 const String signUpScreen = 'signUpScreen/';
 const String signUpVerificationScreen = 'signUpVerificationScreen/';
+const String homePageScreen = 'homePageScreen/';
 
 //* Boxes Stuff
 const String firstTimeBoxName = 'firstTimeBox';

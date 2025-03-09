@@ -3,6 +3,7 @@ import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/authentication/presentation/widgets/o_auth_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AuthBottomSection extends StatelessWidget {
   const AuthBottomSection(
@@ -40,11 +41,11 @@ class AuthBottomSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            OAuthButtons(icon: Icons.facebook),
+            OAuthButtons(icon: FontAwesomeIcons.facebookF),
             SizedBox(width: 10),
-            OAuthButtons(icon: Icons.verified_user),
+            OAuthButtons(icon: FontAwesomeIcons.google),
             SizedBox(width: 10),
-            OAuthButtons(icon: Icons.apple),
+            OAuthButtons(icon: FontAwesomeIcons.apple),
           ],
         ),
         Row(

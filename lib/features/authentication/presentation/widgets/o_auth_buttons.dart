@@ -26,7 +26,7 @@ class _OAuthButtonsState extends State<OAuthButtons> {
       onTapUp: (_) => _updateColors(false), // Released state
       onTapCancel: () => _updateColors(false), // Cancelled press
       child: Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: containerColor,
           border: Border.all(color: AppColors.oAuthBorderColor),
@@ -35,7 +35,7 @@ class _OAuthButtonsState extends State<OAuthButtons> {
         child: Center(
           child: Icon(
             widget.icon,
-            size: 40,
+            size: 30,
             color: iconColor,
           ),
         ),

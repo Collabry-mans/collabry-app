@@ -5,6 +5,7 @@ import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_check_box.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginTextFields extends StatefulWidget {
   const LoginTextFields({super.key});
@@ -27,7 +28,7 @@ class _LoginTextFieldsState extends State<LoginTextFields> {
         const SizedBox(height: 10),
         const CustomTxtField(
           text: AppStrings.pass,
-          icon: Icons.lock_outlined,
+          icon: FontAwesomeIcons.lock,
           color: AppColors.txtColor,
           isPass: true,
         ),

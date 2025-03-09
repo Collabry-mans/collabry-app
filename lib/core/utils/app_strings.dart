@@ -49,4 +49,6 @@ class AppStrings {
   static const String community = 'Community';
   static const String live = 'Live';
   static const String welcomeBack = 'welcome back we missed you';
+  static const String search = 'Search ...';
+  static const String topics = 'Topics';
 }

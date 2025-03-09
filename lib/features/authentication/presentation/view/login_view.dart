@@ -1,5 +1,6 @@
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
@@ -70,7 +71,8 @@ class _LogInViewState extends State<LogInView> {
                           const LoginTextFields(),
                           const SizedBox(height: 30),
                           CustomButton(
-                            onTap: () {},
+                            onTap: () => Navigator.pushReplacementNamed(
+                                context, homePageScreen),
                             text: AppStrings.logIn,
                             textStyle: AppTextStyles.belanosimaSize24W600Purple
                                 .copyWith(color: AppColors.whiteColor),

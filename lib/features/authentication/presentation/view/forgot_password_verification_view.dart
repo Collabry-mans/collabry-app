@@ -1,5 +1,6 @@
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/authentication/presentation/widgets/customized_app_bar.dart';
@@ -79,7 +80,10 @@ class ForgotPasswordVerificationView extends StatelessWidget {
                       const SizedBox(height: 30),
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height / 4,
-                        child: const VerificationBottomSection(),
+                        child: VerificationBottomSection(
+                          onTap: () => Navigator.pushReplacementNamed(
+                              context, resetPasswordScreen),
+                        ),
                       ),
                       const Expanded(child: SizedBox()),
                     ],
