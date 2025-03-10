@@ -3,14 +3,14 @@ import 'package:collabry/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
-    super.key,
-  });
+  const CustomAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
+    return SliverAppBar(
+      floating: true,
+      surfaceTintColor: Colors.transparent,
+      backgroundColor: AppColors.bgColor,
       leading: Builder(builder: (context) {
         return IconButton(
           onPressed: () {
