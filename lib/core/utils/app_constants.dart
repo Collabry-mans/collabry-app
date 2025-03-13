@@ -16,6 +16,8 @@ const String homePageScreen = 'homePageScreen/';
 //* Boxes Stuff
 const String firstTimeBoxName = 'firstTimeBox';
 const String kFirstTime = 'firstTimeBoxKey';
+const String accessTokenKey = 'accessTokenKey';
+const String refreshTokenKey = 'refreshTokenKey';
 
 //* Fonts
 const String fontABeeZee = 'ABeeZee_button';

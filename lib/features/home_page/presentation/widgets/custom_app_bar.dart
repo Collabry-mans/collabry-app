@@ -10,7 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SliverAppBar(
       floating: true,
       surfaceTintColor: Colors.transparent,
-      backgroundColor: AppColors.bgColor,
+      backgroundColor: AppColors.homeBgColor,
       leading: Builder(builder: (context) {
         return IconButton(
           onPressed: () {

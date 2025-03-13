@@ -70,4 +70,6 @@ class Assets {
 
   static const String imagesVideoCallUnselected =
       "assets/images/videoCall-unselected.png";
+
+  static const String imagesAIGenerate = "assets/images/aiGenerate.png";
 }

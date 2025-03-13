@@ -10,11 +10,15 @@ class CustomTxtField extends StatefulWidget {
     required this.icon,
     required this.color,
     this.isPass = false,
+    this.validationFun,
+    required this.txtController,
   });
   final String text;
   final IconData icon;
   final Color color;
   final bool isPass;
+  final String Function(String?)? validationFun;
+  final TextEditingController txtController;
 
   @override
   State<CustomTxtField> createState() => _CustomTxtFieldState();
@@ -25,7 +29,7 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
   @override
   void initState() {
     super.initState();
-    obscure = true;
+    obscure = widget.isPass;
   }
 
   @override
@@ -36,7 +40,16 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
         color: AppColors.textFieldBorder,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: TextField(
+      child: TextFormField(
+        validator: (String? msg) {
+          if (msg == null || msg.isEmpty) {
+            return 'This field is required';
+          }
+          if (widget.validationFun != null) {
+            widget.validationFun?.call(msg);
+          }
+          return null;
+        },
         obscureText: obscure,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),

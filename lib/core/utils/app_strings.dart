@@ -51,4 +51,6 @@ class AppStrings {
   static const String welcomeBack = 'welcome back we missed you';
   static const String search = 'Search ...';
   static const String topics = 'Topics';
+  static const String aiGenerate = 'AI Generate';
+  static const String howCanIHelpU = 'How can I help you? Let me know.';
 }

@@ -1,3 +1,4 @@
+import 'package:collabry/core/cubit/user_cubit.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
@@ -6,6 +7,7 @@ import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
 import 'package:collabry/features/authentication/presentation/widgets/customized_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ResetPasswordView extends StatelessWidget {
   const ResetPasswordView({super.key});
@@ -53,14 +55,19 @@ class ResetPasswordView extends StatelessWidget {
                         .copyWith(fontSize: 24),
                   ),
                   const SizedBox(height: 40),
-                  const CustomTxtField(
+                  CustomTxtField(
+                    txtController:
+                        context.read<UserCubit>().resetpassNewPassController,
                     text: AppStrings.newPass,
                     icon: Icons.lock_outline_rounded,
                     color: AppColors.txtColor,
                     isPass: true,
                   ),
                   const SizedBox(height: 10),
-                  const CustomTxtField(
+                  CustomTxtField(
+                    txtController: context
+                        .read<UserCubit>()
+                        .resetpassConfirmPassController,
                     text: AppStrings.confirmPassword,
                     icon: Icons.lock_outline_rounded,
                     color: AppColors.txtColor,

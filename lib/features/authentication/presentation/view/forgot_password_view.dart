@@ -1,3 +1,4 @@
+import 'package:collabry/core/cubit/user_cubit.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -7,6 +8,7 @@ import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
 import 'package:collabry/features/authentication/presentation/widgets/customized_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgotPasswordView extends StatelessWidget {
   const ForgotPasswordView({super.key});
@@ -60,7 +62,9 @@ class ForgotPasswordView extends StatelessWidget {
                         .copyWith(fontSize: 11),
                   ),
                   const SizedBox(height: 20),
-                  const CustomTxtField(
+                  CustomTxtField(
+                    txtController:
+                        context.read<UserCubit>().forgotpassEmailController,
                     text: AppStrings.email,
                     icon: Icons.email_outlined,
                     color: AppColors.txtColor,

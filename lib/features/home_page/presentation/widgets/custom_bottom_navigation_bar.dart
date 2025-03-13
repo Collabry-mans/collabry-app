@@ -5,11 +5,19 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     super.key,
+    required this.pageController,
   });
+  final PageController pageController;
 
+  @override
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return ConvexAppBar(
@@ -17,7 +25,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
       backgroundColor: AppColors.whiteColor,
       color: AppColors.txtColor,
       activeColor: AppColors.oAuthColor,
-      onTap: (int index) {},
+      onTap: (int index) {
+        widget.pageController.animateToPage(index >= 2 ? index - 1 : index,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut);
+      },
       style: TabStyle.fixedCircle,
       items: [
         TabItem(

@@ -1,3 +1,5 @@
+import 'package:collabry/core/cubit/user_cubit.dart';
+import 'package:collabry/core/cubit/user_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -7,6 +9,7 @@ import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/authentication/presentation/widgets/auth_bottom_section.dart';
 import 'package:collabry/features/authentication/presentation/widgets/login_text_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LogInView extends StatefulWidget {
   const LogInView({super.key});
@@ -59,34 +62,41 @@ class _LogInViewState extends State<LogInView> {
                           topLeft: Radius.circular(50),
                         ),
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            AppStrings.logIn,
-                            style: AppTextStyles.barlowSize42BoldPurple,
-                          ),
-                          const SizedBox(height: 20),
-                          const LoginTextFields(),
-                          const SizedBox(height: 30),
-                          CustomButton(
-                            onTap: () => Navigator.pushReplacementNamed(
-                                context, homePageScreen),
-                            text: AppStrings.logIn,
-                            textStyle: AppTextStyles.belanosimaSize24W600Purple
-                                .copyWith(color: AppColors.whiteColor),
-                          ),
-                          const SizedBox(height: 50),
-                          const Expanded(
-                            child: AuthBottomSection(
-                              title: AppStrings.orLoginWith,
-                              text: AppStrings.dontHaveAnAccount,
-                              textButtonTxt: AppStrings.signUp,
-                            ),
-                          ),
-                          const SizedBox(height: 15),
-                        ],
+                      child: BlocBuilder<UserCubit, UserState>(
+                        builder: (context, state) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                AppStrings.logIn,
+                                style: AppTextStyles.barlowSize42BoldPurple,
+                              ),
+                              const SizedBox(height: 20),
+                              const LoginTextFields(),
+                              const SizedBox(height: 30),
+                              CustomButton(
+                                onTap: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, homePageScreen);
+                                },
+                                text: AppStrings.logIn,
+                                textStyle: AppTextStyles
+                                    .belanosimaSize24W600Purple
+                                    .copyWith(color: AppColors.whiteColor),
+                              ),
+                              const SizedBox(height: 50),
+                              const Expanded(
+                                child: AuthBottomSection(
+                                  title: AppStrings.orLoginWith,
+                                  text: AppStrings.dontHaveAnAccount,
+                                  textButtonTxt: AppStrings.signUp,
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                            ],
+                          );
+                        },
                       ),
                     ),
                     Positioned(
