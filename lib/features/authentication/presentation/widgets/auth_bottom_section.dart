@@ -1,5 +1,4 @@
 import 'package:collabry/core/utils/app_colors.dart';
-import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/authentication/presentation/widgets/o_auth_buttons.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +9,9 @@ class AuthBottomSection extends StatelessWidget {
       {super.key,
       required this.title,
       required this.text,
-      required this.textButtonTxt});
-  final String title, text, textButtonTxt;
+      required this.textButtonTxt,
+      required this.screen});
+  final String title, text, textButtonTxt, screen;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class AuthBottomSection extends StatelessWidget {
               style: AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 12),
             ),
             InkWell(
-              onTap: () => Navigator.pushNamed(context, signUpScreen),
+              onTap: () => Navigator.pushNamed(context, screen),
               child: Text(
                 textButtonTxt,
                 style: AppTextStyles.belanosimaSize24W600Purple.copyWith(

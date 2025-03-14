@@ -17,7 +17,7 @@ class CustomTxtField extends StatefulWidget {
   final IconData icon;
   final Color color;
   final bool isPass;
-  final String Function(String?)? validationFun;
+  final String? Function(String?)? validationFun;
   final TextEditingController txtController;
 
   @override
@@ -41,15 +41,7 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextFormField(
-        validator: (String? msg) {
-          if (msg == null || msg.isEmpty) {
-            return 'This field is required';
-          }
-          if (widget.validationFun != null) {
-            widget.validationFun?.call(msg);
-          }
-          return null;
-        },
+        validator: widget.validationFun,
         obscureText: obscure,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),

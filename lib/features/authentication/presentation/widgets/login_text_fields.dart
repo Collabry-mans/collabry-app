@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/user_cubit.dart';
+import 'package:collabry/core/cubit/auth_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
@@ -19,22 +19,35 @@ class LoginTextFields extends StatefulWidget {
 class _LoginTextFieldsState extends State<LoginTextFields> {
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTxtField(
-          txtController: context.read<UserCubit>().logInEmailController,
+          txtController: authCubit.logInEmailController,
           text: AppStrings.email,
           icon: Icons.mail_outlined,
           color: AppColors.txtColor,
+          validationFun: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter your email';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 10),
         CustomTxtField(
-          txtController: context.read<UserCubit>().logInPassController,
+          txtController: authCubit.logInPassController,
           text: AppStrings.pass,
           icon: FontAwesomeIcons.lock,
           color: AppColors.txtColor,
           isPass: true,
+          validationFun: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter your email';
+            }
+            return null;
+          },
         ),
         CustomCheckBox(
           text: const Text(

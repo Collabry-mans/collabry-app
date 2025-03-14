@@ -1,5 +1,5 @@
-import 'package:collabry/core/cubit/user_cubit.dart';
-import 'package:collabry/core/cubit/user_states.dart';
+import 'package:collabry/core/cubit/auth_cubit.dart';
+import 'package:collabry/core/cubit/auth_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -21,6 +21,7 @@ class LogInView extends StatefulWidget {
 class _LogInViewState extends State<LogInView> {
   @override
   Widget build(BuildContext context) {
+    final formKey = context.read<AuthCubit>().loginFormKey;
     return Scaffold(
       backgroundColor: AppColors.selectedColor,
       body: SingleChildScrollView(
@@ -62,39 +63,63 @@ class _LogInViewState extends State<LogInView> {
                           topLeft: Radius.circular(50),
                         ),
                       ),
-                      child: BlocBuilder<UserCubit, UserState>(
+                      child: BlocBuilder<AuthCubit, AuthState>(
                         builder: (context, state) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                AppStrings.logIn,
-                                style: AppTextStyles.barlowSize42BoldPurple,
-                              ),
-                              const SizedBox(height: 20),
-                              const LoginTextFields(),
-                              const SizedBox(height: 30),
-                              CustomButton(
-                                onTap: () {
-                                  Navigator.pushReplacementNamed(
-                                      context, homePageScreen);
-                                },
-                                text: AppStrings.logIn,
-                                textStyle: AppTextStyles
-                                    .belanosimaSize24W600Purple
-                                    .copyWith(color: AppColors.whiteColor),
-                              ),
-                              const SizedBox(height: 50),
-                              const Expanded(
-                                child: AuthBottomSection(
-                                  title: AppStrings.orLoginWith,
-                                  text: AppStrings.dontHaveAnAccount,
-                                  textButtonTxt: AppStrings.signUp,
+                          return Form(
+                            key: formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  AppStrings.logIn,
+                                  style: AppTextStyles.barlowSize42BoldPurple,
                                 ),
-                              ),
-                              const SizedBox(height: 15),
-                            ],
+                                const SizedBox(height: 20),
+                                const LoginTextFields(),
+                                const SizedBox(height: 30),
+                                state is LoginLoadingState
+                                    ? const Center(
+                                        child: CircularProgressIndicator())
+                                    : CustomButton(
+                                        onTap: () {
+                                          if (context
+                                                  .read<AuthCubit>()
+                                                  .loginFormKey
+                                                  .currentState
+                                                  ?.validate() ??
+                                              false) {
+                                            context.read<AuthCubit>().logIn();
+                                          }
+                                          if (state is LoginLoadedState) {
+                                            Navigator.pushReplacementNamed(
+                                                context, homePageScreen);
+                                          } else if (state
+                                              is LoginFailedState) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content:
+                                                        Text(state.errMsg)));
+                                          }
+                                        },
+                                        text: AppStrings.logIn,
+                                        textStyle: AppTextStyles
+                                            .belanosimaSize24W600Purple
+                                            .copyWith(
+                                                color: AppColors.whiteColor),
+                                      ),
+                                const SizedBox(height: 50),
+                                const Expanded(
+                                  child: AuthBottomSection(
+                                    title: AppStrings.orLoginWith,
+                                    text: AppStrings.dontHaveAnAccount,
+                                    textButtonTxt: AppStrings.signUp,
+                                    screen: signUpScreen,
+                                  ),
+                                ),
+                                const SizedBox(height: 15),
+                              ],
+                            ),
                           );
                         },
                       ),

@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/user_cubit.dart';
+import 'package:collabry/core/cubit/auth_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
@@ -16,14 +16,14 @@ class SignupTextFields extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTxtField(
-          txtController: context.read<UserCubit>().registerNameController,
+          txtController: context.read<AuthCubit>().registerNameController,
           text: AppStrings.name,
           icon: Icons.account_circle_outlined,
           color: AppColors.txtColor,
         ),
         const SizedBox(height: 5),
         CustomTxtField(
-          txtController: context.read<UserCubit>().registerEmailController,
+          txtController: context.read<AuthCubit>().registerEmailController,
           text: AppStrings.email,
           icon: Icons.email,
           color: AppColors.txtColor,
@@ -36,7 +36,7 @@ class SignupTextFields extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         CustomTxtField(
-          txtController: context.read<UserCubit>().registerPassController,
+          txtController: context.read<AuthCubit>().registerPassController,
           text: AppStrings.pass,
           icon: Icons.lock_outline_rounded,
           color: AppColors.txtColor,
@@ -51,7 +51,7 @@ class SignupTextFields extends StatelessWidget {
         const SizedBox(height: 5),
         CustomTxtField(
           txtController:
-              context.read<UserCubit>().registerConfirmPassController,
+              context.read<AuthCubit>().registerConfirmPassController,
           isPass: true,
           text: AppStrings.confirmPassword,
           icon: Icons.lock_outline_rounded,

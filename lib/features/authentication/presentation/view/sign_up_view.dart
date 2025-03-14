@@ -1,5 +1,5 @@
-import 'package:collabry/core/cubit/user_cubit.dart';
-import 'package:collabry/core/cubit/user_states.dart';
+import 'package:collabry/core/cubit/auth_cubit.dart';
+import 'package:collabry/core/cubit/auth_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -17,8 +17,8 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = context.read<UserCubit>().registerFormKey;
-    return BlocConsumer<UserCubit, UserState>(
+    final formKey = context.read<AuthCubit>().registerFormKey;
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) => ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Please verify ur email'))),
       builder: (context, state) => Scaffold(
@@ -68,14 +68,16 @@ class SignUpView extends StatelessWidget {
                                 onTap: () {
                                   if (formKey.currentState?.validate() ??
                                       false) {
-                                    context.read<UserCubit>().signUp();
-                                    context
-                                        .read<UserCubit>()
-                                        .signUpEmailVerification();
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        signUpVerificationScreen,
-                                        (route) => false);
+                                    if (state is RegisterLoadedState) {
+                                      context.read<AuthCubit>().signUp();
+                                      context
+                                          .read<AuthCubit>()
+                                          .signUpEmailVerification();
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          signUpVerificationScreen,
+                                          (route) => false);
+                                    }
                                   }
                                 },
                                 text: AppStrings.signUp,
@@ -88,6 +90,7 @@ class SignUpView extends StatelessWidget {
                             title: AppStrings.orSignUpWith,
                             text: AppStrings.alreadyHaveAnAccount,
                             textButtonTxt: AppStrings.logIn,
+                            screen: logInScreen,
                           ),
                         ),
                       ],

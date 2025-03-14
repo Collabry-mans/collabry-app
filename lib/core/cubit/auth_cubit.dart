@@ -1,13 +1,14 @@
-import 'package:collabry/core/cubit/user_states.dart';
+import 'package:collabry/core/cubit/auth_states.dart';
 import 'package:collabry/features/authentication/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserCubit extends Cubit<UserState> {
-  UserCubit(this.authRepo) : super(UserState());
+class AuthCubit extends Cubit<AuthState> {
+  AuthCubit(this.authRepo) : super(AuthState());
 
-  final AuthRepository authRepo;
+  final BaseAuthRepository authRepo;
   GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   //* login txt controllers
   TextEditingController logInEmailController = TextEditingController();
@@ -27,23 +28,37 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController resetpassConfirmPassController =
       TextEditingController();
 
-  void signUp() async {
+  Future<void> signUp() async {
     emit(RegisterLoadingState());
     try {
-      final response = await authRepo.signUp(registerNameController.text,
-          registerEmailController.text, registerPassController.text);
+      final response = await authRepo.signUp(
+          registerNameController.text.trim(),
+          registerEmailController.text.trim(),
+          registerPassController.text.trim());
       emit(RegisterLoadedState(signUp: response));
     } on Exception catch (e) {
       emit(RegisterFailedState(errMsg: e.toString()));
     }
   }
 
-  void signUpEmailVerification() async {
+  Future<void> signUpEmailVerification() async {
     emit(RegisterLoadingState());
     try {
-      await authRepo.signupVerificationEmail(registerEmailController.text);
+      await authRepo
+          .signupVerificationEmail(registerEmailController.text.trim());
     } on Exception catch (e) {
       emit(RegisterFailedState(errMsg: e.toString()));
+    }
+  }
+
+  Future<void> logIn() async {
+    emit(LoginLoadingState());
+    try {
+      await authRepo.logIn(
+          logInEmailController.text.trim(), logInPassController.text.trim());
+      emit(LoginLoadedState());
+    } on Exception catch (e) {
+      emit(LoginFailedState(errMsg: e.toString()));
     }
   }
 }

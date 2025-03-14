@@ -1,8 +1,8 @@
 import 'package:collabry/core/routes/app_routes.dart';
+import 'package:collabry/core/singletons/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -15,17 +15,10 @@ Future<Box> openHiveBox(String boxName) async {
   return await Hive.openBox(boxName);
 }
 
-FlutterSecureStorage secureStorage() {
-  AndroidOptions getAndroidOptions() => const AndroidOptions(
-        encryptedSharedPreferences: true,
-      );
-  final storage = FlutterSecureStorage(aOptions: getAndroidOptions());
-  return storage;
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   firstTimeBox = await openHiveBox(firstTimeBoxName);
+  setupDependencies();
 
   runApp(
     DevicePreview(
