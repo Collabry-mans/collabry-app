@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:collabry/core/cubit/auth_cubit.dart';
 import 'package:collabry/core/cubit/auth_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
@@ -18,34 +19,68 @@ class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = context.read<AuthCubit>().registerFormKey;
-    return BlocConsumer<AuthCubit, AuthState>(
-      listener: (context, state) => ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please verify ur email'))),
-      builder: (context, state) => Scaffold(
-        backgroundColor: AppColors.selectedColor,
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.sizeOf(context).height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  Assets.imagesUpperAuth,
-                  height: MediaQuery.sizeOf(context).height / 6.5,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(height: 24),
-                Expanded(
+    return Scaffold(
+      backgroundColor: AppColors.selectedColor,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.sizeOf(context).height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                Assets.imagesUpperAuth,
+                height: MediaQuery.sizeOf(context).height / 6.5,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 24),
+              Expanded(
                   child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
-                    decoration: const BoxDecoration(
-                      color: AppColors.bgColor,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(50),
-                        topLeft: Radius.circular(50),
-                      ),
-                    ),
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+                decoration: const BoxDecoration(
+                  color: AppColors.bgColor,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(50),
+                  ),
+                ),
+                child: BlocConsumer<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state is RegisterLoadedState) {
+                      Flushbar(
+                        margin: const EdgeInsets.all(8),
+                        borderRadius: BorderRadius.circular(8),
+                        message:
+                            'A verification email will be sent. Check your email',
+                        flushbarStyle: FlushbarStyle.FLOATING,
+                        icon: const Icon(
+                          Icons.info_outline,
+                          size: 28.0,
+                          color: AppColors.primaryColor,
+                        ),
+                        duration: const Duration(seconds: 3),
+                        leftBarIndicatorColor: AppColors.primaryColor,
+                      ).show(context);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, signUpVerificationScreen, (route) => false);
+                    } else if (state is RegisterFailedState) {
+                      Flushbar(
+                        margin: const EdgeInsets.all(8),
+                        borderRadius: BorderRadius.circular(8),
+                        message: state.errMsg,
+                        flushbarStyle: FlushbarStyle.FLOATING,
+                        icon: const Icon(
+                          Icons.info_outline,
+                          size: 28.0,
+                          color: Colors.red,
+                        ),
+                        duration: const Duration(seconds: 3),
+                        leftBarIndicatorColor: AppColors.primaryColor,
+                      ).show(context);
+                    }
+                  },
+                  builder: (context, state) => Form(
+                    key: formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,27 +92,15 @@ class SignUpView extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 20),
-                        Form(
-                          key: formKey,
-                          child: const SignupTextFields(),
-                        ),
+                        const SignupTextFields(),
                         const SizedBox(height: 20),
-                        (state is RegisterLoadingState)
-                            ? const CircularProgressIndicator()
+                        state is RegisterLoadingState
+                            ? const Center(child: CircularProgressIndicator())
                             : CustomButton(
                                 onTap: () {
                                   if (formKey.currentState?.validate() ??
                                       false) {
-                                    if (state is RegisterLoadedState) {
-                                      context.read<AuthCubit>().signUp();
-                                      context
-                                          .read<AuthCubit>()
-                                          .signUpEmailVerification();
-                                      Navigator.pushNamedAndRemoveUntil(
-                                          context,
-                                          signUpVerificationScreen,
-                                          (route) => false);
-                                    }
+                                    context.read<AuthCubit>().signUp();
                                   }
                                 },
                                 text: AppStrings.signUp,
@@ -96,9 +119,9 @@ class SignUpView extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              ))
+            ],
           ),
         ),
       ),

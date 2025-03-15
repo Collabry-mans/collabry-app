@@ -12,50 +12,69 @@ class SignupTextFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTxtField(
-          txtController: context.read<AuthCubit>().registerNameController,
+          txtController: authCubit.registerNameController,
           text: AppStrings.name,
           icon: Icons.account_circle_outlined,
           color: AppColors.txtColor,
-        ),
-        const SizedBox(height: 5),
-        CustomTxtField(
-          txtController: context.read<AuthCubit>().registerEmailController,
-          text: AppStrings.email,
-          icon: Icons.email,
-          color: AppColors.txtColor,
-          validationFun: (String? msg) {
-            if (!msg!.contains('@')) {
-              return 'The email address should contain @';
+          validationFun: (value) {
+            if (value == null || value.isEmpty) {
+              return 'U should enter a name';
             }
-            return '';
+            return null;
           },
         ),
         const SizedBox(height: 5),
         CustomTxtField(
-          txtController: context.read<AuthCubit>().registerPassController,
+          txtController: authCubit.registerEmailController,
+          text: AppStrings.email,
+          icon: Icons.email,
+          color: AppColors.txtColor,
+          validationFun: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter your email';
+            } else if (!value.contains('@')) {
+              return 'Email should contain @';
+            }
+            return null;
+          },
+        ),
+        const SizedBox(height: 5),
+        CustomTxtField(
+          txtController: authCubit.registerPassController,
           text: AppStrings.pass,
           icon: Icons.lock_outline_rounded,
           color: AppColors.txtColor,
           isPass: true,
           validationFun: (String? msg) {
-            if (msg!.length > 8) {
+            if (msg == null || msg.isEmpty) {
+              return 'Please enter a password';
+            } else if (msg.length < 8) {
               return 'The password should contain more than 8 characters';
             }
-            return '';
+            return null;
           },
         ),
         const SizedBox(height: 5),
         CustomTxtField(
-          txtController:
-              context.read<AuthCubit>().registerConfirmPassController,
+          txtController: authCubit.registerConfirmPassController,
           isPass: true,
           text: AppStrings.confirmPassword,
           icon: Icons.lock_outline_rounded,
           color: AppColors.txtColor,
+          validationFun: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter your password';
+            } else if (value !=
+                context.read<AuthCubit>().registerPassController.text) {
+              return 'both passwords should be the same';
+            }
+            return null;
+          },
         ),
         const CustomCheckBox(
           text: Text(

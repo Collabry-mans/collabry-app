@@ -41,6 +41,7 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextFormField(
+        controller: widget.txtController,
         validator: widget.validationFun,
         obscureText: obscure,
         decoration: InputDecoration(

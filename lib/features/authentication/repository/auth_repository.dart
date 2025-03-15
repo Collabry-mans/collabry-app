@@ -7,7 +7,6 @@ import 'package:collabry/features/authentication/model/sign_up_model.dart';
 
 abstract class BaseAuthRepository {
   Future<SignUpModel> signUp(String name, String email, String pass);
-  Future<void> signupVerificationEmail(String email);
   Future<LogInModel> logIn(String email, String pass);
 }
 
@@ -32,15 +31,6 @@ class AuthRepository implements BaseAuthRepository {
     secureStorage.write(key: accessTokenKey, value: user.accessToken);
     secureStorage.write(key: refreshTokenKey, value: user.refreshToken);
     return user;
-  }
-
-  @override
-  Future<void> signupVerificationEmail(
-    String email,
-  ) async {
-    await dio.post(EndPoints.verificationEmail, data: {
-      ApiKeys.email: email,
-    });
   }
 
   @override

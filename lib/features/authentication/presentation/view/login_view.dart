@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:collabry/core/cubit/auth_cubit.dart';
 import 'package:collabry/core/cubit/auth_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
@@ -63,7 +64,35 @@ class _LogInViewState extends State<LogInView> {
                           topLeft: Radius.circular(50),
                         ),
                       ),
-                      child: BlocBuilder<AuthCubit, AuthState>(
+                      child: BlocConsumer<AuthCubit, AuthState>(
+                        listener: (context, state) {
+                          if (state is LoginLoadedState) {
+                            Navigator.pushReplacementNamed(
+                                context, homePageScreen);
+                            Flushbar(
+                              margin: const EdgeInsets.all(8),
+                              borderRadius: BorderRadius.circular(8),
+                              flushbarStyle: FlushbarStyle.FLOATING,
+                              message: 'Welcome back',
+                              duration: const Duration(seconds: 3),
+                              leftBarIndicatorColor: AppColors.primaryColor,
+                            ).show(context);
+                          } else if (state is LoginFailedState) {
+                            Flushbar(
+                              margin: const EdgeInsets.all(8),
+                              borderRadius: BorderRadius.circular(8),
+                              message: state.errMsg,
+                              flushbarStyle: FlushbarStyle.FLOATING,
+                              icon: const Icon(
+                                Icons.info_outline,
+                                size: 28.0,
+                                color: AppColors.primaryColor,
+                              ),
+                              duration: const Duration(seconds: 3),
+                              leftBarIndicatorColor: AppColors.primaryColor,
+                            ).show(context);
+                          }
+                        },
                         builder: (context, state) {
                           return Form(
                             key: formKey,
@@ -83,23 +112,10 @@ class _LogInViewState extends State<LogInView> {
                                         child: CircularProgressIndicator())
                                     : CustomButton(
                                         onTap: () {
-                                          if (context
-                                                  .read<AuthCubit>()
-                                                  .loginFormKey
-                                                  .currentState
+                                          if (formKey.currentState
                                                   ?.validate() ??
                                               false) {
                                             context.read<AuthCubit>().logIn();
-                                          }
-                                          if (state is LoginLoadedState) {
-                                            Navigator.pushReplacementNamed(
-                                                context, homePageScreen);
-                                          } else if (state
-                                              is LoginFailedState) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                                    content:
-                                                        Text(state.errMsg)));
                                           }
                                         },
                                         text: AppStrings.logIn,

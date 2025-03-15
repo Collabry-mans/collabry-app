@@ -1,3 +1,4 @@
+import 'package:collabry/features/authentication/model/log_in_model.dart';
 import 'package:collabry/features/authentication/model/sign_up_model.dart';
 
 class AuthState {}
@@ -18,7 +19,10 @@ class RegisterFailedState extends AuthState {
 //* Login States
 class LoginLoadingState extends AuthState {}
 
-class LoginLoadedState extends AuthState {}
+class LoginLoadedState extends AuthState {
+  final LogInModel logIn;
+  LoginLoadedState({required this.logIn});
+}
 
 class LoginFailedState extends AuthState {
   final String errMsg;

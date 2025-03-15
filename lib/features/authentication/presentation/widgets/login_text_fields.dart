@@ -24,17 +24,18 @@ class _LoginTextFieldsState extends State<LoginTextFields> {
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTxtField(
-          txtController: authCubit.logInEmailController,
-          text: AppStrings.email,
-          icon: Icons.mail_outlined,
-          color: AppColors.txtColor,
-          validationFun: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter your email';
-            }
-            return null;
-          },
-        ),
+            txtController: authCubit.logInEmailController,
+            text: AppStrings.email,
+            icon: Icons.mail_outlined,
+            color: AppColors.txtColor,
+            validationFun: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              } else if (!value.contains('@')) {
+                return 'Email should contain @';
+              }
+              return null;
+            }),
         const SizedBox(height: 10),
         CustomTxtField(
           txtController: authCubit.logInPassController,
@@ -44,7 +45,9 @@ class _LoginTextFieldsState extends State<LoginTextFields> {
           isPass: true,
           validationFun: (value) {
             if (value == null || value.isEmpty) {
-              return 'Please enter your email';
+              return 'Please enter your pass';
+            } else if (value.length < 8) {
+              return 'Password must be at least 8 characters';
             }
             return null;
           },

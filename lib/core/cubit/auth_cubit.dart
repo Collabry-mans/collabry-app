@@ -1,5 +1,7 @@
 import 'package:collabry/core/cubit/auth_states.dart';
+import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:collabry/features/authentication/repository/auth_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,34 +33,26 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signUp() async {
     emit(RegisterLoadingState());
     try {
-      final response = await authRepo.signUp(
-          registerNameController.text.trim(),
-          registerEmailController.text.trim(),
-          registerPassController.text.trim());
+      final response = await authRepo.signUp(registerNameController.text,
+          registerEmailController.text.trim(), registerPassController.text);
       emit(RegisterLoadedState(signUp: response));
-    } on Exception catch (e) {
-      emit(RegisterFailedState(errMsg: e.toString()));
-    }
-  }
-
-  Future<void> signUpEmailVerification() async {
-    emit(RegisterLoadingState());
-    try {
-      await authRepo
-          .signupVerificationEmail(registerEmailController.text.trim());
-    } on Exception catch (e) {
-      emit(RegisterFailedState(errMsg: e.toString()));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(RegisterFailedState(errMsg: e.errModel.getFormattedMessage()));
     }
   }
 
   Future<void> logIn() async {
     emit(LoginLoadingState());
     try {
-      await authRepo.logIn(
-          logInEmailController.text.trim(), logInPassController.text.trim());
-      emit(LoginLoadedState());
-    } on Exception catch (e) {
-      emit(LoginFailedState(errMsg: e.toString()));
+      final user = await authRepo.logIn(
+          logInEmailController.text.trim(), logInPassController.text);
+      emit(LoginLoadedState(logIn: user));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(LoginFailedState(errMsg: e.errModel.getFormattedMessage()));
     }
   }
 }

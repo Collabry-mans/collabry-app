@@ -1,4 +1,5 @@
 import 'package:collabry/core/api/end_points.dart';
+import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:dio/dio.dart';
 
 class DioConsumer {
@@ -28,7 +29,7 @@ class DioConsumer {
       );
       return response.data;
     } on DioException catch (e) {
-      print(e.error.toString());
+      handleDioExceptions(e);
     }
   }
 
@@ -44,7 +45,7 @@ class DioConsumer {
           queryParameters: queryParameters);
       return response.data;
     } on DioException catch (e) {
-      print(e.error.toString());
+      handleDioExceptions(e);
     }
   }
 
@@ -60,7 +61,7 @@ class DioConsumer {
           queryParameters: queryParameters);
       return response.data;
     } on DioException catch (e) {
-      print(e.error.toString());
+      handleDioExceptions(e);
     }
   }
 
@@ -76,7 +77,7 @@ class DioConsumer {
           queryParameters: queryParameters);
       return response.data;
     } on DioException catch (e) {
-      print(e.error.toString());
+      handleDioExceptions(e);
     }
   }
 }
