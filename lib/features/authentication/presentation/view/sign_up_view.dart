@@ -61,8 +61,8 @@ class SignUpView extends StatelessWidget {
                         duration: const Duration(seconds: 3),
                         leftBarIndicatorColor: AppColors.primaryColor,
                       ).show(context);
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, signUpVerificationScreen, (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(context,
+                          Routes.signUpVerificationScreen, (route) => false);
                     } else if (state is RegisterFailedState) {
                       Flushbar(
                         margin: const EdgeInsets.all(8),
@@ -113,7 +113,7 @@ class SignUpView extends StatelessWidget {
                             title: AppStrings.orSignUpWith,
                             text: AppStrings.alreadyHaveAnAccount,
                             textButtonTxt: AppStrings.logIn,
-                            screen: logInScreen,
+                            screen: Routes.logInScreen,
                           ),
                         ),
                       ],

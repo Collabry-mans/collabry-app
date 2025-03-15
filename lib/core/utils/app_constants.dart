@@ -3,15 +3,17 @@ import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/on_boarding/model/on_boarding_model.dart';
 
 //* Screens Routes
-const String onBoardingScreen = 'onBoardingScreen/';
-const String logInScreen = 'logInScreen/';
-const String forgotPasswordScreen = 'forgotPasswordScreen/';
-const String forgotPasswordVerificationScreen =
-    'forgotPasswordVerificationScreen/';
-const String resetPasswordScreen = 'resetPasswordScreen/';
-const String signUpScreen = 'signUpScreen/';
-const String signUpVerificationScreen = 'signUpVerificationScreen/';
-const String homePageScreen = 'homePageScreen/';
+class Routes {
+  static const String onBoardingScreen = 'onBoardingScreen/';
+  static const String logInScreen = 'logInScreen/';
+  static const String forgotPasswordScreen = 'forgotPasswordScreen/';
+  static const String forgotPasswordVerificationScreen =
+      'forgotPasswordVerificationScreen/';
+  static const String resetPasswordScreen = 'resetPasswordScreen/';
+  static const String signUpScreen = 'signUpScreen/';
+  static const String signUpVerificationScreen = 'signUpVerificationScreen/';
+  static const String homePageScreen = 'mainPageScreen/';
+}
 
 //* Boxes Stuff
 const String firstTimeBoxName = 'firstTimeBox';

@@ -88,7 +88,7 @@ class ForgotPasswordVerificationView extends StatelessWidget {
                             height: MediaQuery.sizeOf(context).height / 4,
                             child: VerificationBottomSection(
                               onTap: () => Navigator.pushReplacementNamed(
-                                  context, resetPasswordScreen),
+                                  context, Routes.resetPasswordScreen),
                             ),
                           ),
                           const Expanded(child: SizedBox()),

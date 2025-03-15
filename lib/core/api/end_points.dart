@@ -3,6 +3,7 @@ class EndPoints {
   static const String signUP = 'auth/register';
   static const String logIn = 'auth/login';
   static const String verificationEmail = 'auth/send-verification-email';
+  static const String refreshToken = 'auth/refresh-token';
 }
 
 class ApiKeys {

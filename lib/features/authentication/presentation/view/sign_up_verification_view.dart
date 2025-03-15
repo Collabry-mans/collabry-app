@@ -81,7 +81,7 @@ class SignUpVerificationView extends StatelessWidget {
                         height: MediaQuery.sizeOf(context).height / 4,
                         child: VerificationBottomSection(
                           onTap: () => Navigator.pushReplacementNamed(
-                              context, homePageScreen),
+                              context, Routes.homePageScreen),
                         ),
                       ),
                       const Expanded(child: SizedBox()),

@@ -1,5 +1,7 @@
 import 'package:collabry/core/cubit/auth_states.dart';
 import 'package:collabry/core/errors/exception_handling.dart';
+import 'package:collabry/core/utils/app_constants.dart';
+import 'package:collabry/core/utils/singleton.dart';
 import 'package:collabry/features/authentication/repository/auth_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +35,14 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signUp() async {
     emit(RegisterLoadingState());
     try {
-      final response = await authRepo.signUp(registerNameController.text,
-          registerEmailController.text.trim(), registerPassController.text);
-      emit(RegisterLoadedState(signUp: response));
+      final user = await authRepo.signUp(
+        registerNameController.text,
+        registerEmailController.text.trim(),
+        registerPassController.text,
+      );
+
+      saveUserTokens(user.accessToken, user.refreshToken);
+      emit(RegisterLoadedState(signUp: user));
     } on DioException catch (e) {
       handleDioExceptions(e);
     } on ServerException catch (e) {
@@ -47,7 +54,11 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LoginLoadingState());
     try {
       final user = await authRepo.logIn(
-          logInEmailController.text.trim(), logInPassController.text);
+        logInEmailController.text.trim(),
+        logInPassController.text,
+      );
+
+      saveUserTokens(user.accessToken, user.refreshToken);
       emit(LoginLoadedState(logIn: user));
     } on DioException catch (e) {
       handleDioExceptions(e);
@@ -55,4 +66,9 @@ class AuthCubit extends Cubit<AuthState> {
       emit(LoginFailedState(errMsg: e.errModel.getFormattedMessage()));
     }
   }
+}
+
+Future<void> saveUserTokens(String accessToken, String refreshToken) async {
+  await secureStorage.write(key: accessTokenKey, value: accessToken);
+  await secureStorage.write(key: refreshTokenKey, value: refreshToken);
 }

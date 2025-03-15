@@ -1,5 +1,5 @@
 import 'package:collabry/core/cubit/auth_cubit.dart';
-import 'package:collabry/core/singletons/singleton.dart';
+import 'package:collabry/core/utils/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_verification_view.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_view.dart';
@@ -16,31 +16,31 @@ class AppRoutes {
   Route? getAppRoutes(RouteSettings settings) {
     switch (settings.name) {
       //* OnBoardings
-      case onBoardingScreen:
+      case Routes.onBoardingScreen:
         return MaterialPageRoute(
             builder: (context) => const OnBoardingScreen());
 
       //* authentication
-      case logInScreen:
+      case Routes.logInScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (create) => getIt.get<AuthCubit>(),
             child: const LogInView(),
           ),
         );
-      case forgotPasswordScreen:
+      case Routes.forgotPasswordScreen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
                   create: (context) => getIt.get<AuthCubit>(),
                   child: const ForgotPasswordView(),
                 ));
-      case forgotPasswordVerificationScreen:
+      case Routes.forgotPasswordVerificationScreen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
                   create: (context) => getIt.get<AuthCubit>(),
                   child: const ForgotPasswordVerificationView(),
                 ));
-      case resetPasswordScreen:
+      case Routes.resetPasswordScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => getIt.get<AuthCubit>(),
@@ -48,21 +48,21 @@ class AppRoutes {
           ),
         );
 
-      case signUpScreen:
+      case Routes.signUpScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (BuildContext context) => getIt.get<AuthCubit>(),
             child: const SignUpView(),
           ),
         );
-      case signUpVerificationScreen:
+      case Routes.signUpVerificationScreen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
                   create: (context) => getIt.get<AuthCubit>(),
                   child: const SignUpVerificationView(),
                 ));
       //* App Screens
-      case homePageScreen:
+      case Routes.homePageScreen:
         return MaterialPageRoute(builder: (context) => const MainPageView());
 
       default:

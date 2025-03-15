@@ -72,7 +72,7 @@ class ForgotPasswordView extends StatelessWidget {
                   const SizedBox(height: 70),
                   CustomButton(
                     onTap: () => Navigator.pushReplacementNamed(
-                        context, forgotPasswordVerificationScreen),
+                        context, Routes.forgotPasswordVerificationScreen),
                     text: AppStrings.submit,
                     textStyle: AppTextStyles.belanosimaSize24W600Purple
                         .copyWith(color: AppColors.whiteColor),

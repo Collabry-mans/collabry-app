@@ -59,7 +59,8 @@ class _LoginTextFieldsState extends State<LoginTextFields> {
           ),
           textButton: true,
           textButtonText: AppStrings.forgotPassword,
-          onPressed: () => Navigator.pushNamed(context, forgotPasswordScreen),
+          onPressed: () =>
+              Navigator.pushNamed(context, Routes.forgotPasswordScreen),
         ),
       ],
     );

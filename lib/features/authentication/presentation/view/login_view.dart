@@ -68,7 +68,7 @@ class _LogInViewState extends State<LogInView> {
                         listener: (context, state) {
                           if (state is LoginLoadedState) {
                             Navigator.pushReplacementNamed(
-                                context, homePageScreen);
+                                context, Routes.homePageScreen);
                             Flushbar(
                               margin: const EdgeInsets.all(8),
                               borderRadius: BorderRadius.circular(8),
@@ -130,7 +130,7 @@ class _LogInViewState extends State<LogInView> {
                                     title: AppStrings.orLoginWith,
                                     text: AppStrings.dontHaveAnAccount,
                                     textButtonTxt: AppStrings.signUp,
-                                    screen: signUpScreen,
+                                    screen: Routes.signUpScreen,
                                   ),
                                 ),
                                 const SizedBox(height: 15),
