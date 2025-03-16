@@ -23,26 +23,26 @@ class AppRoutes {
       //* authentication
       case Routes.logInScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (create) => getIt.get<AuthCubit>(),
+          builder: (context) => BlocProvider<AuthCubit>(
+            create: (context) => getIt.get<AuthCubit>(),
             child: const LogInView(),
           ),
         );
       case Routes.forgotPasswordScreen:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
+            builder: (context) => BlocProvider<AuthCubit>(
                   create: (context) => getIt.get<AuthCubit>(),
                   child: const ForgotPasswordView(),
                 ));
       case Routes.forgotPasswordVerificationScreen:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
+            builder: (context) => BlocProvider<AuthCubit>(
                   create: (context) => getIt.get<AuthCubit>(),
                   child: const ForgotPasswordVerificationView(),
                 ));
       case Routes.resetPasswordScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
+          builder: (context) => BlocProvider<AuthCubit>(
             create: (context) => getIt.get<AuthCubit>(),
             child: const ResetPasswordView(),
           ),
@@ -50,14 +50,14 @@ class AppRoutes {
 
       case Routes.signUpScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (BuildContext context) => getIt.get<AuthCubit>(),
+          builder: (context) => BlocProvider<AuthCubit>(
+            create: (context) => getIt.get<AuthCubit>(),
             child: const SignUpView(),
           ),
         );
       case Routes.signUpVerificationScreen:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
+            builder: (context) => BlocProvider<AuthCubit>(
                   create: (context) => getIt.get<AuthCubit>(),
                   child: const SignUpVerificationView(),
                 ));

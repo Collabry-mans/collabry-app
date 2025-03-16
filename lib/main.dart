@@ -12,8 +12,8 @@ Box? firstTimeBox;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await setupDependencies();
   firstTimeBox = await openHiveBox(firstTimeBoxName);
-  setupDependencies();
   isLoggedInChecker();
 
   runApp(
@@ -29,10 +29,10 @@ void main() async {
 
 void isLoggedInChecker() {
   String? token = secureStorage.read(key: accessTokenKey).toString();
-  if (token.isNullOrEmpty()) {
-    isLoggedIn = false;
+  if (!token.isNullOrEmpty()) {
+    isLoggedIn = true;
   }
-  isLoggedIn = true;
+  isLoggedIn = false;
 }
 
 Future<Box> openHiveBox(String boxName) async {

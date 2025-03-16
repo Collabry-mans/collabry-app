@@ -3,6 +3,7 @@ import 'package:collabry/features/ai_chat_bot/presentation/views/chat_bot_view.d
 import 'package:collabry/features/home_page/presentation/views/home_page_view.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_app_bar.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_bottom_navigation_bar.dart';
+import 'package:collabry/features/home_page/presentation/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class MainPageView extends StatefulWidget {
@@ -20,7 +21,7 @@ class _MainPageViewState extends State<MainPageView> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.homeBgColor,
-        drawer: const Drawer(),
+        drawer: const CustomDrawer(),
         body: CustomScrollView(
           slivers: [
             const CustomAppBar(),

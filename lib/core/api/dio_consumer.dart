@@ -1,8 +1,6 @@
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/api/header_interceptor.dart';
 import 'package:collabry/core/errors/exception_handling.dart';
-import 'package:collabry/core/utils/singleton.dart';
-import 'package:collabry/features/authentication/repository/auth_repository.dart';
 import 'package:dio/dio.dart';
 
 class DioConsumer {
@@ -19,8 +17,9 @@ class DioConsumer {
           responseHeader: true,
           requestHeader: true),
     );
-    dio.interceptors.add(
-        HeaderInterceptor(authRepo: getIt.get<AuthRepository>(), dio: dio));
+    Future.microtask(() {
+      dio.interceptors.add(AuthInterceptor(dio));
+    });
   }
   Future get(String path,
       {dynamic data,

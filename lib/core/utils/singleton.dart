@@ -5,16 +5,23 @@ import 'package:collabry/features/authentication/repository/auth_repository.dart
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.I;
-late SecureStorageService secureStorage;
-void setupDependencies() async {
+Future<void> setupDependencies() async {
 //* Local Storage
-  secureStorage =
-      getIt.registerSingleton<SecureStorageService>(SecureStorageService());
+  getIt.registerLazySingleton<SecureStorageService>(
+      () => SecureStorageService());
 
 //* API
-  getIt.registerSingleton<DioConsumer>(DioConsumer());
-  getIt.registerSingleton<BaseAuthRepository>(
-      AuthRepository(dio: getIt.get<DioConsumer>()));
+  getIt.registerLazySingleton<DioConsumer>(() => DioConsumer());
+
+  // Register AuthRepository
+  getIt.registerLazySingleton<BaseAuthRepository>(
+    () => AuthRepository(dio: getIt<DioConsumer>()),
+  );
+
+  // Register AuthCubit as a factory
   getIt.registerFactory<AuthCubit>(
-      () => AuthCubit(getIt.get<BaseAuthRepository>()));
+    () => AuthCubit(getIt<BaseAuthRepository>()),
+  );
 }
+
+SecureStorageService get secureStorage => getIt<SecureStorageService>();
