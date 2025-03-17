@@ -2,6 +2,8 @@ import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/features/ai_chat_bot/presentation/widgets/chat_bot_bubles.dart';
+import 'package:collabry/features/ai_chat_bot/presentation/widgets/chat_bot_input.dart';
 import 'package:flutter/material.dart';
 
 class ChatView extends StatefulWidget {
@@ -14,50 +16,37 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.asset(Assets.imagesChatAI,
-                  height: MediaQuery.sizeOf(context).width / 2),
-              Text('Hello Zash!',
-                  style: AppTextStyles.belanosimaSize24W600Purple
-                      .copyWith(color: AppColors.headerColor)),
-              const Text(AppStrings.howCanIHelpU,
-                  style: AppTextStyles.belanosimaSize14Grey)
-            ],
+    return Column(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.asset(Assets.imagesChatAI,
+                height: MediaQuery.sizeOf(context).width / 2),
+            Text('Hello Zash!',
+                style: AppTextStyles.belanosimaSize24W600Purple
+                    .copyWith(color: AppColors.headerColor)),
+            const Text(AppStrings.howCanIHelpU,
+                style: AppTextStyles.belanosimaSize14Grey)
+          ],
+        ),
+        const Expanded(child: SizedBox()),
+        Expanded(
+          child: ListView.separated(
+            itemBuilder: (context, index) => const ChatBotBubble(),
+            itemCount: 3,
+            shrinkWrap: true,
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(height: 10);
+            },
           ),
         ),
-        SliverList.separated(
-          itemBuilder: (context, index) => const ChatBubble(),
-          itemCount: 3,
-          separatorBuilder: (BuildContext context, int index) {
-            return const SizedBox(height: 10);
-          },
-        )
+        const SizedBox(height: 20),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 50),
+          child: ChatBotInput(),
+        ),
       ],
-    );
-  }
-}
-
-class ChatBubble extends StatelessWidget {
-  const ChatBubble({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.whiteColor.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        '“What are the trending topics among researchers and writers, and can you share related discussions or events?”',
-        style: AppTextStyles.belanosimaSize12White
-            .copyWith(color: AppColors.onBoardinTxtColor),
-        textAlign: TextAlign.center,
-      ),
     );
   }
 }

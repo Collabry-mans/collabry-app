@@ -21,11 +21,11 @@ class _MainPageViewState extends State<MainPageView> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.homeBgColor,
+        appBar: const CustomAppBar(),
         drawer: const CustomDrawer(),
-        body: CustomScrollView(
-          slivers: [
-            const CustomAppBar(),
-            SliverFillRemaining(
+        body: Column(
+          children: [
+            Expanded(
               child: PageView(
                 controller: mainPageController,
                 onPageChanged: (index) => setState(() => currentIndex = index),

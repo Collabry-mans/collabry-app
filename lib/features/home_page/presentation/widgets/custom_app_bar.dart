@@ -7,8 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      floating: true,
+    return AppBar(
       surfaceTintColor: Colors.transparent,
       backgroundColor: AppColors.homeBgColor,
       leading: Builder(builder: (context) {

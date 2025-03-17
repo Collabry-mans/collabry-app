@@ -72,4 +72,13 @@ class Assets {
       "assets/images/videoCall-unselected.png";
 
   static const String imagesAIGenerate = "assets/images/aiGenerate.png";
+  static const String imagesAIChatIconSelected =
+      "assets/images/ai_chat_icon_selected.png";
+  static const String imagesAIChatIconUnselected =
+      "assets/images/ai_chat_icon_unselected.png";
+  static const String imagesAIGeneratedIconSelected =
+      "assets/images/ai_generated_icon_selected.png";
+  static const String imagesAIGeneratedIconUnselected =
+      "assets/images/ai_generate_icon_unselected.png";
+  static const String imagesChatAppBar = "assets/images/chatAppbarIcon.png";
 }

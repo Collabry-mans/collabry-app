@@ -17,9 +17,7 @@ class DioConsumer {
           responseHeader: true,
           requestHeader: true),
     );
-    Future.microtask(() {
-      dio.interceptors.add(AuthInterceptor(dio));
-    });
+    dio.interceptors.add(AuthInterceptor(dio));
   }
   Future get(String path,
       {dynamic data,

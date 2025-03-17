@@ -1,3 +1,4 @@
+import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/features/authentication/model/refresh_token_model.dart';
 import 'package:dio/dio.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -70,9 +71,9 @@ class RefreshTokenRepository {
 
   Future<RefreshTokenModel> refreshToken(String refreshToken) async {
     final response = await dio.post(
-      '/auth/refresh-token', // Assuming this is your refresh token endpoint
+      EndPoints.refreshToken, // Assuming this is your refresh token endpoint
       data: {
-        'refreshToken': refreshToken,
+        ApiKeys.refreshToken: refreshToken,
       },
     );
 

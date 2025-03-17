@@ -53,4 +53,5 @@ class AppStrings {
   static const String topics = 'Topics';
   static const String aiGenerate = 'AI Generate';
   static const String howCanIHelpU = 'How can I help you? Let me know.';
+  static const String whatWouldULikeToCreate = 'What would you like to create?';
 }

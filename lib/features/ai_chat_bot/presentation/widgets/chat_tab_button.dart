@@ -3,18 +3,21 @@ import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ChatTabButton extends StatefulWidget {
-  const ChatTabButton(
-      {super.key,
-      required this.pageCondition,
-      required this.pageController,
-      required this.index,
-      required this.text,
-      required this.icon});
+  const ChatTabButton({
+    super.key,
+    required this.pageCondition,
+    required this.pageController,
+    required this.index,
+    required this.text,
+    required this.iconSelected,
+    required this.iconUnselected,
+  });
   final bool pageCondition;
   final PageController pageController;
   final int index;
   final String text;
-  final IconData icon;
+  final String iconSelected;
+  final String iconUnselected;
 
   @override
   State<ChatTabButton> createState() => _ChatTabButtonState();
@@ -30,7 +33,7 @@ class _ChatTabButtonState extends State<ChatTabButton> {
             curve: Curves.easeInOut);
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
           color: widget.pageCondition
               ? AppColors.selectedColor
@@ -38,9 +41,18 @@ class _ChatTabButtonState extends State<ChatTabButton> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(widget.icon),
+            SizedBox(
+              height: 25,
+              child: Image.asset(
+                widget.pageCondition
+                    ? widget.iconSelected
+                    : widget.iconUnselected,
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(width: 20),
             Text(
               widget.text,
               style: widget.pageCondition

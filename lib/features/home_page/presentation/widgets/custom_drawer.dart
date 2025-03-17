@@ -96,8 +96,10 @@ class CustomDrawer extends StatelessWidget {
                         onPressed: () async {
                           await secureStorage.deleteAll().then((_) {
                             isLoggedIn = false;
-                            Navigator.of(context)
-                                .pushReplacementNamed(Routes.logInScreen);
+                            if (context.mounted) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed(Routes.logInScreen);
+                            }
                           });
                         },
                         child: const Text('Logout'),

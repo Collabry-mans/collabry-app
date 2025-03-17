@@ -1,10 +1,10 @@
+import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/ai_chat_bot/presentation/views/ai_generate_view.dart';
 import 'package:collabry/features/ai_chat_bot/presentation/views/chat_view.dart';
 import 'package:collabry/features/ai_chat_bot/presentation/widgets/chat_tab_button.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChatBotView extends StatefulWidget {
   const ChatBotView({super.key});
@@ -35,7 +35,8 @@ class _ChatBotViewState extends State<ChatBotView> {
                     pageController: chatBotPageController,
                     index: 0,
                     text: AppStrings.chatBot,
-                    icon: FontAwesomeIcons.circleQuestion,
+                    iconUnselected: Assets.imagesAIChatIconUnselected,
+                    iconSelected: Assets.imagesAIChatIconSelected,
                   ),
                 ),
                 Expanded(
@@ -44,7 +45,8 @@ class _ChatBotViewState extends State<ChatBotView> {
                     pageController: chatBotPageController,
                     index: 1,
                     text: AppStrings.aiGenerate,
-                    icon: FontAwesomeIcons.spa,
+                    iconUnselected: Assets.imagesAIGeneratedIconUnselected,
+                    iconSelected: Assets.imagesAIGeneratedIconSelected,
                   ),
                 )
               ],
@@ -55,8 +57,8 @@ class _ChatBotViewState extends State<ChatBotView> {
             child: PageView(
               controller: chatBotPageController,
               children: const [
-                Expanded(child: ChatView()),
-                Expanded(child: AIGenerateView()),
+                ChatView(),
+                AIGenerateView(),
               ],
               onPageChanged: (index) {
                 setState(() {
@@ -64,7 +66,7 @@ class _ChatBotViewState extends State<ChatBotView> {
                 });
               },
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/cubit/auth_cubit.dart';
 import 'package:collabry/core/utils/secure_storage.dart';
-import 'package:collabry/features/authentication/repository/auth_repository.dart';
+import 'package:collabry/core/repositories/auth_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.I;
