@@ -1,8 +1,8 @@
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_constants.dart';
+import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/utils/singleton.dart';
-import 'package:collabry/main.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -27,19 +27,19 @@ class CustomDrawer extends StatelessWidget {
           const Divider(height: 1),
           _buildMenuItem(
             icon: Icons.account_circle_outlined,
-            title: 'View Profile',
+            title: AppStrings.viewProfile,
             onTap: () {},
           ),
 
           _buildMenuItem(
             icon: Icons.people_outline,
-            title: 'My Community',
+            title: AppStrings.myCommunity,
             onTap: () {},
           ),
 
           _buildMenuItem(
             icon: Icons.bookmark_border,
-            title: 'Saved Posts',
+            title: AppStrings.savedPosts,
             onTap: () {},
           ),
 
@@ -48,7 +48,7 @@ class CustomDrawer extends StatelessWidget {
           // Settings Items
           _buildMenuItem(
             icon: Icons.dark_mode_outlined,
-            title: 'Dark Mode',
+            title: AppStrings.darkMode,
             onTap: () {},
             trailing: Switch(
               value: false,
@@ -60,13 +60,13 @@ class CustomDrawer extends StatelessWidget {
 
           _buildMenuItem(
             icon: Icons.help_outline,
-            title: 'Help Center',
+            title: AppStrings.helpCenter,
             onTap: () {},
           ),
 
           _buildMenuItem(
             icon: Icons.settings_outlined,
-            title: 'Settings',
+            title: AppStrings.settings,
             onTap: () {},
           ),
 
@@ -77,7 +77,7 @@ class CustomDrawer extends StatelessWidget {
           // Logout Button
           _buildMenuItem(
             icon: Icons.logout_outlined,
-            title: 'Logout',
+            title: AppStrings.logout,
             onTap: () {
               showDialog(
                 context: context,
@@ -95,14 +95,13 @@ class CustomDrawer extends StatelessWidget {
                       TextButton(
                         onPressed: () async {
                           await secureStorage.deleteAll().then((_) {
-                            isLoggedIn = false;
                             if (context.mounted) {
                               Navigator.of(context)
                                   .pushReplacementNamed(Routes.logInScreen);
                             }
                           });
                         },
-                        child: const Text('Logout'),
+                        child: const Text(AppStrings.logout),
                       ),
                     ],
                   );

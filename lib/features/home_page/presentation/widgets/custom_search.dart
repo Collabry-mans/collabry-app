@@ -11,24 +11,30 @@ class CustomSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        filled: true,
-        fillColor: AppColors.whiteColor,
-        enabledBorder: outLineInputBorder(10),
-        focusedBorder: outLineInputBorder(10),
-        hintText: AppStrings.search,
-        hintStyle: AppTextStyles.belanosimaSize14Grey,
-        prefixIcon: const Icon(Icons.search, color: AppColors.selectedColor),
-        suffixIcon: const Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.mic, color: AppColors.selectedColor),
-            SizedBox(width: 10),
-            Icon(Icons.filter_list, color: AppColors.selectedColor),
-            SizedBox(width: 10),
-          ],
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        child: TextField(
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(vertical: 10),
+            filled: true,
+            fillColor: AppColors.whiteColor,
+            enabledBorder: outLineInputBorder(10),
+            focusedBorder: outLineInputBorder(10),
+            hintText: AppStrings.search,
+            hintStyle: AppTextStyles.belanosimaSize14Grey,
+            prefixIcon:
+                const Icon(Icons.search, color: AppColors.selectedColor),
+            suffixIcon: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.mic, color: AppColors.selectedColor),
+                SizedBox(width: 10),
+                Icon(Icons.filter_list, color: AppColors.selectedColor),
+                SizedBox(width: 10),
+              ],
+            ),
+          ),
         ),
       ),
     );

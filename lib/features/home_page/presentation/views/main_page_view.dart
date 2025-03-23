@@ -1,5 +1,6 @@
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/features/ai_chat_bot/presentation/views/chat_bot_view.dart';
+import 'package:collabry/features/community/presentation/views/community_view.dart';
 import 'package:collabry/features/home_page/presentation/views/home_page_view.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_app_bar.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_bottom_navigation_bar.dart';
@@ -32,7 +33,7 @@ class _MainPageViewState extends State<MainPageView> {
                 children: const [
                   HomePageView(),
                   ChatBotView(),
-                  ChatBotView(),
+                  CommunityView(),
                   ChatBotView(),
                 ],
               ),

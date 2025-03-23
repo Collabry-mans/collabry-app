@@ -7,6 +7,7 @@ import 'package:collabry/features/authentication/presentation/view/login_view.da
 import 'package:collabry/features/authentication/presentation/view/reset_password_view.dart';
 import 'package:collabry/features/authentication/presentation/view/sign_up_verification_view.dart';
 import 'package:collabry/features/authentication/presentation/view/sign_up_view.dart';
+import 'package:collabry/features/community/presentation/views/community_view.dart';
 import 'package:collabry/features/home_page/presentation/views/main_page_view.dart';
 import 'package:collabry/features/on_boarding/presentation/view/on_boarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,9 @@ class AppRoutes {
       //* App Screens
       case Routes.homePageScreen:
         return MaterialPageRoute(builder: (context) => const MainPageView());
+
+      case Routes.communityPageScreen:
+        return MaterialPageRoute(builder: (context) => const CommunityView());
 
       default:
         return null;

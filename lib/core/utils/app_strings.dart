@@ -54,4 +54,17 @@ class AppStrings {
   static const String aiGenerate = 'AI Generate';
   static const String howCanIHelpU = 'How can I help you? Let me know.';
   static const String whatWouldULikeToCreate = 'What would you like to create?';
+  static const String viewMore = 'View more';
+  static const String viewProfile = 'View Profile';
+  static const String myCommunity = 'My Community';
+  static const String savedPosts = 'Saved Posts';
+  static const String darkMode = 'Dark Mode';
+  static const String helpCenter = 'Help Center';
+  static const String settings = 'Settings';
+  static const String logout = 'Logout';
+  static const String suggestedForU = 'Suggested for you';
+  static const String channel = 'Channel';
+  static const String communities = 'Communities';
+  static const String upComingLive = 'Upcoming live';
+  static const String follow = 'Follow';
 }

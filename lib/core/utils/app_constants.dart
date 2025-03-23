@@ -13,6 +13,7 @@ class Routes {
   static const String signUpScreen = 'signUpScreen/';
   static const String signUpVerificationScreen = 'signUpVerificationScreen/';
   static const String homePageScreen = 'mainPageScreen/';
+  static const String communityPageScreen = 'communityPageScreen/';
 }
 
 //* Boxes Stuff

@@ -7,18 +7,15 @@ class CategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-      height: 35,
-      child: CustomScrollView(
-        scrollDirection: Axis.horizontal,
-        slivers: [
-          const SliverToBoxAdapter(child: SizedBox(width: 30)),
-          SliverList.builder(
-            itemBuilder: (context, index) => const CategoryTile(),
-            itemCount: 8,
-          ),
-        ],
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(30, 5, 0, 5),
+        height: 35,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => const CategoryTile(),
+          itemCount: 8,
+        ),
       ),
     );
   }

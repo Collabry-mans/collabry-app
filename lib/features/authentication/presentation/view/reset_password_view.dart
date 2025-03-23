@@ -1,6 +1,7 @@
 import 'package:collabry/core/cubit/auth_cubit.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
@@ -75,7 +76,10 @@ class ResetPasswordView extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, Routes.homePageScreen, (route) => false);
+                    },
                     text: AppStrings.resetPass,
                     textStyle: AppTextStyles.belanosimaSize24W600Purple
                         .copyWith(color: AppColors.whiteColor),
