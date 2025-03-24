@@ -1,8 +1,8 @@
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/home_page/presentation/widgets/category_section.dart';
-import 'package:collabry/features/home_page/presentation/widgets/category_selector.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_search.dart';
 import 'package:collabry/features/home_page/presentation/widgets/post_tile.dart';
+import 'package:collabry/features/home_page/presentation/widgets/view_header.dart';
 import 'package:flutter/material.dart';
 
 class HomePageView extends StatefulWidget {
@@ -18,8 +18,9 @@ class _HomePageViewState extends State<HomePageView> {
     return CustomScrollView(
       slivers: [
         const CustomSearch(),
-        const CategorySelector(title: AppStrings.topics),
+        const ViewHeader(title: AppStrings.topics),
         const CategorySection(),
+        const SliverToBoxAdapter(child: SizedBox(height: 5)),
         SliverList.builder(
           itemBuilder: (context, index) => const PostTile(),
           itemCount: 14,

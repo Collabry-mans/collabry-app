@@ -8,10 +8,10 @@ class CategorySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(30, 5, 0, 5),
+      child: SizedBox(
         height: 35,
         child: ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => const CategoryTile(),
           itemCount: 8,
@@ -35,8 +35,8 @@ class _CategoryTileState extends State<CategoryTile> {
     return GestureDetector(
       onTap: () => setState(() => isSelected = !isSelected),
       child: Container(
-        margin: const EdgeInsets.only(right: 5),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(26),
             color: isSelected ? AppColors.selectedColor : AppColors.whiteColor),

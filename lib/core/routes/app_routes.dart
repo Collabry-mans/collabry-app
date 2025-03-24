@@ -1,5 +1,5 @@
 import 'package:collabry/core/cubit/auth_cubit.dart';
-import 'package:collabry/core/utils/singleton.dart';
+import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_verification_view.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_view.dart';

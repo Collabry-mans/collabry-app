@@ -1,8 +1,8 @@
 import 'package:collabry/core/api/end_points.dart';
+import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/features/authentication/model/refresh_token_model.dart';
 import 'package:dio/dio.dart';
 import 'package:collabry/core/utils/app_constants.dart';
-import 'package:collabry/core/utils/singleton.dart';
 
 class AuthInterceptor extends Interceptor {
   final Dio dio;

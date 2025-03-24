@@ -5,15 +5,13 @@ import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearch extends StatelessWidget {
-  const CustomSearch({
-    super.key,
-  });
+  const CustomSearch({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+    return SliverPadding(
+      padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+      sliver: SliverToBoxAdapter(
         child: TextField(
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),

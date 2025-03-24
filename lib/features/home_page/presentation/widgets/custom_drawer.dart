@@ -1,8 +1,9 @@
+import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_assets.dart';
+import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
-import 'package:collabry/core/utils/singleton.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -11,6 +12,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: AppColors.whiteColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

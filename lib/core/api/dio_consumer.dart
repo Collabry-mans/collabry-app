@@ -1,5 +1,5 @@
 import 'package:collabry/core/api/end_points.dart';
-import 'package:collabry/core/api/header_interceptor.dart';
+import 'package:collabry/core/api/Auth_interceptor.dart';
 import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:dio/dio.dart';
 

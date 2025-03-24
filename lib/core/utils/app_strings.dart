@@ -67,4 +67,5 @@ class AppStrings {
   static const String communities = 'Communities';
   static const String upComingLive = 'Upcoming live';
   static const String follow = 'Follow';
+  static const String unFollow = 'Unfollow';
 }
