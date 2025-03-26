@@ -68,4 +68,6 @@ class AppStrings {
   static const String upComingLive = 'Upcoming live';
   static const String follow = 'Follow';
   static const String unFollow = 'Unfollow';
+  static const String userIsRegisteredSuccessfully =
+      'user is registered, successfully';
 }

@@ -14,4 +14,5 @@ class AppColors {
   static const Color oAuthColor = Color(0xff0063e6);
   static const Color oAuthBorderColor = Color(0xff8ab7f4);
   static const Color blackColor = Colors.black;
+  static const Color successedColor = Colors.green;
 }

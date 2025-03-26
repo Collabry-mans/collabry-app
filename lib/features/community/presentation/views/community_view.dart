@@ -25,7 +25,7 @@ class CommunityView extends StatelessWidget {
         const ViewHeader(title: AppStrings.suggestedForU),
         SliverToBoxAdapter(
           child: SizedBox(
-            height: 180,
+            height: 190,
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               scrollDirection: Axis.horizontal,
@@ -46,8 +46,12 @@ class CommunityView extends StatelessWidget {
         //* communities
         const ViewHeader(title: AppStrings.communities),
         const SliverToBoxAdapter(
-          child: CommunityTile(
-            name: 'Creative Thinker',
+          child: Column(
+            children: [
+              CommunityTile(name: 'Creative Thinker'),
+              SizedBox(height: 10),
+              CommunityTile(name: 'Flutter Geeks'),
+            ],
           ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 30)),

@@ -6,6 +6,8 @@ import 'package:collabry/features/authentication/model/sign_up_model.dart';
 abstract class BaseAuthRepository {
   Future<SignUpModel> signUp(String name, String email, String pass);
   Future<LogInModel> logIn(String email, String pass);
+  Future<void> sendOtp(String email);
+  Future<void> verifyOtp(String email, String otpCode);
 }
 
 class AuthRepository implements BaseAuthRepository {
@@ -37,5 +39,16 @@ class AuthRepository implements BaseAuthRepository {
     });
     final user = LogInModel.fromJson(response);
     return user;
+  }
+
+  @override
+  Future<void> sendOtp(String email) async {
+    await dio.post(EndPoints.sendOtp, data: {ApiKeys.email: email});
+  }
+
+  @override
+  Future<void> verifyOtp(String email, String otpCode) async {
+    await dio.post(EndPoints.verifyOtp,
+        data: {ApiKeys.email: email, ApiKeys.otp: otpCode});
   }
 }

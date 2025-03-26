@@ -15,12 +15,20 @@ class _PagesCardState extends State<PagesCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 15),
+      margin: const EdgeInsets.only(right: 15, bottom: 5, top: 5),
       padding: const EdgeInsets.fromLTRB(5, 1, 5, 10),
       width: 160,
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 1),
+          ),
+        ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

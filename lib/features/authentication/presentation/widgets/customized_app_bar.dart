@@ -9,7 +9,7 @@ class CustomizedAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 40),
+      padding: const EdgeInsets.only(bottom: 30),
       child: InkWell(
         onTap: () => Navigator.pop(context),
         child: Row(

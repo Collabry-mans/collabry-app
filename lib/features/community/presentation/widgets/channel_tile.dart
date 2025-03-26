@@ -14,6 +14,14 @@ class ChannelTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 1),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,7 +31,7 @@ class ChannelTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             child: Image.asset(
               Assets.imagesProfileAvatar,
-              height: 65,
+              height: 55,
               fit: BoxFit.cover,
             ),
           ),

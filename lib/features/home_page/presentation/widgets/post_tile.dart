@@ -13,6 +13,14 @@ class PostTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.whiteColor,
         borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       padding: const EdgeInsets.fromLTRB(15, 0, 10, 10),

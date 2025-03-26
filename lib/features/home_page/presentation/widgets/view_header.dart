@@ -11,7 +11,7 @@ class ViewHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 20, 10, 5),
+        padding: const EdgeInsets.fromLTRB(30, 20, 30, 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,

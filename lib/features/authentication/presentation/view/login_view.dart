@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:collabry/core/cubit/auth_cubit.dart';
 import 'package:collabry/core/cubit/auth_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
@@ -7,6 +6,7 @@ import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
+import 'package:collabry/core/utils/flush_bar_utils.dart';
 import 'package:collabry/features/authentication/presentation/widgets/auth_bottom_section.dart';
 import 'package:collabry/features/authentication/presentation/widgets/login_text_fields.dart';
 import 'package:flutter/material.dart';
@@ -69,28 +69,10 @@ class _LogInViewState extends State<LogInView> {
                           if (state is LoginLoadedState) {
                             Navigator.pushReplacementNamed(
                                 context, Routes.homePageScreen);
-                            Flushbar(
-                              margin: const EdgeInsets.all(8),
-                              borderRadius: BorderRadius.circular(8),
-                              flushbarStyle: FlushbarStyle.FLOATING,
-                              message: 'Welcome back',
-                              duration: const Duration(seconds: 3),
-                              leftBarIndicatorColor: AppColors.primaryColor,
-                            ).show(context);
+                            FlushBarUtils.flushBarSuccess(
+                                AppStrings.welcomeBack, context);
                           } else if (state is LoginFailedState) {
-                            Flushbar(
-                              margin: const EdgeInsets.all(8),
-                              borderRadius: BorderRadius.circular(8),
-                              message: state.errMsg,
-                              flushbarStyle: FlushbarStyle.FLOATING,
-                              icon: const Icon(
-                                Icons.info_outline,
-                                size: 28.0,
-                                color: AppColors.primaryColor,
-                              ),
-                              duration: const Duration(seconds: 3),
-                              leftBarIndicatorColor: AppColors.primaryColor,
-                            ).show(context);
+                            FlushBarUtils.flushBarError(state.errMsg, context);
                           }
                         },
                         builder: (context, state) {

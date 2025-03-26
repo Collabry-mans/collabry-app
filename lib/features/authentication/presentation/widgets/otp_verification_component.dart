@@ -3,7 +3,8 @@ import 'package:collabry/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class OTPVerificationComponent extends StatelessWidget {
-  const OTPVerificationComponent({super.key});
+  const OTPVerificationComponent({super.key, required this.controller});
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,8 @@ class OTPVerificationComponent extends StatelessWidget {
         color: AppColors.textFieldBorder,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: TextField(
+      child: TextFormField(
+        controller: controller,
         keyboardType: TextInputType.number,
         onChanged: (value) {
           if (value.length == 1) {
@@ -23,6 +25,12 @@ class OTPVerificationComponent extends StatelessWidget {
           } else if (value.isEmpty) {
             FocusScope.of(context).previousFocus();
           }
+        },
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Enter otp digit';
+          }
+          return null;
         },
         decoration: InputDecoration(
           filled: true,

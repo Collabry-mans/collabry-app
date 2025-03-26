@@ -18,6 +18,7 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = context.read<AuthCubit>().registerFormKey;
     return Scaffold(
       backgroundColor: AppColors.selectedColor,
       body: SingleChildScrollView(
@@ -97,13 +98,10 @@ class SignUpView extends StatelessWidget {
                             ? const Center(child: CircularProgressIndicator())
                             : CustomButton(
                                 onTap: () {
-                                  if (context
-                                          .read<AuthCubit>()
-                                          .registerFormKey
-                                          .currentState
-                                          ?.validate() ??
+                                  if (formKey.currentState?.validate() ??
                                       false) {
                                     context.read<AuthCubit>().signUp();
+                                    context.read<AuthCubit>().sendOTP();
                                   }
                                 },
                                 text: AppStrings.signUp,

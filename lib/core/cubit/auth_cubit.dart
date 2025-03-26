@@ -8,11 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this.authRepo) : super(AuthState());
+  AuthCubit(this.authRepo) : super(AuthInitial());
 
   final BaseAuthRepository authRepo;
-  GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
-  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+
+  //* Form Keys
+  final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> otpFormKey = GlobalKey<FormState>();
 
   //* login txt controllers
   TextEditingController logInEmailController = TextEditingController();
@@ -23,6 +26,10 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController registerNameController = TextEditingController();
   TextEditingController registerPassController = TextEditingController();
   TextEditingController registerConfirmPassController = TextEditingController();
+
+//* Signup verification OTP
+  final List<TextEditingController> otpControllers =
+      List.generate(6, (_) => TextEditingController());
 
   //* ForgotPassword controllers
   TextEditingController forgotpassEmailController = TextEditingController();
@@ -40,7 +47,6 @@ class AuthCubit extends Cubit<AuthState> {
         registerEmailController.text.trim(),
         registerPassController.text,
       );
-
       saveUserTokens(user.accessToken, user.refreshToken);
       emit(RegisterLoadedState(signUp: user));
     } on DioException catch (e) {
@@ -57,13 +63,35 @@ class AuthCubit extends Cubit<AuthState> {
         logInEmailController.text.trim(),
         logInPassController.text,
       );
-
       saveUserTokens(user.accessToken, user.refreshToken);
       emit(LoginLoadedState(logIn: user));
     } on DioException catch (e) {
       handleDioExceptions(e);
     } on ServerException catch (e) {
       emit(LoginFailedState(errMsg: e.errModel.getFormattedMessage()));
+    }
+  }
+
+  Future<void> sendOTP() async {
+    try {
+      await authRepo.sendOtp(registerEmailController.text);
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(VerifyOTPFailedState(errMsg: e.errModel.getFormattedMessage()));
+    }
+  }
+
+  Future<void> verifyOTP(String otp) async {
+    try {
+      emit(VerifyOTPLoadingState());
+
+      await authRepo.verifyOtp(registerEmailController.text, otp);
+      emit(VerifyOTPSuccessedState(otpCode: otp));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(VerifyOTPFailedState(errMsg: e.errModel.getFormattedMessage()));
     }
   }
 }

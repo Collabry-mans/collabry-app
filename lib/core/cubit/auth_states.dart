@@ -1,7 +1,9 @@
 import 'package:collabry/features/authentication/model/log_in_model.dart';
 import 'package:collabry/features/authentication/model/sign_up_model.dart';
 
-class AuthState {}
+abstract class AuthState {}
+
+class AuthInitial extends AuthState {}
 
 //* Register States
 class RegisterLoadingState extends AuthState {}
@@ -28,3 +30,17 @@ class LoginFailedState extends AuthState {
   final String errMsg;
   LoginFailedState({required this.errMsg});
 }
+
+//* OTP
+class VerifyOTPFailedState extends AuthState {
+  final String errMsg;
+  VerifyOTPFailedState({required this.errMsg});
+}
+
+class VerifyOTPSuccessedState extends AuthState {
+  final String otpCode;
+
+  VerifyOTPSuccessedState({required this.otpCode});
+}
+
+class VerifyOTPLoadingState extends AuthState {}

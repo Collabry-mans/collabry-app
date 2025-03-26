@@ -4,15 +4,18 @@ class EndPoints {
   static const String logIn = 'auth/login';
   static const String verificationEmail = 'auth/send-verification-email';
   static const String refreshToken = 'auth/refresh-token';
+  static const String sendOtp = 'auth/send-otp';
+  static const String verifyOtp = 'auth/verify-otp';
 }
 
 class ApiKeys {
-  //* sign up keys
+  //* Auth keys
   static const String name = 'name';
   static const String email = 'email';
   static const String password = 'password';
   static const String accessToken = 'accessToken';
   static const String refreshToken = 'refreshToken';
+  static const String otp = 'otp';
   //* errors
   static const String message = 'message';
   static const String error = 'error';

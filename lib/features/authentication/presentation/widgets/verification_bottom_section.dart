@@ -1,9 +1,12 @@
+import 'package:collabry/core/cubit/auth_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/authentication/presentation/widgets/otp_verification_component.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class VerificationBottomSection extends StatelessWidget {
   const VerificationBottomSection({super.key, required this.onTap});
@@ -11,12 +14,21 @@ class VerificationBottomSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authCubit = context.read<AuthCubit>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(6, (_) => const OTPVerificationComponent()),
+        Form(
+          key: authCubit.otpFormKey,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+              6,
+              (index) => OTPVerificationComponent(
+                controller: authCubit.otpControllers[index],
+              ),
+            ),
+          ),
         ),
         CustomButton(
           onTap: onTap,
@@ -24,8 +36,9 @@ class VerificationBottomSection extends StatelessWidget {
           textStyle: AppTextStyles.belanosimaSize24W600Purple
               .copyWith(color: AppColors.whiteColor),
         ),
-        Text.rich(
-          TextSpan(
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
             children: [
               TextSpan(
                 text: AppStrings.didntReceiveAnyCode,
@@ -36,6 +49,8 @@ class VerificationBottomSection extends StatelessWidget {
                 text: '${AppStrings.resendAgain}\n',
                 style: AppTextStyles.belanosimaSize24W600Purple
                     .copyWith(fontSize: 11),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => authCubit.sendOTP(),
               ),
               TextSpan(
                 text: '${AppStrings.requestNewCodeIn} 00:30s',
