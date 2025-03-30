@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/auth_cubit.dart';
+import 'package:collabry/core/cubit/auth/auth_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_verification_view.dart';
@@ -25,26 +25,26 @@ class AppRoutes {
       case Routes.logInScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider<AuthCubit>(
-            create: (context) => getIt.get<AuthCubit>(),
+            create: (context) => getIt<AuthCubit>(),
             child: const LogInView(),
           ),
         );
       case Routes.forgotPasswordScreen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider<AuthCubit>(
-                  create: (context) => getIt.get<AuthCubit>(),
+                  create: (context) => getIt<AuthCubit>(),
                   child: const ForgotPasswordView(),
                 ));
       case Routes.forgotPasswordVerificationScreen:
         return MaterialPageRoute(
             builder: (context) => BlocProvider<AuthCubit>(
-                  create: (context) => getIt.get<AuthCubit>(),
+                  create: (context) => getIt<AuthCubit>(),
                   child: const ForgotPasswordVerificationView(),
                 ));
       case Routes.resetPasswordScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider<AuthCubit>(
-            create: (context) => getIt.get<AuthCubit>(),
+            create: (context) => getIt<AuthCubit>(),
             child: const ResetPasswordView(),
           ),
         );
@@ -52,16 +52,19 @@ class AppRoutes {
       case Routes.signUpScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider<AuthCubit>(
-            create: (context) => getIt.get<AuthCubit>(),
+            create: (context) => getIt<AuthCubit>(),
             child: const SignUpView(),
           ),
         );
       case Routes.signUpVerificationScreen:
+        final authCubit = settings.arguments as AuthCubit;
+
         return MaterialPageRoute(
-            builder: (context) => BlocProvider<AuthCubit>(
-                  create: (context) => getIt.get<AuthCubit>(),
-                  child: const SignUpVerificationView(),
-                ));
+          builder: (context) => BlocProvider.value(
+            value: authCubit,
+            child: const SignUpVerificationView(),
+          ),
+        );
       //* App Screens
       case Routes.homePageScreen:
         return MaterialPageRoute(builder: (context) => const MainPageView());

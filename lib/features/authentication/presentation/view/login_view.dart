@@ -1,5 +1,5 @@
-import 'package:collabry/core/cubit/auth_cubit.dart';
-import 'package:collabry/core/cubit/auth_states.dart';
+import 'package:collabry/core/cubit/auth/auth_cubit.dart';
+import 'package:collabry/core/cubit/auth/auth_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -22,7 +22,7 @@ class LogInView extends StatefulWidget {
 class _LogInViewState extends State<LogInView> {
   @override
   Widget build(BuildContext context) {
-    final formKey = context.read<AuthCubit>().loginFormKey;
+    final GlobalKey<FormState> logInFormKey = GlobalKey();
     return Scaffold(
       backgroundColor: AppColors.selectedColor,
       body: SingleChildScrollView(
@@ -77,7 +77,7 @@ class _LogInViewState extends State<LogInView> {
                         },
                         builder: (context, state) {
                           return Form(
-                            key: formKey,
+                            key: logInFormKey,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +94,7 @@ class _LogInViewState extends State<LogInView> {
                                         child: CircularProgressIndicator())
                                     : CustomButton(
                                         onTap: () {
-                                          if (formKey.currentState
+                                          if (logInFormKey.currentState
                                                   ?.validate() ??
                                               false) {
                                             context.read<AuthCubit>().logIn();

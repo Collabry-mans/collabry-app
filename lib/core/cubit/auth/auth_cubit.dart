@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/auth_states.dart';
+import 'package:collabry/core/cubit/auth/auth_states.dart';
 import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -11,12 +11,6 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepo) : super(AuthInitial());
 
   final BaseAuthRepository authRepo;
-
-  //* Form Keys
-  final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> otpFormKey = GlobalKey<FormState>();
-
   //* login txt controllers
   TextEditingController logInEmailController = TextEditingController();
   TextEditingController logInPassController = TextEditingController();
@@ -74,7 +68,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> sendOTP() async {
     try {
-      await authRepo.sendOtp(registerEmailController.text);
+      await authRepo.sendOtp(registerEmailController.text.trim());
     } on DioException catch (e) {
       handleDioExceptions(e);
     } on ServerException catch (e) {
@@ -85,8 +79,8 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> verifyOTP(String otp) async {
     try {
       emit(VerifyOTPLoadingState());
+      await authRepo.verifyOtp(registerEmailController.text.trim(), otp);
 
-      await authRepo.verifyOtp(registerEmailController.text, otp);
       emit(VerifyOTPSuccessedState(otpCode: otp));
     } on DioException catch (e) {
       handleDioExceptions(e);

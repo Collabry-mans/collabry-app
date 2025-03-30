@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/auth_cubit.dart';
+import 'package:collabry/core/cubit/auth/auth_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
@@ -9,17 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class VerificationBottomSection extends StatelessWidget {
-  const VerificationBottomSection({super.key, required this.onTap});
+  const VerificationBottomSection({
+    super.key,
+    required this.onTap,
+    required this.formKey,
+  });
+
   final VoidCallback onTap;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
     final authCubit = context.read<AuthCubit>();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Form(
-          key: authCubit.otpFormKey,
+          key: formKey,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(

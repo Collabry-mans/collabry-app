@@ -1,11 +1,11 @@
-import 'package:another_flushbar/flushbar.dart';
-import 'package:collabry/core/cubit/auth_cubit.dart';
-import 'package:collabry/core/cubit/auth_states.dart';
+import 'package:collabry/core/cubit/auth/auth_cubit.dart';
+import 'package:collabry/core/cubit/auth/auth_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/core/utils/flush_bar_utils.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/authentication/presentation/widgets/auth_bottom_section.dart';
 import 'package:collabry/features/authentication/presentation/widgets/customized_app_bar.dart';
@@ -18,7 +18,7 @@ class SignUpView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = context.read<AuthCubit>().registerFormKey;
+    final GlobalKey<FormState> registerFormKey = GlobalKey();
     return Scaffold(
       backgroundColor: AppColors.selectedColor,
       body: SingleChildScrollView(
@@ -47,40 +47,18 @@ class SignUpView extends StatelessWidget {
                 child: BlocConsumer<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is RegisterLoadedState) {
-                      Flushbar(
-                        margin: const EdgeInsets.all(8),
-                        borderRadius: BorderRadius.circular(8),
-                        message:
-                            'A verification email will be sent. Check your email',
-                        flushbarStyle: FlushbarStyle.FLOATING,
-                        icon: const Icon(
-                          Icons.info_outline,
-                          size: 28.0,
-                          color: AppColors.primaryColor,
-                        ),
-                        duration: const Duration(seconds: 3),
-                        leftBarIndicatorColor: AppColors.primaryColor,
-                      ).show(context);
-                      Navigator.pushNamedAndRemoveUntil(context,
-                          Routes.signUpVerificationScreen, (route) => false);
+                      FlushBarUtils.flushBarMsg(
+                          'A verification code will be sent to u . Check ur email',
+                          context);
+                      Navigator.pushNamed(
+                          context, Routes.signUpVerificationScreen,
+                          arguments: context.read<AuthCubit>());
                     } else if (state is RegisterFailedState) {
-                      Flushbar(
-                        margin: const EdgeInsets.all(8),
-                        borderRadius: BorderRadius.circular(8),
-                        message: state.errMsg,
-                        flushbarStyle: FlushbarStyle.FLOATING,
-                        icon: const Icon(
-                          Icons.info_outline,
-                          size: 28.0,
-                          color: Colors.red,
-                        ),
-                        duration: const Duration(seconds: 3),
-                        leftBarIndicatorColor: AppColors.primaryColor,
-                      ).show(context);
+                      FlushBarUtils.flushBarError(state.errMsg, context);
                     }
                   },
                   builder: (context, state) => Form(
-                    key: context.read<AuthCubit>().registerFormKey,
+                    key: registerFormKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,10 +76,10 @@ class SignUpView extends StatelessWidget {
                             ? const Center(child: CircularProgressIndicator())
                             : CustomButton(
                                 onTap: () {
-                                  if (formKey.currentState?.validate() ??
+                                  if (registerFormKey.currentState
+                                          ?.validate() ??
                                       false) {
                                     context.read<AuthCubit>().signUp();
-                                    context.read<AuthCubit>().sendOTP();
                                   }
                                 },
                                 text: AppStrings.signUp,

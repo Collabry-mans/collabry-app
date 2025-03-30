@@ -34,21 +34,16 @@ class AuthInterceptor extends Interceptor {
         final refreshToken = await secureStorage.read(key: refreshTokenKey);
 
         if (refreshToken != null && refreshToken.isNotEmpty) {
-          // Create a new instance of Dio to avoid circular dependencies
           final tempDio = Dio()..options.baseUrl = dio.options.baseUrl;
 
-          // Create a minimal repository just for token refresh
           final refreshRepo = RefreshTokenRepository(tempDio);
 
-          // Get new tokens
           final newTokens = await refreshRepo.refreshToken(refreshToken);
 
-          // Update the original request with new token and retry
           final originalRequest = err.requestOptions;
           originalRequest.headers['Authorization'] =
               'Bearer ${newTokens.accessToken}';
 
-          // Retry the original request
           final response = await dio.fetch(originalRequest);
           _isRefreshing = false;
           return handler.resolve(response);
@@ -63,7 +58,6 @@ class AuthInterceptor extends Interceptor {
   }
 }
 
-// This is a minimal repository just for token refresh to avoid circular dependencies
 class RefreshTokenRepository {
   final Dio dio;
 
@@ -71,7 +65,7 @@ class RefreshTokenRepository {
 
   Future<RefreshTokenModel> refreshToken(String refreshToken) async {
     final response = await dio.post(
-      EndPoints.refreshToken, // Assuming this is your refresh token endpoint
+      EndPoints.refreshToken,
       data: {
         ApiKeys.refreshToken: refreshToken,
       },

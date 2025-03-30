@@ -6,6 +6,7 @@ class EndPoints {
   static const String refreshToken = 'auth/refresh-token';
   static const String sendOtp = 'auth/send-otp';
   static const String verifyOtp = 'auth/verify-otp';
+  static const String categories = 'categories';
 }
 
 class ApiKeys {
@@ -20,4 +21,8 @@ class ApiKeys {
   static const String message = 'message';
   static const String error = 'error';
   static const String statusCode = 'statusCode';
+  //* category
+  static const String id = 'id';
+  static const String description = 'description';
+  static const String parentId = 'parentId';
 }

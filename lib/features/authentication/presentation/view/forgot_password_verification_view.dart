@@ -1,5 +1,5 @@
-import 'package:collabry/core/cubit/auth_cubit.dart';
-import 'package:collabry/core/cubit/auth_states.dart';
+import 'package:collabry/core/cubit/auth/auth_cubit.dart';
+import 'package:collabry/core/cubit/auth/auth_states.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -15,6 +15,8 @@ class ForgotPasswordVerificationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> forgetPassFormKey = GlobalKey();
+
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Scaffold(
@@ -89,6 +91,7 @@ class ForgotPasswordVerificationView extends StatelessWidget {
                             child: VerificationBottomSection(
                               onTap: () => Navigator.pushReplacementNamed(
                                   context, Routes.resetPasswordScreen),
+                              formKey: forgetPassFormKey,
                             ),
                           ),
                           const Expanded(child: SizedBox()),
