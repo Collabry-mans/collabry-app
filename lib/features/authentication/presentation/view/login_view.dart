@@ -68,7 +68,7 @@ class _LogInViewState extends State<LogInView> {
                         listener: (context, state) {
                           if (state is LoginLoadedState) {
                             Navigator.pushReplacementNamed(
-                                context, Routes.homePageScreen);
+                                context, Routes.mainPageScreen);
                             FlushBarUtils.flushBarSuccess(
                                 AppStrings.welcomeBack, context);
                           } else if (state is LoginFailedState) {

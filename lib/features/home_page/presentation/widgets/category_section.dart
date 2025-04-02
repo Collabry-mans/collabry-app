@@ -1,9 +1,11 @@
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/features/home_page/model/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CategorySection extends StatelessWidget {
-  const CategorySection({super.key});
+  const CategorySection({super.key, required this.categories});
+  final List<CategoryModel> categories;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +15,10 @@ class CategorySection extends StatelessWidget {
         child: ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => const CategoryTile(),
-          itemCount: 8,
+          itemBuilder: (context, index) => CategoryTile(
+            title: categories[index].name,
+          ),
+          itemCount: categories.length,
         ),
       ),
     );
@@ -22,8 +26,8 @@ class CategorySection extends StatelessWidget {
 }
 
 class CategoryTile extends StatefulWidget {
-  const CategoryTile({super.key});
-
+  const CategoryTile({super.key, required this.title});
+  final String title;
   @override
   State<CategoryTile> createState() => _CategoryTileState();
 }
@@ -50,7 +54,7 @@ class _CategoryTileState extends State<CategoryTile> {
           ],
         ),
         child: Center(
-          child: Text('Topicccccc',
+          child: Text(widget.title,
               style: AppTextStyles.belanosimaSize14Grey.copyWith(
                   color: isSelected
                       ? AppColors.whiteColor

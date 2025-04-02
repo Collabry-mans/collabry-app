@@ -1,7 +1,9 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/cubit/auth/auth_cubit.dart';
+import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
 import 'package:collabry/core/database/secure_storage.dart';
 import 'package:collabry/core/repositories/auth_repository.dart';
+import 'package:collabry/core/repositories/publication_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.I;
@@ -21,6 +23,15 @@ Future<void> setupDependencies() async {
   // Register AuthCubit as a factory
   getIt.registerFactory<AuthCubit>(
     () => AuthCubit(getIt<BaseAuthRepository>()),
+  );
+
+  getIt.registerLazySingleton<PublicationRepoBase>(
+    () => PublicationRepo(dio: getIt<DioConsumer>()),
+  );
+
+// Register PublicationCubit as a factory - use PublicationRepoBase here
+  getIt.registerFactory<PublicationCubit>(
+    () => PublicationCubit(getIt<PublicationRepoBase>()),
   );
 }
 

@@ -15,7 +15,7 @@ class Collabry extends StatelessWidget {
       initialRoute: isFirstTime
           ? Routes.onBoardingScreen
           : isLoggedIn
-              ? Routes.homePageScreen
+              ? Routes.mainPageScreen
               : Routes.logInScreen,
     );
   }

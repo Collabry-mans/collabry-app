@@ -1,3 +1,4 @@
+import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/community/presentation/widgets/channel_tile.dart';
 import 'package:collabry/features/community/presentation/widgets/community_tile.dart';
@@ -6,9 +7,21 @@ import 'package:collabry/features/home_page/presentation/widgets/category_sectio
 import 'package:collabry/features/home_page/presentation/widgets/custom_search.dart';
 import 'package:collabry/features/home_page/presentation/widgets/view_header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CommunityView extends StatelessWidget {
+class CommunityView extends StatefulWidget {
   const CommunityView({super.key});
+
+  @override
+  State<CommunityView> createState() => _CommunityViewState();
+}
+
+class _CommunityViewState extends State<CommunityView> {
+  @override
+  void initState() {
+    BlocProvider.of<PublicationCubit>(context).getAllCategories();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +32,9 @@ class CommunityView extends StatelessWidget {
 
         //* category
         const ViewHeader(title: AppStrings.topics),
-        const CategorySection(),
+        CategorySection(
+          categories: context.read<PublicationCubit>().categoriesList,
+        ),
 
         //* Suggested for u
         const ViewHeader(title: AppStrings.suggestedForU),

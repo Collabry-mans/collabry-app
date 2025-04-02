@@ -3,6 +3,7 @@ import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/repositories/auth_repository.dart';
+import 'package:collabry/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +43,11 @@ class AuthCubit extends Cubit<AuthState> {
         registerPassController.text,
       );
       saveUserTokens(user.accessToken, user.refreshToken);
+
+      //* saving user name and email
+      userBox!.put(kUserName, registerNameController.text);
+      userBox!.put(kUserEmail, registerEmailController.text.trim());
+
       emit(RegisterLoadedState(signUp: user));
     } on DioException catch (e) {
       handleDioExceptions(e);

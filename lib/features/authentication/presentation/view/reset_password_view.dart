@@ -78,7 +78,7 @@ class ResetPasswordView extends StatelessWidget {
                   CustomButton(
                     onTap: () {
                       Navigator.pushNamedAndRemoveUntil(
-                          context, Routes.homePageScreen, (route) => false);
+                          context, Routes.mainPageScreen, (route) => false);
                     },
                     text: AppStrings.resetPass,
                     textStyle: AppTextStyles.belanosimaSize24W600Purple

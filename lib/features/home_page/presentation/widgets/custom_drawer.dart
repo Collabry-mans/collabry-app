@@ -4,10 +4,20 @@ import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/main.dart';
 import 'package:flutter/material.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  final String userName = userBox!.get(kUserName);
+
+  final String userEmail = userBox!.get(kUserEmail);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +29,12 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Image.asset(Assets.imagesProfileAvatar),
             title: Text(
-              'ZASH',
+              userName,
               style: AppTextStyles.belanosimaSize14Grey
                   .copyWith(color: Colors.black, fontSize: 18),
             ),
-            subtitle: const Text('Zash@gmail.com',
-                style: AppTextStyles.belanosimaSize14Grey),
+            subtitle:
+                Text(userEmail, style: AppTextStyles.belanosimaSize14Grey),
           ),
           const Divider(height: 1),
           _buildMenuItem(

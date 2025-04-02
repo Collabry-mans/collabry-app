@@ -8,12 +8,13 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 bool isLoggedIn = false;
-Box? firstTimeBox;
+Box? firstTimeBox, userBox;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupDependencies();
   firstTimeBox = await openHiveBox(firstTimeBoxName);
+  userBox = await openHiveBox(userBoxName);
   await isLoggedInChecker();
 
   runApp(

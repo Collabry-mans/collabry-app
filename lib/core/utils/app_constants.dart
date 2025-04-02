@@ -4,7 +4,10 @@ import 'package:collabry/features/on_boarding/model/on_boarding_model.dart';
 
 //* Screens Routes
 class Routes {
+  //* onBoarding
   static const String onBoardingScreen = 'onBoardingScreen/';
+
+  //* Auth
   static const String logInScreen = 'logInScreen/';
   static const String forgotPasswordScreen = 'forgotPasswordScreen/';
   static const String forgotPasswordVerificationScreen =
@@ -12,8 +15,9 @@ class Routes {
   static const String resetPasswordScreen = 'resetPasswordScreen/';
   static const String signUpScreen = 'signUpScreen/';
   static const String signUpVerificationScreen = 'signUpVerificationScreen/';
-  static const String homePageScreen = 'mainPageScreen/';
-  static const String communityPageScreen = 'communityPageScreen/';
+
+  //*main app screen
+  static const String mainPageScreen = 'mainPageScreen/';
 }
 
 //* Boxes Stuff
@@ -21,6 +25,10 @@ const String firstTimeBoxName = 'firstTimeBox';
 const String kFirstTime = 'firstTimeBoxKey';
 const String accessTokenKey = 'accessTokenKey';
 const String refreshTokenKey = 'refreshTokenKey';
+
+const String userBoxName = 'userBox';
+const String kUserName = 'userName';
+const String kUserEmail = 'userEmail';
 
 //* Fonts
 const String fontABeeZee = 'ABeeZee_button';
