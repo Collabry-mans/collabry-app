@@ -1,9 +1,8 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/api/end_points.dart';
-import 'package:collabry/features/home_page/model/category_model.dart';
+import 'package:collabry/features/home_page/data/model/publication_model.dart';
 
 abstract class PublicationRepoBase {
-  Future<List<CategoryModel>> getCategories();
   Future<void> createPublication(
       String title,
       String description,
@@ -11,19 +10,13 @@ abstract class PublicationRepoBase {
       String language,
       String visibility,
       String categoryId);
+
+  Future<List<Publication>> getPublications();
 }
 
 class PublicationRepo implements PublicationRepoBase {
   final DioConsumer dio;
   PublicationRepo({required this.dio});
-
-  @override
-  Future<List<CategoryModel>> getCategories() async {
-    final List<dynamic> categories = await dio.get(EndPoints.categories);
-    final List<CategoryModel> categoriesList =
-        categories.map((category) => CategoryModel.fromJson(category)).toList();
-    return categoriesList;
-  }
 
   @override
   Future<void> createPublication(
@@ -44,5 +37,14 @@ class PublicationRepo implements PublicationRepoBase {
         ApiKeys.categoryId: categoryId,
       },
     );
+  }
+
+  @override
+  Future<List<Publication>> getPublications() async {
+    final List<dynamic> publications = await dio.get(EndPoints.publications);
+    final List<Publication> publicationsList = publications
+        .map((publication) => Publication.fromJson(publication))
+        .toList();
+    return publicationsList;
   }
 }

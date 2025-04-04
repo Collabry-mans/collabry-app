@@ -1,6 +1,6 @@
 import 'package:collabry/core/errors/exception_handling.dart';
-import 'package:collabry/core/repositories/publication_repository.dart';
-import 'package:collabry/features/home_page/model/category_model.dart';
+import 'package:collabry/features/home_page/data/model/publication_model.dart';
+import 'package:collabry/features/home_page/data/repository/publication_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,20 +10,8 @@ class PublicationCubit extends Cubit<PublicationState> {
   PublicationCubit(this.repoPublication) : super(PublicationInitial());
   final PublicationRepoBase repoPublication;
 
-  List<CategoryModel> categoriesList = [];
-  Future<void> getAllCategories() async {
-    emit(CategoriesLoadingState());
-    try {
-      categoriesList = await repoPublication.getCategories();
-      debugPrint(categoriesList[0].name);
-      emit(CategoriesLoadedState(categoriesList: categoriesList));
-    } on DioException catch (error) {
-      handleDioExceptions(error);
-    } on ServerException catch (error) {
-      emit(CategoriesFailedState(errMsg: error.errModel.getFormattedMessage()));
-    }
-  }
-
+  //* publication
+  // create publication
   Future<void> createPublication(
       {required String title,
       required String description,
@@ -41,6 +29,20 @@ class PublicationCubit extends Cubit<PublicationState> {
     } on ServerException catch (e) {
       emit(PublicationCreationFailedState(
           errMsg: e.errModel.getFormattedMessage()));
+    }
+  }
+
+  // getpublication
+  Future<void> getAllPublications() async {
+    emit(PublicationLoadingState());
+    try {
+      final List<Publication> publicationsList =
+          await repoPublication.getPublications();
+      emit(PublicationLoadedState(publications: publicationsList));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(PublicationFailedState(errMsg: e.errModel.getFormattedMessage()));
     }
   }
 }

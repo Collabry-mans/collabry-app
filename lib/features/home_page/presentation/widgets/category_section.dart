@@ -1,6 +1,6 @@
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
-import 'package:collabry/features/home_page/model/category_model.dart';
+import 'package:collabry/features/home_page/data/model/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CategorySection extends StatelessWidget {
@@ -9,17 +9,15 @@ class CategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        height: 40,
-        child: ListView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => CategoryTile(
-            title: categories[index].name,
-          ),
-          itemCount: categories.length,
+    return SizedBox(
+      height: 40,
+      child: ListView.builder(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) => CategoryTile(
+          title: categories[index].name,
         ),
+        itemCount: categories.length,
       ),
     );
   }

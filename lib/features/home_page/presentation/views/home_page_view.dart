@@ -1,4 +1,6 @@
-import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
+import 'package:collabry/core/cubit/category/category_cubit.dart';
+import 'package:collabry/core/cubit/category/category_state.dart';
+import 'package:collabry/core/cubit/publication/publication_cubit.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/home_page/presentation/widgets/category_section.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_search.dart';
@@ -18,7 +20,8 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   void initState() {
     super.initState();
-    context.read<PublicationCubit>().getAllCategories();
+    context.read<CategoryCubit>().getAllCategories();
+    context.read<PublicationCubit>().getAllPublications();
   }
 
   @override
@@ -27,20 +30,36 @@ class _HomePageViewState extends State<HomePageView> {
       slivers: [
         const CustomSearch(),
         const ViewHeader(title: AppStrings.topics),
-        BlocBuilder<PublicationCubit, PublicationState>(
-          builder: (context, state) {
-            return state is CategoriesLoadingState
-                ? const SliverToBoxAdapter(
-                    child: Center(child: CircularProgressIndicator()))
-                : CategorySection(
-                    categories: context.read<PublicationCubit>().categoriesList,
-                  );
-          },
+        SliverToBoxAdapter(
+          child: BlocBuilder<CategoryCubit, CategoryState>(
+            builder: (context, state) {
+              return state is CategoriesLoadedState
+                  ? CategorySection(
+                      categories: state.categoriesList,
+                    )
+                  : const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 5)),
-        SliverList.builder(
-          itemBuilder: (context, index) => const PostTile(),
-          itemCount: 14,
+        BlocBuilder<PublicationCubit, PublicationState>(
+          builder: (context, state) {
+            return state is PublicationLoadedState
+                ? SliverList.builder(
+                    itemBuilder: (context, index) {
+                      final publication = state.publications[index];
+                      return PostTile(
+                          authorName: publication.authorName,
+                          description: publication.description,
+                          categoryName: publication.categoryName,
+                          createDate: publication.createdAt,
+                          title: publication.title);
+                    },
+                    itemCount: state.publications.length,
+                  )
+                : const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()));
+          },
         ),
       ],
     );

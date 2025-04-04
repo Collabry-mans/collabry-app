@@ -1,5 +1,5 @@
-import 'package:collabry/features/authentication/model/log_in_model.dart';
-import 'package:collabry/features/authentication/model/sign_up_model.dart';
+import 'package:collabry/features/authentication/data/model/log_in_model.dart';
+import 'package:collabry/features/authentication/data/model/sign_up_model.dart';
 
 abstract class AuthState {}
 

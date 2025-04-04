@@ -2,7 +2,7 @@ import 'package:collabry/core/cubit/auth/auth_states.dart';
 import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
-import 'package:collabry/core/repositories/auth_repository.dart';
+import 'package:collabry/features/authentication/data/repository/auth_repository.dart';
 import 'package:collabry/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';

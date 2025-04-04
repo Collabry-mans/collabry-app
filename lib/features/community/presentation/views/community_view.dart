@@ -1,4 +1,5 @@
-import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
+import 'package:collabry/core/cubit/category/category_cubit.dart';
+import 'package:collabry/core/cubit/category/category_state.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/community/presentation/widgets/channel_tile.dart';
 import 'package:collabry/features/community/presentation/widgets/community_tile.dart';
@@ -19,7 +20,7 @@ class CommunityView extends StatefulWidget {
 class _CommunityViewState extends State<CommunityView> {
   @override
   void initState() {
-    context.read<PublicationCubit>().getAllCategories();
+    context.read<CategoryCubit>().getAllCategories();
     super.initState();
   }
 
@@ -32,14 +33,12 @@ class _CommunityViewState extends State<CommunityView> {
 
         //* category
         const ViewHeader(title: AppStrings.topics),
-        BlocBuilder<PublicationCubit, PublicationState>(
+        BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
-            return state is CategoriesLoadingState
-                ? const SliverToBoxAdapter(
-                    child: Center(child: CircularProgressIndicator()))
-                : CategorySection(
-                    categories: context.read<PublicationCubit>().categoriesList,
-                  );
+            return state is CategoriesLoadedState
+                ? CategorySection(categories: state.categoriesList)
+                : const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()));
           },
         ),
 

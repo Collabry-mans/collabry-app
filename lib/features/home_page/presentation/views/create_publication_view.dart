@@ -1,6 +1,8 @@
-import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
+import 'package:collabry/core/cubit/category/category_cubit.dart';
+import 'package:collabry/core/cubit/category/category_state.dart';
+import 'package:collabry/core/cubit/publication/publication_cubit.dart';
 import 'package:collabry/core/utils/flush_bar_utils.dart';
-import 'package:collabry/features/home_page/model/category_model.dart';
+import 'package:collabry/features/home_page/data/model/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +34,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
   }
 
   void _fetchCategories() {
-    context.read<PublicationCubit>().getAllCategories();
+    context.read<CategoryCubit>().getAllCategories();
   }
 
   void _initializeControllers() {
@@ -98,21 +100,18 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
       padding: const EdgeInsets.all(16.0),
       child: Form(
         key: _formKey,
-        child: BlocConsumer<PublicationCubit, PublicationState>(
-          listener: _handlePublicationState,
+        child: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
-            return state is CategoriesLoadingState
-                ? const Center(child: CircularProgressIndicator())
-                : _buildFormFields(state);
+            return state is CategoriesLoadedState
+                ? _buildFormFields(state, state.categoriesList)
+                : const Center(child: CircularProgressIndicator());
           },
         ),
       ),
     );
   }
 
-  Widget _buildFormFields(PublicationState state) {
-    final categories = context.read<PublicationCubit>().categoriesList;
-
+  Widget _buildFormFields(CategoryState state, List<CategoryModel> categories) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -142,10 +141,19 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
         const SizedBox(height: 24),
 
         // Submit Button
-        state is PublicationCreationLoadingState
-            ? const Center(child: CircularProgressIndicator())
-            : _buildCreatePublicationButton(),
+        _handleCreationButtonState(),
       ],
+    );
+  }
+
+  Widget _handleCreationButtonState() {
+    return BlocConsumer<PublicationCubit, PublicationState>(
+      listener: _handlePublicationState,
+      builder: (context, state) {
+        return state is PublicationCreationLoadingState
+            ? const Center(child: CircularProgressIndicator())
+            : _buildCreatePublicationButton();
+      },
     );
   }
 

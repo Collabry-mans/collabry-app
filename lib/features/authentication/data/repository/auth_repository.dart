@@ -1,7 +1,7 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/api/end_points.dart';
-import 'package:collabry/features/authentication/model/log_in_model.dart';
-import 'package:collabry/features/authentication/model/sign_up_model.dart';
+import 'package:collabry/features/authentication/data/model/log_in_model.dart';
+import 'package:collabry/features/authentication/data/model/sign_up_model.dart';
 
 abstract class BaseAuthRepository {
   Future<SignUpModel> signUp(String name, String email, String pass);

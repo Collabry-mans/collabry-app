@@ -1,5 +1,6 @@
 import 'package:collabry/core/cubit/auth/auth_cubit.dart';
-import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
+import 'package:collabry/core/cubit/category/category_cubit.dart';
+import 'package:collabry/core/cubit/publication/publication_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_verification_view.dart';
@@ -71,8 +72,15 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => const MainPageView());
       case Routes.createPublicationScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider<PublicationCubit>(
-            create: (context) => getIt<PublicationCubit>(),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider<PublicationCubit>(
+                create: (context) => getIt<PublicationCubit>(),
+              ),
+              BlocProvider(
+                create: (context) => getIt<CategoryCubit>(),
+              ),
+            ],
             child: const CreatePublicationView(),
           ),
         );

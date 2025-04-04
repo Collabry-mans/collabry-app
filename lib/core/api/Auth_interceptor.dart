@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/singleton/singleton.dart';
-import 'package:collabry/features/authentication/model/refresh_token_model.dart';
+import 'package:collabry/features/authentication/data/model/refresh_token_model.dart';
 import 'package:dio/dio.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:flutter/material.dart';

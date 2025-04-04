@@ -1,13 +1,21 @@
 class EndPoints {
+  //* base URL
   static const String baseUrl = 'https://collabry.vercel.app/';
+
+  //* Authentication
   static const String signUP = 'auth/register';
   static const String logIn = 'auth/login';
   static const String verificationEmail = 'auth/send-verification-email';
   static const String refreshToken = 'auth/refresh-token';
   static const String sendOtp = 'auth/send-otp';
   static const String verifyOtp = 'auth/verify-otp';
+
+  //* Categories
   static const String categories = 'categories';
+
+  //* Publications
   static const String publicationsCreate = 'publications/create';
+  static const String publications = 'publications/all';
 }
 
 class ApiKeys {
@@ -34,4 +42,10 @@ class ApiKeys {
   static const String abstract = 'abstract';
   static const String language = 'language';
   static const String visibility = 'visibility';
+  static const String sections = 'sections';
+  static const String categoryName = 'categoryName';
+  static const String authorName = 'authorName';
+  static const String authorId = 'authorId';
+  static const String collaborators = 'collaborators';
+  static const String createdAt = 'createdAt';
 }

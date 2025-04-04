@@ -1,4 +1,5 @@
-import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
+import 'package:collabry/core/cubit/category/category_cubit.dart';
+import 'package:collabry/core/cubit/publication/publication_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/features/ai_chat_bot/presentation/views/chat_bot_view.dart';
@@ -35,13 +36,20 @@ class _MainPageViewState extends State<MainPageView> {
                 controller: mainPageController,
                 onPageChanged: (index) => setState(() => currentIndex = index),
                 children: [
-                  BlocProvider(
-                    create: (context) => getIt<PublicationCubit>(),
+                  MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => getIt<PublicationCubit>(),
+                      ),
+                      BlocProvider(
+                        create: (context) => getIt<CategoryCubit>(),
+                      ),
+                    ],
                     child: const HomePageView(),
                   ),
                   const ChatBotView(),
                   BlocProvider(
-                    create: (context) => getIt<PublicationCubit>(),
+                    create: (context) => getIt<CategoryCubit>(),
                     child: const CommunityView(),
                   ),
                   const ChatBotView(),

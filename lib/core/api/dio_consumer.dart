@@ -24,7 +24,7 @@ class DioConsumer {
       Map<String, dynamic>? queryParameters,
       bool isFormData = false}) async {
     try {
-      final response = await dio.get(
+      final Response response = await dio.get(
         path,
         data: isFormData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,

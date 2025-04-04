@@ -1,9 +1,11 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/cubit/auth/auth_cubit.dart';
-import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
+import 'package:collabry/core/cubit/category/category_cubit.dart';
+import 'package:collabry/core/cubit/publication/publication_cubit.dart';
 import 'package:collabry/core/database/secure_storage.dart';
-import 'package:collabry/core/repositories/auth_repository.dart';
-import 'package:collabry/core/repositories/publication_repository.dart';
+import 'package:collabry/features/authentication/data/repository/auth_repository.dart';
+import 'package:collabry/features/home_page/data/repository/category_repository.dart';
+import 'package:collabry/features/home_page/data/repository/publication_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.I;
@@ -33,6 +35,16 @@ Future<void> setupDependencies() async {
   // Register PublicationCubit as factory
   getIt.registerFactory<PublicationCubit>(
     () => PublicationCubit(getIt<PublicationRepoBase>()),
+  );
+
+  // Register CategoryRepo
+  getIt.registerLazySingleton<CategoryRepositoryBase>(
+    () => CategoryRepo(dio: getIt<DioConsumer>()),
+  );
+
+  // Register CategoryCubit as factory
+  getIt.registerFactory<CategoryCubit>(
+    () => CategoryCubit(getIt<CategoryRepositoryBase>()),
   );
 }
 
