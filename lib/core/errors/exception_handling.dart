@@ -8,6 +8,9 @@ class ServerException implements Exception {
 }
 
 void handleDioExceptions(DioException e) {
+  if (e.response?.statusCode == 201) {
+    return;
+  }
   switch (e.type) {
     //* Network-related errors
     case DioExceptionType.connectionTimeout:
@@ -42,6 +45,7 @@ void handleDioExceptions(DioException e) {
           case 409: // cofficient
           case 422: // Unprocessable Entity
           case 504: // Server exception
+          case 500: // Internal Server exception
             throw ServerException(
                 errModel: ErrorModel.fromJson(e.response!.data));
           default:

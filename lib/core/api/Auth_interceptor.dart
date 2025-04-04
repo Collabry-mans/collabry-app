@@ -1,8 +1,10 @@
+// ignore_for_file: file_names
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/features/authentication/model/refresh_token_model.dart';
 import 'package:dio/dio.dart';
 import 'package:collabry/core/utils/app_constants.dart';
+import 'package:flutter/material.dart';
 
 class AuthInterceptor extends Interceptor {
   final Dio dio;
@@ -27,20 +29,20 @@ class AuthInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    if (err.response?.statusCode == 401 && !_isRefreshing) {
+    if ((err.response?.statusCode == 401 || err.response?.statusCode == 500) &&
+        !_isRefreshing) {
+      final originalRequest = err.requestOptions;
       _isRefreshing = true;
 
       try {
         final refreshToken = await secureStorage.read(key: refreshTokenKey);
 
         if (refreshToken != null && refreshToken.isNotEmpty) {
-          final tempDio = Dio()..options.baseUrl = dio.options.baseUrl;
-
-          final refreshRepo = RefreshTokenRepository(tempDio);
-
+          final RefreshTokenRepository refreshRepo =
+              RefreshTokenRepository(dio);
           final newTokens = await refreshRepo.refreshToken(refreshToken);
-
-          final originalRequest = err.requestOptions;
+          debugPrint(
+              '${newTokens.refreshToken} is the refresh token and the access token is ${newTokens.accessToken}');
           originalRequest.headers['Authorization'] =
               'Bearer ${newTokens.accessToken}';
 
@@ -60,7 +62,6 @@ class AuthInterceptor extends Interceptor {
 
 class RefreshTokenRepository {
   final Dio dio;
-
   RefreshTokenRepository(this.dio);
 
   Future<RefreshTokenModel> refreshToken(String refreshToken) async {
@@ -72,10 +73,15 @@ class RefreshTokenRepository {
     );
 
     final newTokens = RefreshTokenModel.fromJson(response.data);
+    debugPrint(
+        '22222222 ${newTokens.refreshToken} is the refresh token and the access token is ${newTokens.accessToken}');
+
     await secureStorage.write(
         key: accessTokenKey, value: newTokens.accessToken);
     await secureStorage.write(
         key: refreshTokenKey, value: newTokens.refreshToken);
+    debugPrint(
+        '333333333 ${newTokens.refreshToken} is the refresh token and the access token is ${newTokens.accessToken}');
 
     return newTokens;
   }

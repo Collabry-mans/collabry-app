@@ -7,6 +7,7 @@ class EndPoints {
   static const String sendOtp = 'auth/send-otp';
   static const String verifyOtp = 'auth/verify-otp';
   static const String categories = 'categories';
+  static const String publicationsCreate = 'publications/create';
 }
 
 class ApiKeys {
@@ -25,4 +26,12 @@ class ApiKeys {
   static const String id = 'id';
   static const String description = 'description';
   static const String parentId = 'parentId';
+  static const String categoryId = 'categoryId';
+
+  //* Publication
+  static const String title = 'title';
+  static const String keywords = 'keywords';
+  static const String abstract = 'abstract';
+  static const String language = 'language';
+  static const String visibility = 'visibility';
 }

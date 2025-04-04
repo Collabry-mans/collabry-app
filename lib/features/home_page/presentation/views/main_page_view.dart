@@ -50,8 +50,8 @@ class _MainPageViewState extends State<MainPageView> {
             ),
           ],
         ),
-        bottomNavigationBar:
-            CustomBottomNavigationBar(pageController: mainPageController),
+        bottomNavigationBar: CustomBottomNavigationBar(
+            pageController: mainPageController, index: currentIndex),
       ),
     );
   }

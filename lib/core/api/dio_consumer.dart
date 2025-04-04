@@ -8,6 +8,7 @@ class DioConsumer {
 
   DioConsumer() {
     dio.options.baseUrl = EndPoints.baseUrl;
+    dio.interceptors.add(AuthInterceptor(dio));
     dio.interceptors.add(
       LogInterceptor(
           request: true,
@@ -17,7 +18,6 @@ class DioConsumer {
           responseHeader: true,
           requestHeader: true),
     );
-    dio.interceptors.add(AuthInterceptor(dio));
   }
   Future get(String path,
       {dynamic data,
@@ -42,9 +42,11 @@ class DioConsumer {
     bool isFormData = false,
   }) async {
     try {
-      final Response<Map<String, dynamic>> response = await dio.post(path,
-          data: isFormData ? FormData.fromMap(data) : data,
-          queryParameters: queryParameters);
+      final Response response = await dio.post(
+        path,
+        data: isFormData ? FormData.fromMap(data) : data,
+        queryParameters: queryParameters,
+      );
       return response.data;
     } on DioException catch (e) {
       handleDioExceptions(e);

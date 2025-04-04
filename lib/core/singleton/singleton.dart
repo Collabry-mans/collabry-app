@@ -25,11 +25,12 @@ Future<void> setupDependencies() async {
     () => AuthCubit(getIt<BaseAuthRepository>()),
   );
 
+  // Register PublicationRepo
   getIt.registerLazySingleton<PublicationRepoBase>(
     () => PublicationRepo(dio: getIt<DioConsumer>()),
   );
 
-// Register PublicationCubit as a factory - use PublicationRepoBase here
+  // Register PublicationCubit as factory
   getIt.registerFactory<PublicationCubit>(
     () => PublicationCubit(getIt<PublicationRepoBase>()),
   );

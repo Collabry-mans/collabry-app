@@ -15,9 +15,9 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  final String userName = userBox!.get(kUserName);
+  final String userName = userBox?.get(kUserName) ?? 'UNKNOWN';
 
-  final String userEmail = userBox!.get(kUserEmail);
+  final String userEmail = userBox?.get(kUserEmail) ?? 'UNDEFINED';
 
   @override
   Widget build(BuildContext context) {

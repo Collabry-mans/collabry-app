@@ -5,19 +5,20 @@ import 'package:collabry/features/on_boarding/model/on_boarding_model.dart';
 //* Screens Routes
 class Routes {
   //* onBoarding
-  static const String onBoardingScreen = 'onBoardingScreen/';
+  static const String onBoardingScreen = '/onBoardingScreen';
 
   //* Auth
-  static const String logInScreen = 'logInScreen/';
-  static const String forgotPasswordScreen = 'forgotPasswordScreen/';
+  static const String logInScreen = '/logInScreen';
+  static const String forgotPasswordScreen = '/forgotPasswordScreen';
   static const String forgotPasswordVerificationScreen =
-      'forgotPasswordVerificationScreen/';
-  static const String resetPasswordScreen = 'resetPasswordScreen/';
-  static const String signUpScreen = 'signUpScreen/';
-  static const String signUpVerificationScreen = 'signUpVerificationScreen/';
+      '/forgotPasswordVerificationScreen';
+  static const String resetPasswordScreen = '/resetPasswordScreen';
+  static const String signUpScreen = '/signUpScreen';
+  static const String signUpVerificationScreen = '/signUpVerificationScreen';
 
   //*main app screen
-  static const String mainPageScreen = 'mainPageScreen/';
+  static const String mainPageScreen = '/mainPageScreen';
+  static const String createPublicationScreen = '/createPublicationScreen';
 }
 
 //* Boxes Stuff

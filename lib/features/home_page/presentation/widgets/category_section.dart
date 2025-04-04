@@ -54,17 +54,13 @@ class _CategoryTileState extends State<CategoryTile> {
           ],
         ),
         child: Center(
-          child: Text(widget.title,
-              style: AppTextStyles.belanosimaSize14Grey.copyWith(
-                  color: isSelected
-                      ? AppColors.whiteColor
-                      : AppColors.selectedColor)
-              // TextStyle(
-              //     color:
-              //         isSelected ? AppColors.whiteColor : AppColors.selectedColor,
-              //     fontSize: 15,
-              //     fontFamily: fontBelanosima),
-              ),
+          child: Text(
+            widget.title,
+            style: AppTextStyles.belanosimaSize14Grey.copyWith(
+                color: isSelected
+                    ? AppColors.whiteColor
+                    : AppColors.selectedColor),
+          ),
         ),
       ),
     );

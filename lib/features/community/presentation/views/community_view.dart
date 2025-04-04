@@ -19,7 +19,7 @@ class CommunityView extends StatefulWidget {
 class _CommunityViewState extends State<CommunityView> {
   @override
   void initState() {
-    BlocProvider.of<PublicationCubit>(context).getAllCategories();
+    context.read<PublicationCubit>().getAllCategories();
     super.initState();
   }
 
@@ -32,8 +32,15 @@ class _CommunityViewState extends State<CommunityView> {
 
         //* category
         const ViewHeader(title: AppStrings.topics),
-        CategorySection(
-          categories: context.read<PublicationCubit>().categoriesList,
+        BlocBuilder<PublicationCubit, PublicationState>(
+          builder: (context, state) {
+            return state is CategoriesLoadingState
+                ? const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()))
+                : CategorySection(
+                    categories: context.read<PublicationCubit>().categoriesList,
+                  );
+          },
         ),
 
         //* Suggested for u

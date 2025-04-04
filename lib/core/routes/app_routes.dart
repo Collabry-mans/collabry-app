@@ -1,4 +1,5 @@
 import 'package:collabry/core/cubit/auth/auth_cubit.dart';
+import 'package:collabry/core/cubit/publication/cubit/publication_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_verification_view.dart';
@@ -7,6 +8,7 @@ import 'package:collabry/features/authentication/presentation/view/login_view.da
 import 'package:collabry/features/authentication/presentation/view/reset_password_view.dart';
 import 'package:collabry/features/authentication/presentation/view/sign_up_verification_view.dart';
 import 'package:collabry/features/authentication/presentation/view/sign_up_view.dart';
+import 'package:collabry/features/home_page/presentation/views/create_publication_view.dart';
 import 'package:collabry/features/home_page/presentation/views/main_page_view.dart';
 import 'package:collabry/features/on_boarding/presentation/view/on_boarding_screen.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +69,13 @@ class AppRoutes {
       //* App Screens
       case Routes.mainPageScreen:
         return MaterialPageRoute(builder: (context) => const MainPageView());
-
+      case Routes.createPublicationScreen:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider<PublicationCubit>(
+            create: (context) => getIt<PublicationCubit>(),
+            child: const CreatePublicationView(),
+          ),
+        );
       default:
         return null;
     }

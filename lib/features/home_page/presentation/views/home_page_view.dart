@@ -18,7 +18,6 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   void initState() {
     super.initState();
-    // Fetch categories when the widget initializes
     context.read<PublicationCubit>().getAllCategories();
   }
 
@@ -30,18 +29,12 @@ class _HomePageViewState extends State<HomePageView> {
         const ViewHeader(title: AppStrings.topics),
         BlocBuilder<PublicationCubit, PublicationState>(
           builder: (context, state) {
-            if (state is CategoriesLoadingState) {
-              return const SliverToBoxAdapter(
-                child: Center(child: CircularProgressIndicator()),
-              );
-            } else if (state is CategoriesLoadedState) {
-              return CategorySection(categories: state.categoriesList);
-            } else if (state is CategoriesFailedState) {
-              return SliverToBoxAdapter(
-                child: Center(child: Text('Error: ${state.errMsg}')),
-              );
-            }
-            return const SliverToBoxAdapter(child: SizedBox());
+            return state is CategoriesLoadingState
+                ? const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()))
+                : CategorySection(
+                    categories: context.read<PublicationCubit>().categoriesList,
+                  );
           },
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 5)),

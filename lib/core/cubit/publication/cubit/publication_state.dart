@@ -19,3 +19,14 @@ final class CategoriesFailedState extends PublicationState {
 
   CategoriesFailedState({required this.errMsg});
 }
+
+//* publication Creation
+
+final class PublicationCreationLoadingState extends PublicationState {}
+
+final class PublicationCreationLoadedState extends PublicationState {}
+
+final class PublicationCreationFailedState extends PublicationState {
+  final String errMsg;
+  PublicationCreationFailedState({required this.errMsg});
+}

@@ -1,5 +1,6 @@
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,10 @@ class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     super.key,
     required this.pageController,
+    required this.index,
   });
   final PageController pageController;
+  final int index;
 
   @override
   State<CustomBottomNavigationBar> createState() =>
@@ -21,6 +24,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return ConvexAppBar(
+      initialActiveIndex: widget.index,
       height: 60,
       backgroundColor: AppColors.whiteColor,
       color: AppColors.txtColor,
@@ -73,6 +77,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 child: const CircleAvatar(
                   child: Icon(Icons.edit),
                 ),
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.createPublicationScreen);
+                },
               ),
             ],
           ),
