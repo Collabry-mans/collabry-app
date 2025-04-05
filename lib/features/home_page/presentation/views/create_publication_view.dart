@@ -226,7 +226,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
           .toList(),
       onChanged: (String? newValue) =>
           setState(() => _selectedVisibility = newValue),
-      validator: (value) => _fieldValidator('visibility', value),
+      validator: (value) => _validateString(value, 'visibility'),
     );
   }
 
@@ -239,7 +239,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
           .toList(),
       onChanged: (String? newValue) =>
           setState(() => _selectedLanguage = newValue),
-      validator: (value) => _fieldValidator('language', value),
+      validator: (value) => _validateString(value, 'language'),
     );
   }
 
@@ -260,7 +260,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
           .toList(),
       onChanged: (newCategory) =>
           setState(() => _selectedCategory = newCategory),
-      validator: (value) => _fieldValidator('category', value),
+      validator: _validateCategory,
     );
   }
 
@@ -276,12 +276,17 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
       controller: controller,
       decoration: _inputDecoration(label),
       maxLines: maxLines,
-      validator: (value) => _fieldValidator(label, value),
+      validator: (value) => _validateString(value, label),
     );
   }
 
-  String? _fieldValidator(String label, dynamic value) =>
-      value?.isEmpty ?? true ? 'Please enter a $label' : null;
+  String? _validateString(String? value, String fieldName) {
+    return value?.isEmpty ?? true ? 'Please enter $fieldName' : null;
+  }
+
+  String? _validateCategory(CategoryModel? value) {
+    return value == null ? 'Please select a category' : null;
+  }
 
   InputDecoration _inputDecoration(String label) {
     return InputDecoration(

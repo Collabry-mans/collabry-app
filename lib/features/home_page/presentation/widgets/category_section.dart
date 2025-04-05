@@ -3,9 +3,22 @@ import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/home_page/data/model/category_model.dart';
 import 'package:flutter/material.dart';
 
-class CategorySection extends StatelessWidget {
-  const CategorySection({super.key, required this.categories});
+class CategorySection extends StatefulWidget {
+  const CategorySection({
+    super.key,
+    required this.categories,
+    required this.onCategorySelected,
+  });
+
   final List<CategoryModel> categories;
+  final Function(String categoryId) onCategorySelected;
+
+  @override
+  State<CategorySection> createState() => _CategorySectionState();
+}
+
+class _CategorySectionState extends State<CategorySection> {
+  int? currentIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -15,27 +28,35 @@ class CategorySection extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => CategoryTile(
-          title: categories[index].name,
+          title: widget.categories[index].name,
+          onTap: () {
+            setState(() => currentIndex = index);
+            widget.onCategorySelected(widget.categories[index].id);
+          },
+          isSelected: currentIndex == index,
         ),
-        itemCount: categories.length,
+        itemCount: widget.categories.length,
       ),
     );
   }
 }
 
-class CategoryTile extends StatefulWidget {
-  const CategoryTile({super.key, required this.title});
-  final String title;
-  @override
-  State<CategoryTile> createState() => _CategoryTileState();
-}
+class CategoryTile extends StatelessWidget {
+  const CategoryTile({
+    super.key,
+    required this.title,
+    required this.isSelected,
+    required this.onTap,
+  });
 
-class _CategoryTileState extends State<CategoryTile> {
-  bool isSelected = false;
+  final String title;
+  final bool isSelected;
+  final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => setState(() => isSelected = !isSelected),
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(right: 10, top: 4, bottom: 4),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -53,11 +74,11 @@ class _CategoryTileState extends State<CategoryTile> {
         ),
         child: Center(
           child: Text(
-            widget.title,
+            title,
             style: AppTextStyles.belanosimaSize14Grey.copyWith(
-                color: isSelected
-                    ? AppColors.whiteColor
-                    : AppColors.selectedColor),
+              color:
+                  isSelected ? AppColors.whiteColor : AppColors.selectedColor,
+            ),
           ),
         ),
       ),

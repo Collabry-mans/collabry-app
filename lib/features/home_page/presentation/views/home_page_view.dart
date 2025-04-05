@@ -17,11 +17,23 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
+  String? selectedCategoryId;
+
   @override
   void initState() {
     super.initState();
     context.read<CategoryCubit>().getAllCategories();
-    context.read<PublicationCubit>().getAllPublications();
+    _loadPublications();
+  }
+
+  void _loadPublications() {
+    if (selectedCategoryId != null) {
+      context
+          .read<PublicationCubit>()
+          .getPublicationsByCategory(selectedCategoryId!);
+    } else {
+      context.read<PublicationCubit>().getAllPublications();
+    }
   }
 
   @override
@@ -36,6 +48,14 @@ class _HomePageViewState extends State<HomePageView> {
               return state is CategoriesLoadedState
                   ? CategorySection(
                       categories: state.categoriesList,
+                      onCategorySelected: (categoryId) {
+                        setState(() {
+                          selectedCategoryId = selectedCategoryId == categoryId
+                              ? null
+                              : categoryId;
+                          _loadPublications();
+                        });
+                      },
                     )
                   : const Center(child: CircularProgressIndicator());
             },
@@ -44,21 +64,25 @@ class _HomePageViewState extends State<HomePageView> {
         const SliverToBoxAdapter(child: SizedBox(height: 5)),
         BlocBuilder<PublicationCubit, PublicationState>(
           builder: (context, state) {
-            return state is PublicationLoadedState
-                ? SliverList.builder(
-                    itemBuilder: (context, index) {
-                      final publication = state.publications[index];
-                      return PostTile(
-                          authorName: publication.authorName,
-                          description: publication.description,
-                          categoryName: publication.categoryName,
-                          createDate: publication.createdAt,
-                          title: publication.title);
-                    },
-                    itemCount: state.publications.length,
-                  )
-                : const SliverToBoxAdapter(
-                    child: Center(child: CircularProgressIndicator()));
+            if (state is PublicationLoadedState) {
+              return SliverList.builder(
+                itemBuilder: (context, index) {
+                  final reversedIndex = state.publications.length - 1 - index;
+                  final publication = state.publications[reversedIndex];
+                  return PostTile(
+                    authorName: publication.authorName ?? '',
+                    description: publication.description,
+                    categoryName: publication.categoryName ?? '',
+                    createDate: publication.createdAt ?? '',
+                    title: publication.title,
+                  );
+                },
+                itemCount: state.publications.length,
+              );
+            }
+            return const SliverToBoxAdapter(
+              child: Center(child: CircularProgressIndicator()),
+            );
           },
         ),
       ],

@@ -33,13 +33,17 @@ class _CommunityViewState extends State<CommunityView> {
 
         //* category
         const ViewHeader(title: AppStrings.topics),
-        BlocBuilder<CategoryCubit, CategoryState>(
-          builder: (context, state) {
-            return state is CategoriesLoadedState
-                ? CategorySection(categories: state.categoriesList)
-                : const SliverToBoxAdapter(
-                    child: Center(child: CircularProgressIndicator()));
-          },
+        SliverToBoxAdapter(
+          child: BlocBuilder<CategoryCubit, CategoryState>(
+            builder: (context, state) {
+              return state is CategoriesLoadedState
+                  ? CategorySection(
+                      categories: state.categoriesList,
+                      onCategorySelected: (String categoryId) {},
+                    )
+                  : const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
 
         //* Suggested for u

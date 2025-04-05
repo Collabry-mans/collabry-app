@@ -45,4 +45,18 @@ class PublicationCubit extends Cubit<PublicationState> {
       emit(PublicationFailedState(errMsg: e.errModel.getFormattedMessage()));
     }
   }
+
+  // get publication by category
+  Future<void> getPublicationsByCategory(String categoryId) async {
+    emit(PublicationLoadingState());
+    try {
+      final List<Publication> publicationsList =
+          await repoPublication.getPublicationsByCategory(categoryId);
+      emit(PublicationLoadedState(publications: publicationsList));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(PublicationFailedState(errMsg: e.errModel.getFormattedMessage()));
+    }
+  }
 }

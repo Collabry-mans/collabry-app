@@ -12,6 +12,7 @@ abstract class PublicationRepoBase {
       String categoryId);
 
   Future<List<Publication>> getPublications();
+  Future<List<Publication>> getPublicationsByCategory(String categoryId);
 }
 
 class PublicationRepo implements PublicationRepoBase {
@@ -46,5 +47,14 @@ class PublicationRepo implements PublicationRepoBase {
         .map((publication) => Publication.fromJson(publication))
         .toList();
     return publicationsList;
+  }
+
+  @override
+  Future<List<Publication>> getPublicationsByCategory(String categoryId) async {
+    final List<dynamic> publications =
+        await dio.get('${EndPoints.publicationsByCategory}$categoryId');
+    return publications
+        .map((pub) => Publication.fromCategoryJson(pub as Map<String, dynamic>))
+        .toList();
   }
 }

@@ -12,6 +12,7 @@ class EndPoints {
 
   //* Categories
   static const String categories = 'categories';
+  static const String publicationsByCategory = 'categories/publications/';
 
   //* Publications
   static const String publicationsCreate = 'publications/create';
