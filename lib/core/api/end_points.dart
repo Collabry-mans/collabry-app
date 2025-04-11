@@ -43,10 +43,27 @@ class ApiKeys {
   static const String abstract = 'abstract';
   static const String language = 'language';
   static const String visibility = 'visibility';
+  static const String status = 'status';
   static const String sections = 'sections';
   static const String categoryName = 'categoryName';
-  static const String authorName = 'authorName';
   static const String authorId = 'authorId';
-  static const String collaborators = 'collaborators';
+  static const String authorName = 'authorName';
+  static const String authorEmail = 'authorEmail';
+  static const String authorAvatar = 'authorAvatar';
+  static const String updatedAt = 'updatedAt';
   static const String createdAt = 'createdAt';
+  static const String isLiked = 'isLiked';
+  static const String collaborators = 'collaborators';
+  static const String user = 'user';
+
+  //* Sections
+  static const String content = 'content';
+  static const String orderIndex = 'orderIndex';
+  static const String type = 'type';
+  static const String files = 'files';
+  static const String publicationId = 'publicationId';
+
+  //* User
+  static const String profileImageUrl = 'profileImageUrl';
+  static const String role = 'role';
 }

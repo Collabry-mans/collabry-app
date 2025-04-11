@@ -39,7 +39,7 @@ class _CommunityViewState extends State<CommunityView> {
               return state is CategoriesLoadedState
                   ? CategorySection(
                       categories: state.categoriesList,
-                      onCategorySelected: (String categoryId) {},
+                      onCategorySelected: (String? categoryId) {},
                     )
                   : const Center(child: CircularProgressIndicator());
             },

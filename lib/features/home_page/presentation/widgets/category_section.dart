@@ -11,14 +11,14 @@ class CategorySection extends StatefulWidget {
   });
 
   final List<CategoryModel> categories;
-  final Function(String categoryId) onCategorySelected;
+  final Function(String? categoryId) onCategorySelected;
 
   @override
   State<CategorySection> createState() => _CategorySectionState();
 }
 
 class _CategorySectionState extends State<CategorySection> {
-  int? currentIndex;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +27,28 @@ class _CategorySectionState extends State<CategorySection> {
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => CategoryTile(
-          title: widget.categories[index].name,
-          onTap: () {
-            setState(() => currentIndex = index);
-            widget.onCategorySelected(widget.categories[index].id);
-          },
-          isSelected: currentIndex == index,
-        ),
-        itemCount: widget.categories.length,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return CategoryTile(
+              title: 'All',
+              isSelected: currentIndex == 0,
+              onTap: () {
+                setState(() => currentIndex = 0);
+                widget.onCategorySelected(null);
+              },
+            );
+          }
+          final categoryIndex = index - 1;
+          return CategoryTile(
+            title: widget.categories[categoryIndex].name,
+            onTap: () {
+              setState(() => currentIndex = index);
+              widget.onCategorySelected(widget.categories[categoryIndex].id);
+            },
+            isSelected: currentIndex == index,
+          );
+        },
+        itemCount: widget.categories.length + 1,
       ),
     );
   }

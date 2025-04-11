@@ -50,10 +50,12 @@ class _HomePageViewState extends State<HomePageView> {
                       categories: state.categoriesList,
                       onCategorySelected: (categoryId) {
                         setState(() {
-                          selectedCategoryId = selectedCategoryId == categoryId
+                          selectedCategoryId == categoryId
                               ? null
-                              : categoryId;
-                          _loadPublications();
+                              : {
+                                  selectedCategoryId = categoryId,
+                                  _loadPublications(),
+                                };
                         });
                       },
                     )
@@ -70,10 +72,10 @@ class _HomePageViewState extends State<HomePageView> {
                   final reversedIndex = state.publications.length - 1 - index;
                   final publication = state.publications[reversedIndex];
                   return PostTile(
-                    authorName: publication.authorName ?? '',
+                    authorName: publication.authorName,
                     description: publication.description,
-                    categoryName: publication.categoryName ?? '',
-                    createDate: publication.createdAt ?? '',
+                    categoryName: publication.categoryName,
+                    createDate: publication.createdAt,
                     title: publication.title,
                   );
                 },
