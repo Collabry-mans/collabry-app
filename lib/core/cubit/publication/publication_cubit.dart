@@ -59,4 +59,48 @@ class PublicationCubit extends Cubit<PublicationState> {
       emit(PublicationFailedState(errMsg: e.errModel.getFormattedMessage()));
     }
   }
+
+  // get publication by id
+  Future<void> getPublicationById(String publicationId) async {
+    emit(PublicationByIdLoadingState());
+    try {
+      final Publication publication =
+          await repoPublication.getPublicationById(publicationId);
+      emit(PublicationByIdLoadedState(publication: publication));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(
+          PublicationByIdFailedState(errMsg: e.errModel.getFormattedMessage()));
+    }
+  }
+
+  // get all user publications
+  Future<void> getAllUserPublications() async {
+    emit(PublicationLoadingState());
+    try {
+      final List<Publication> publicationsList =
+          await repoPublication.getUserPublications();
+      emit(PublicationLoadedState(publications: publicationsList));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(PublicationFailedState(errMsg: e.errModel.getFormattedMessage()));
+    }
+  }
+
+  // get user publication by id
+  Future<void> getUserPublicationById(String userPublicationId) async {
+    emit(PublicationByIdLoadingState());
+    try {
+      final Publication publication =
+          await repoPublication.getUserPublicationById(userPublicationId);
+      emit(PublicationByIdLoadedState(publication: publication));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(
+          PublicationByIdFailedState(errMsg: e.errModel.getFormattedMessage()));
+    }
+  }
 }

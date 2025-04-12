@@ -71,13 +71,7 @@ class _HomePageViewState extends State<HomePageView> {
                 itemBuilder: (context, index) {
                   final reversedIndex = state.publications.length - 1 - index;
                   final publication = state.publications[reversedIndex];
-                  return PostTile(
-                    authorName: publication.authorName,
-                    description: publication.description,
-                    categoryName: publication.categoryName,
-                    createDate: publication.createdAt,
-                    title: publication.title,
-                  );
+                  return PostTile(publication: publication);
                 },
                 itemCount: state.publications.length,
               );

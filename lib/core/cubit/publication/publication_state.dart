@@ -29,3 +29,17 @@ final class PublicationFailedState extends PublicationState {
   final String errMsg;
   PublicationFailedState({required this.errMsg});
 }
+
+//* publicationById states
+final class PublicationByIdLoadingState extends PublicationState {}
+
+final class PublicationByIdLoadedState extends PublicationState {
+  final Publication publication;
+
+  PublicationByIdLoadedState({required this.publication});
+}
+
+final class PublicationByIdFailedState extends PublicationState {
+  final String errMsg;
+  PublicationByIdFailedState({required this.errMsg});
+}

@@ -17,6 +17,9 @@ class EndPoints {
   //* Publications
   static const String publicationsCreate = 'publications/create';
   static const String publications = 'publications/all';
+  static const String publicationById = 'publications/';
+  static const String userPublications = 'publications/user';
+  static const String userPublicationById = 'publications/publication/';
 }
 
 class ApiKeys {

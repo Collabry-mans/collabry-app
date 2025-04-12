@@ -1,18 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/features/home_page/data/model/publication_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostTile extends StatelessWidget {
-  const PostTile(
-      {super.key,
-      required this.authorName,
-      required this.description,
-      required this.categoryName,
-      required this.createDate,
-      required this.title});
-  final String authorName, description, categoryName, createDate, title;
+  const PostTile({super.key, required this.publication});
+  final Publication publication;
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +55,13 @@ class PostTile extends StatelessWidget {
   Widget _publicationInfo() {
     return ListTile(
       leading: Image.asset(Assets.imagesProfileAvatar),
-      title: Text(authorName, style: AppTextStyles.belanosimaSize16Purple),
+      title: Text(publication.authorName,
+          style: AppTextStyles.belanosimaSize16Purple),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(categoryName, style: AppTextStyles.belanosimaSize14Grey),
+          Text(publication.categoryName,
+              style: AppTextStyles.belanosimaSize14Grey),
           _publicationCreatedDate(),
         ],
       ),
@@ -73,12 +71,13 @@ class PostTile extends StatelessWidget {
   Widget _publicationCreatedDate() {
     return Row(
       children: [
-        Text('$createDate . ', style: AppTextStyles.belanosimaSize14Grey),
+        Text('${publication.createdAt} . ',
+            style: AppTextStyles.belanosimaSize14Grey),
         const Icon(
           Icons.public_outlined,
           size: 16,
           color: AppColors.txtColor,
-        ),
+        )
       ],
     );
   }
@@ -88,7 +87,7 @@ class PostTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          title,
+          publication.title,
           style:
               AppTextStyles.belanosimaSize14Grey.copyWith(color: Colors.black),
         ),
@@ -97,7 +96,7 @@ class PostTile extends StatelessWidget {
             Text(
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
-              description,
+              publication.description,
               style: AppTextStyles.barlowSize14W600Grey,
             ),
             GestureDetector(
@@ -128,21 +127,27 @@ class PostTile extends StatelessWidget {
   Widget _contributers() {
     return Stack(
       clipBehavior: Clip.none,
-      children: [
-        Image.asset(Assets.imagesProfileAvatar, height: 20),
-        Positioned(
-          left: 5,
-          child: Image.asset(Assets.imagesProfileAvatar, height: 20),
-        ),
-        Positioned(
-          left: 10,
-          child: Image.asset(Assets.imagesProfileAvatar, height: 20),
-        ),
-        Positioned(
-          left: 15,
-          child: Image.asset(Assets.imagesProfileAvatar, height: 20),
-        ),
-      ],
+      children: (publication.collaborators
+          .asMap()
+          .map(
+            (index, collaborator) => MapEntry(
+              index,
+              Positioned(
+                left: index * 5,
+                child: CachedNetworkImage(
+                  height: 20,
+                  imageUrl: collaborator.user.profileImageUrl,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                  errorWidget: (context, url, error) =>
+                      Image.asset(Assets.imagesProfileAvatar),
+                ),
+              ),
+            ),
+          )
+          .values
+          .toList()),
     );
   }
 
