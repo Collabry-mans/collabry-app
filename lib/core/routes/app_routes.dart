@@ -11,6 +11,7 @@ import 'package:collabry/features/authentication/presentation/view/sign_up_verif
 import 'package:collabry/features/authentication/presentation/view/sign_up_view.dart';
 import 'package:collabry/features/home_page/presentation/views/create_publication_view.dart';
 import 'package:collabry/features/home_page/presentation/views/main_page_view.dart';
+import 'package:collabry/features/home_page/presentation/views/publication_by_id_view.dart';
 import 'package:collabry/features/on_boarding/presentation/view/on_boarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,11 +71,12 @@ class AppRoutes {
       //* App Screens
       case Routes.mainPageScreen:
         return MaterialPageRoute(builder: (context) => const MainPageView());
+
       case Routes.createPublicationScreen:
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
             providers: [
-              BlocProvider<PublicationCubit>(
+              BlocProvider(
                 create: (context) => getIt<PublicationCubit>(),
               ),
               BlocProvider(
@@ -84,6 +86,16 @@ class AppRoutes {
             child: const CreatePublicationView(),
           ),
         );
+
+      case Routes.publicationByIdScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider<PublicationCubit>.value(
+                  value: args['cubit'] as PublicationCubit,
+                  child: PublicationByIdView(
+                      publicationId: args['publicationId'] as String),
+                ));
+
       default:
         return null;
     }

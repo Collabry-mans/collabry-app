@@ -1,7 +1,6 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/features/home_page/data/model/publication_model.dart';
-import 'package:dio/dio.dart';
 
 abstract class PublicationRepoBase {
   Future<void> createPublication(
@@ -65,17 +64,17 @@ class PublicationRepo implements PublicationRepoBase {
 
   @override
   Future<Publication> getPublicationById(String publicationId) async {
-    final Response response =
+    final Map<String, dynamic> response =
         await dio.get('${EndPoints.publicationById}$publicationId');
-    final publication = Publication.fromJsonById(response.data);
+    final publication = Publication.fromJsonById(response);
     return publication;
   }
 
   @override
   Future<Publication> getUserPublicationById(String userPublicationId) async {
-    final Response response =
+    final Map<String, dynamic> response =
         await dio.get('${EndPoints.userPublicationById}$userPublicationId');
-    final userPublication = Publication.fromJsonById(response.data);
+    final userPublication = Publication.fromJsonById(response);
     return userPublication;
   }
 

@@ -18,14 +18,14 @@ void main() async {
   await isLoggedInChecker();
 
   runApp(
-    DevicePreview(
-      enabled: true,
-      tools: const [
-        ...DevicePreview.defaultTools,
-      ],
-      builder: (context) => const Collabry(),
-    ),
-  );
+      // DevicePreview(
+      //   enabled: true,
+      //   tools: const [
+      //     ...DevicePreview.defaultTools,
+      //   ],
+      //   builder: (context) => const Collabry(),
+      // ),
+      const Collabry());
 }
 
 Future<void> isLoggedInChecker() async {

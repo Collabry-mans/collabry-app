@@ -72,7 +72,7 @@ class Publication {
       keywords: json[ApiKeys.keywords],
       language: json[ApiKeys.language],
       visibility: json[ApiKeys.visibility],
-      status: json[ApiKeys.statusCode],
+      status: json[ApiKeys.status],
       sections: (json[ApiKeys.sections] as List<dynamic>)
           .map((section) => Section.fromJson(section))
           .toList(),

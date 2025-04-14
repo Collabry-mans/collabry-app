@@ -20,6 +20,10 @@ class EndPoints {
   static const String publicationById = 'publications/';
   static const String userPublications = 'publications/user';
   static const String userPublicationById = 'publications/publication/';
+
+  //* user Profile
+  static const String userProfile = 'profiles/profile';
+  static const String userProfileAvatar = 'profiles/profile/avatar';
 }
 
 class ApiKeys {
@@ -30,6 +34,13 @@ class ApiKeys {
   static const String accessToken = 'accessToken';
   static const String refreshToken = 'refreshToken';
   static const String otp = 'otp';
+  //* User profile
+  static const String profile = 'profile';
+  static const String bio = 'bio';
+  static const String linkedin = 'linkedin';
+  static const String expertise = 'expertise';
+  static const String languages = 'languages';
+  static const String avatar = 'avatar';
   //* errors
   static const String message = 'message';
   static const String error = 'error';
@@ -39,7 +50,6 @@ class ApiKeys {
   static const String description = 'description';
   static const String parentId = 'parentId';
   static const String categoryId = 'categoryId';
-
   //* Publication
   static const String title = 'title';
   static const String keywords = 'keywords';

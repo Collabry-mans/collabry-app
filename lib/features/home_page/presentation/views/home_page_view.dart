@@ -18,70 +18,78 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
   String? selectedCategoryId;
+  final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     super.initState();
-    context.read<CategoryCubit>().getAllCategories();
-    _loadPublications();
+    _initializeData();
   }
 
-  void _loadPublications() {
+  Future<void> _initializeData() async {
+    await context.read<CategoryCubit>().getAllCategories();
+    await _loadPublications();
+  }
+
+  Future<void> _loadPublications() async {
     if (selectedCategoryId != null) {
-      context
+      await context
           .read<PublicationCubit>()
           .getPublicationsByCategory(selectedCategoryId!);
     } else {
-      context.read<PublicationCubit>().getAllPublications();
+      await context.read<PublicationCubit>().getAllPublications();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        const CustomSearch(),
-        const ViewHeader(title: AppStrings.topics),
-        SliverToBoxAdapter(
-          child: BlocBuilder<CategoryCubit, CategoryState>(
+    return RefreshIndicator(
+      key: _refreshIndicatorKey,
+      onRefresh: _loadPublications,
+      child: CustomScrollView(
+        slivers: [
+          const CustomSearch(),
+          const ViewHeader(title: AppStrings.topics),
+          SliverToBoxAdapter(
+            child: BlocBuilder<CategoryCubit, CategoryState>(
+              builder: (context, state) {
+                return state is CategoriesLoadedState
+                    ? CategorySection(
+                        categories: state.categoriesList,
+                        onCategorySelected: (categoryId) async {
+                          setState(() {
+                            selectedCategoryId =
+                                selectedCategoryId == categoryId
+                                    ? null
+                                    : categoryId;
+                          });
+                          await _loadPublications();
+                        },
+                      )
+                    : const Center(child: CircularProgressIndicator());
+              },
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 5)),
+          BlocBuilder<PublicationCubit, PublicationState>(
             builder: (context, state) {
-              return state is CategoriesLoadedState
-                  ? CategorySection(
-                      categories: state.categoriesList,
-                      onCategorySelected: (categoryId) {
-                        setState(() {
-                          selectedCategoryId == categoryId
-                              ? null
-                              : {
-                                  selectedCategoryId = categoryId,
-                                  _loadPublications(),
-                                };
-                        });
-                      },
-                    )
-                  : const Center(child: CircularProgressIndicator());
+              if (state is PublicationLoadedState) {
+                return SliverList.builder(
+                  itemBuilder: (context, index) {
+                    final reversedIndex = state.publications.length - 1 - index;
+                    final publication = state.publications[reversedIndex];
+                    return PostTile(publication: publication);
+                  },
+                  itemCount: state.publications.length,
+                );
+              }
+              return const SliverToBoxAdapter(
+                child: Center(child: CircularProgressIndicator()),
+              );
             },
           ),
-        ),
-        const SliverToBoxAdapter(child: SizedBox(height: 5)),
-        BlocBuilder<PublicationCubit, PublicationState>(
-          builder: (context, state) {
-            if (state is PublicationLoadedState) {
-              return SliverList.builder(
-                itemBuilder: (context, index) {
-                  final reversedIndex = state.publications.length - 1 - index;
-                  final publication = state.publications[reversedIndex];
-                  return PostTile(publication: publication);
-                },
-                itemCount: state.publications.length,
-              );
-            }
-            return const SliverToBoxAdapter(
-              child: Center(child: CircularProgressIndicator()),
-            );
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:collabry/core/cubit/category/category_cubit.dart';
 import 'package:collabry/core/cubit/publication/publication_cubit.dart';
+import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/features/ai_chat_bot/presentation/views/chat_bot_view.dart';
@@ -21,6 +22,17 @@ class MainPageView extends StatefulWidget {
 class _MainPageViewState extends State<MainPageView> {
   PageController mainPageController = PageController();
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    final userProfileState = context.read<UserProfileCubit>().state;
+
+    // If we don't have profile data yet, fetch it
+    if (userProfileState is! UserProfileLoadedState) {
+      context.read<UserProfileCubit>().getUserProfile();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

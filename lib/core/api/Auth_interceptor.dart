@@ -29,7 +29,9 @@ class AuthInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    if ((err.response?.statusCode == 401 || err.response?.statusCode == 500) &&
+    if ((err.response?.statusCode == 401 ||
+            err.response?.statusCode == 500 ||
+            err.response?.statusCode == 400) &&
         !_isRefreshing) {
       final originalRequest = err.requestOptions;
       _isRefreshing = true;
@@ -52,6 +54,7 @@ class AuthInterceptor extends Interceptor {
         }
       } catch (e) {
         _isRefreshing = false;
+        await secureStorage.deleteAll();
       }
     }
 
@@ -65,11 +68,9 @@ class RefreshTokenRepository {
   RefreshTokenRepository(this.dio);
 
   Future<RefreshTokenModel> refreshToken(String refreshToken) async {
-    final response = await dio.post(
+    final Response response = await dio.post(
       EndPoints.refreshToken,
-      data: {
-        ApiKeys.refreshToken: refreshToken,
-      },
+      data: {ApiKeys.refreshToken: refreshToken},
     );
 
     final newTokens = RefreshTokenModel.fromJson(response.data);

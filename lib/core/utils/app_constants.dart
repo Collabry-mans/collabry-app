@@ -19,6 +19,7 @@ class Routes {
   //*main app screen
   static const String mainPageScreen = '/mainPageScreen';
   static const String createPublicationScreen = '/createPublicationScreen';
+  static const String publicationByIdScreen = '/publicationByIdScreen';
 }
 
 //* Boxes Stuff

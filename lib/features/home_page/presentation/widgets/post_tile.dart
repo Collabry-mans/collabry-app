@@ -1,14 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collabry/core/cubit/publication/publication_cubit.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_constants.dart';
+import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/home_page/data/model/publication_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostTile extends StatelessWidget {
-  const PostTile({super.key, required this.publication});
+  const PostTile(
+      {super.key, required this.publication, this.isDetailed = false});
   final Publication publication;
+  final bool isDetailed;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class PostTile extends StatelessWidget {
       children: [
         _publicationHeader(),
         _publicationContributers(),
-        _publicationContent(),
+        _publicationContent(context),
         const SizedBox(height: 10),
         _publicationReach(),
         SizedBox(
@@ -54,13 +60,13 @@ class PostTile extends StatelessWidget {
 
   Widget _publicationInfo() {
     return ListTile(
-      leading: Image.asset(Assets.imagesProfileAvatar),
+      leading: _profileImage(publication.authorAvatar ?? ''),
       title: Text(publication.authorName,
           style: AppTextStyles.belanosimaSize16Purple),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(publication.categoryName,
+          Text(isDetailed ? publication.authorEmail! : publication.categoryName,
               style: AppTextStyles.belanosimaSize14Grey),
           _publicationCreatedDate(),
         ],
@@ -68,10 +74,31 @@ class PostTile extends StatelessWidget {
     );
   }
 
+  CircleAvatar _profileImage(String image) {
+    return CircleAvatar(
+      radius: 28,
+      backgroundColor: AppColors.txtColor,
+      child: ClipOval(
+        child: CachedNetworkImage(
+          imageUrl: image,
+          width: 56,
+          height: 56,
+          fit: BoxFit.cover,
+          errorWidget: (context, url, error) => Image.asset(
+            Assets.imagesProfileAvatar,
+            width: 56,
+            height: 56,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _publicationCreatedDate() {
     return Row(
       children: [
-        Text('${publication.createdAt} . ',
+        Text('${publication.createdAt.split('T').first} . ',
             style: AppTextStyles.belanosimaSize14Grey),
         const Icon(
           Icons.public_outlined,
@@ -82,29 +109,45 @@ class PostTile extends StatelessWidget {
     );
   }
 
-  Widget _publicationContent() {
+  Widget _publicationContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           publication.title,
-          style:
-              AppTextStyles.belanosimaSize14Grey.copyWith(color: Colors.black),
+          style: isDetailed
+              ? AppTextStyles.belanosimaSize24W600Purple
+                  .copyWith(color: AppColors.blackColor)
+              : AppTextStyles.belanosimaSize14Grey
+                  .copyWith(color: AppColors.blackColor),
         ),
         Wrap(
           children: [
             Text(
-              maxLines: 4,
-              overflow: TextOverflow.ellipsis,
+              maxLines: isDetailed ? null : 2,
+              overflow: isDetailed ? null : TextOverflow.ellipsis,
               publication.description,
               style: AppTextStyles.barlowSize14W600Grey,
             ),
-            GestureDetector(
-              child: const Text(
-                'see more',
-                style: AppTextStyles.belanosimaSize16Purple,
-              ),
-            )
+            const SizedBox(width: 5),
+            isDetailed
+                ? Container()
+                : GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.publicationByIdScreen,
+                        arguments: {
+                          'cubit': context.read<PublicationCubit>(),
+                          'publicationId': publication.publicationId,
+                        },
+                      );
+                    },
+                    child: const Text(
+                      'see more',
+                      style: AppTextStyles.belanosimaSize16Purple,
+                    ),
+                  )
           ],
         ),
       ],
@@ -115,7 +158,7 @@ class PostTile extends StatelessWidget {
     return Row(
       children: [
         Text(
-          'Contributors: ',
+          AppStrings.contributors,
           style: AppTextStyles.belanosimaSize14Grey
               .copyWith(color: AppColors.headerColor),
         ),
@@ -137,10 +180,7 @@ class PostTile extends StatelessWidget {
                 child: CachedNetworkImage(
                   height: 20,
                   imageUrl: collaborator.user.profileImageUrl,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(
-                          value: downloadProgress.progress),
-                  errorWidget: (context, url, error) =>
+                  errorWidget: (_, __, ___) =>
                       Image.asset(Assets.imagesProfileAvatar),
                 ),
               ),
@@ -187,14 +227,15 @@ class PostTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _publicationOption(
-            icon: const Icon(FontAwesomeIcons.heart), text: 'Like'),
+            icon: const Icon(FontAwesomeIcons.heart), text: AppStrings.like),
         _publicationOption(
-            icon: const Icon(FontAwesomeIcons.comment), text: 'Comment'),
+            icon: const Icon(FontAwesomeIcons.comment),
+            text: AppStrings.comment),
         _publicationOption(
             icon: const Icon(FontAwesomeIcons.peopleGroup),
-            text: 'Collaborators'),
+            text: AppStrings.collaboration),
         _publicationOption(
-            icon: const Icon(FontAwesomeIcons.share), text: 'Send'),
+            icon: const Icon(FontAwesomeIcons.share), text: AppStrings.search),
       ],
     );
   }

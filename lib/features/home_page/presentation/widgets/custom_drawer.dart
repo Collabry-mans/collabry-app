@@ -1,3 +1,4 @@
+import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
@@ -6,6 +7,7 @@ import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -15,12 +17,14 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  final String userName = userBox?.get(kUserName) ?? 'UNKNOWN';
-
-  final String userEmail = userBox?.get(kUserEmail) ?? 'UNDEFINED';
-
+  final String userName = userBox?.get(kUserName) ?? 'Unknown';
+  final String userEmail = userBox?.get(kUserEmail) ?? 'ddsdddd';
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<UserProfileCubit>();
+    if (cubit.state is! UserProfileAvatarLoadedState) {
+      context.read<UserProfileCubit>().getUserProfile();
+    }
     return Drawer(
       backgroundColor: AppColors.whiteColor,
       child: Column(

@@ -70,4 +70,9 @@ class AppStrings {
   static const String unFollow = 'Unfollow';
   static const String userIsRegisteredSuccessfully =
       'user is registered, successfully';
+  static const String contributors = 'Contributors: ';
+  static const String like = 'Like';
+  static const String collaboration = 'Collaboration';
+  static const String send = 'Send';
+  static const String comment = 'Comment';
 }
