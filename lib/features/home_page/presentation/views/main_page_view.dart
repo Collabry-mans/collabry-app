@@ -27,7 +27,6 @@ class _MainPageViewState extends State<MainPageView> {
   void initState() {
     final userProfileState = context.read<UserProfileCubit>().state;
 
-    // If we don't have profile data yet, fetch it
     if (userProfileState is! UserProfileLoadedState) {
       context.read<UserProfileCubit>().getUserProfile();
     }

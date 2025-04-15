@@ -5,17 +5,23 @@ import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/core/widgets/profile_image.dart';
 import 'package:collabry/features/home_page/data/model/publication_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class PostTile extends StatelessWidget {
+class PostTile extends StatefulWidget {
   const PostTile(
       {super.key, required this.publication, this.isDetailed = false});
   final Publication publication;
   final bool isDetailed;
 
+  @override
+  State<PostTile> createState() => _PostTileState();
+}
+
+class _PostTileState extends State<PostTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +36,7 @@ class PostTile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _publicationHeader(),
+        _publicationHeader(context),
         _publicationContributers(),
         _publicationContent(context),
         const SizedBox(height: 10),
@@ -45,28 +51,30 @@ class PostTile extends StatelessWidget {
     );
   }
 
-  Widget _publicationHeader() {
+  Widget _publicationHeader(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: _publicationInfo(),
-        ),
+        Expanded(child: _publicationInfo(context)),
         const Icon(Icons.more_horiz_outlined)
       ],
     );
   }
 
-  Widget _publicationInfo() {
+//* publicationInfo
+  Widget _publicationInfo(BuildContext context) {
     return ListTile(
-      leading: _profileImage(publication.authorAvatar ?? ''),
-      title: Text(publication.authorName,
+      leading: ProfileImage(image: widget.publication.authorAvatar ?? ''),
+      title: Text(widget.publication.authorName,
           style: AppTextStyles.belanosimaSize16Purple),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(isDetailed ? publication.authorEmail! : publication.categoryName,
+          Text(
+              widget.isDetailed
+                  ? widget.publication.authorEmail!
+                  : widget.publication.categoryName,
               style: AppTextStyles.belanosimaSize14Grey),
           _publicationCreatedDate(),
         ],
@@ -74,82 +82,16 @@ class PostTile extends StatelessWidget {
     );
   }
 
-  CircleAvatar _profileImage(String image) {
-    return CircleAvatar(
-      radius: 28,
-      backgroundColor: AppColors.txtColor,
-      child: ClipOval(
-        child: CachedNetworkImage(
-          imageUrl: image,
-          width: 56,
-          height: 56,
-          fit: BoxFit.cover,
-          errorWidget: (context, url, error) => Image.asset(
-            Assets.imagesProfileAvatar,
-            width: 56,
-            height: 56,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _publicationCreatedDate() {
     return Row(
       children: [
-        Text('${publication.createdAt.split('T').first} . ',
+        Text('${widget.publication.createdAt.split('T').first} . ',
             style: AppTextStyles.belanosimaSize14Grey),
         const Icon(
           Icons.public_outlined,
           size: 16,
           color: AppColors.txtColor,
         )
-      ],
-    );
-  }
-
-  Widget _publicationContent(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          publication.title,
-          style: isDetailed
-              ? AppTextStyles.belanosimaSize24W600Purple
-                  .copyWith(color: AppColors.blackColor)
-              : AppTextStyles.belanosimaSize14Grey
-                  .copyWith(color: AppColors.blackColor),
-        ),
-        Wrap(
-          children: [
-            Text(
-              maxLines: isDetailed ? null : 2,
-              overflow: isDetailed ? null : TextOverflow.ellipsis,
-              publication.description,
-              style: AppTextStyles.barlowSize14W600Grey,
-            ),
-            const SizedBox(width: 5),
-            isDetailed
-                ? Container()
-                : GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.publicationByIdScreen,
-                        arguments: {
-                          'cubit': context.read<PublicationCubit>(),
-                          'publicationId': publication.publicationId,
-                        },
-                      );
-                    },
-                    child: const Text(
-                      'see more',
-                      style: AppTextStyles.belanosimaSize16Purple,
-                    ),
-                  )
-          ],
-        ),
       ],
     );
   }
@@ -168,29 +110,81 @@ class PostTile extends StatelessWidget {
   }
 
   Widget _contributers() {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: (publication.collaborators
-          .asMap()
-          .map(
-            (index, collaborator) => MapEntry(
-              index,
-              Positioned(
-                left: index * 5,
-                child: CachedNetworkImage(
-                  height: 20,
-                  imageUrl: collaborator.user.profileImageUrl,
-                  errorWidget: (_, __, ___) =>
-                      Image.asset(Assets.imagesProfileAvatar),
-                ),
-              ),
-            ),
+    return widget.publication.collaborators.isEmpty
+        ? const Text(
+            ' No contributors yet ',
+            style: AppTextStyles.belanosimaSize14Grey,
           )
-          .values
-          .toList()),
+        : Stack(
+            clipBehavior: Clip.none,
+            children: (widget.publication.collaborators
+                .asMap()
+                .map(
+                  (index, collaborator) => MapEntry(
+                    index,
+                    Positioned(
+                      left: index * 5,
+                      child: CachedNetworkImage(
+                        height: 20,
+                        imageUrl: collaborator.user.profileImageUrl,
+                        errorWidget: (_, __, ___) =>
+                            Image.asset(Assets.imagesProfileAvatar),
+                      ),
+                    ),
+                  ),
+                )
+                .values
+                .toList()),
+          );
+  }
+
+  //* content
+  Widget _publicationContent(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.publication.title,
+          style: widget.isDetailed
+              ? AppTextStyles.belanosimaSize24W600Purple
+                  .copyWith(color: AppColors.blackColor)
+              : AppTextStyles.belanosimaSize14Grey
+                  .copyWith(color: AppColors.blackColor),
+        ),
+        Wrap(
+          children: [
+            Text(
+              maxLines: widget.isDetailed ? null : 2,
+              overflow: widget.isDetailed ? null : TextOverflow.ellipsis,
+              widget.publication.description,
+              style: AppTextStyles.barlowSize14W600Grey,
+            ),
+            const SizedBox(width: 5),
+            widget.isDetailed
+                ? Container()
+                : GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.publicationByIdScreen,
+                        arguments: {
+                          'cubit': context.read<PublicationCubit>(),
+                          'publicationId': widget.publication.publicationId,
+                        },
+                      );
+                    },
+                    child: const Text(
+                      'see more',
+                      style: AppTextStyles.belanosimaSize16Purple,
+                    ),
+                  )
+          ],
+        ),
+      ],
     );
   }
 
+//*
   BoxDecoration _publicationDecoration() {
     return BoxDecoration(
       color: AppColors.whiteColor,
@@ -227,7 +221,11 @@ class PostTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _publicationOption(
-            icon: const Icon(FontAwesomeIcons.heart), text: AppStrings.like),
+            icon: Icon(FontAwesomeIcons.heart,
+                color: widget.publication.isLiked ? Colors.red : Colors.grey),
+            text: AppStrings.like,
+            onTap: () => setState(() =>
+                widget.publication.isLiked = !widget.publication.isLiked)),
         _publicationOption(
             icon: const Icon(FontAwesomeIcons.comment),
             text: AppStrings.comment),
@@ -240,10 +238,11 @@ class PostTile extends StatelessWidget {
     );
   }
 
-  Widget _publicationOption({required Widget icon, required String text}) {
+  Widget _publicationOption(
+      {required Icon icon, required String text, void Function()? onTap}) {
     return Column(
       children: [
-        icon,
+        IconButton(onPressed: onTap, icon: icon),
         Text(text,
             style: AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 10))
       ],

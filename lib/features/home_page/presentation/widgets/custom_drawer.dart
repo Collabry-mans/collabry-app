@@ -1,10 +1,10 @@
 import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
-import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/core/widgets/profile_image.dart';
 import 'package:collabry/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,8 +17,9 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  final String userName = userBox?.get(kUserName) ?? 'Unknown';
-  final String userEmail = userBox?.get(kUserEmail) ?? 'ddsdddd';
+  final String userName = userBox?.get(kUserName) ?? '';
+  final String userEmail = userBox?.get(kUserEmail) ?? '';
+  final String userAvatar = userBox?.get(kUserAvatar) ?? '';
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<UserProfileCubit>();
@@ -31,7 +32,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            leading: Image.asset(Assets.imagesProfileAvatar),
+            leading: ProfileImage(image: userAvatar),
             title: Text(
               userName,
               style: AppTextStyles.belanosimaSize14Grey
@@ -44,7 +45,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
           _buildMenuItem(
             icon: Icons.account_circle_outlined,
             title: AppStrings.viewProfile,
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, Routes.userProfileScreen);
+            },
           ),
 
           _buildMenuItem(

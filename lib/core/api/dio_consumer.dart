@@ -4,7 +4,14 @@ import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:dio/dio.dart';
 
 class DioConsumer {
-  final Dio dio = Dio();
+  final Dio dio = Dio(
+    BaseOptions(
+      contentType: 'application/json',
+      headers: {
+        'Accept': 'application/json',
+      },
+    ),
+  );
 
   DioConsumer() {
     dio.options.baseUrl = EndPoints.baseUrl;

@@ -1,8 +1,9 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/utils/app_constants.dart';
-import 'package:collabry/features/home_page/data/model/user_profile_model.dart';
+import 'package:collabry/features/profile/data/model/user_profile_model.dart';
 import 'package:collabry/main.dart';
+import 'package:dio/dio.dart';
 
 abstract class UserProfileRepositoryBase {
   Future<UserProfile> getUserProfile();
@@ -32,12 +33,7 @@ class UserProfileRepo extends UserProfileRepositoryBase {
   Future<void> saveUserProfile(UserProfile userProfile) async {
     await userBox!.put(kUserName, userProfile.name);
     await userBox!.put(kUserEmail, userProfile.email);
-  }
-
-  @override
-  Future<void> updateUserProfileImage(String profileImage) async {
-    await dio.patch(EndPoints.userProfileAvatar,
-        data: {ApiKeys.avatar: profileImage});
+    await userBox!.put(kUserAvatar, userProfile.profile.profileImage);
   }
 
   @override
@@ -54,5 +50,17 @@ class UserProfileRepo extends UserProfileRepositoryBase {
       ApiKeys.expertise: expertise,
       ApiKeys.languages: languages,
     });
+  }
+
+  @override
+  Future<void> updateUserProfileImage(String profileImage) async {
+    await dio.patch(
+      EndPoints.userProfileAvatar,
+      data: {
+        ApiKeys.avatar: await MultipartFile.fromFile(profileImage,
+            filename: profileImage.split('/').last),
+      },
+      isFormData: true,
+    );
   }
 }

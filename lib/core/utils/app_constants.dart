@@ -20,6 +20,7 @@ class Routes {
   static const String mainPageScreen = '/mainPageScreen';
   static const String createPublicationScreen = '/createPublicationScreen';
   static const String publicationByIdScreen = '/publicationByIdScreen';
+  static const String userProfileScreen = '/userProfileScreen';
 }
 
 //* Boxes Stuff
@@ -31,6 +32,7 @@ const String refreshTokenKey = 'refreshTokenKey';
 const String userBoxName = 'userBox';
 const String kUserName = 'userName';
 const String kUserEmail = 'userEmail';
+const String kUserAvatar = 'userAvatar';
 
 //* Fonts
 const String fontABeeZee = 'ABeeZee_button';

@@ -13,6 +13,7 @@ import 'package:collabry/features/home_page/presentation/views/create_publicatio
 import 'package:collabry/features/home_page/presentation/views/main_page_view.dart';
 import 'package:collabry/features/home_page/presentation/views/publication_by_id_view.dart';
 import 'package:collabry/features/on_boarding/presentation/view/on_boarding_screen.dart';
+import 'package:collabry/features/profile/presentation/views/user_profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,41 +22,40 @@ class AppRoutes {
     switch (settings.name) {
       //* OnBoardings
       case Routes.onBoardingScreen:
-        return MaterialPageRoute(
-            builder: (context) => const OnBoardingScreen());
+        return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
 
       //* authentication
       case Routes.logInScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider<AuthCubit>(
-            create: (context) => getIt<AuthCubit>(),
+          builder: (_) => BlocProvider<AuthCubit>(
+            create: (_) => getIt<AuthCubit>(),
             child: const LogInView(),
           ),
         );
       case Routes.forgotPasswordScreen:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider<AuthCubit>(
-                  create: (context) => getIt<AuthCubit>(),
+            builder: (_) => BlocProvider<AuthCubit>(
+                  create: (_) => getIt<AuthCubit>(),
                   child: const ForgotPasswordView(),
                 ));
       case Routes.forgotPasswordVerificationScreen:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider<AuthCubit>(
-                  create: (context) => getIt<AuthCubit>(),
+            builder: (_) => BlocProvider<AuthCubit>(
+                  create: (_) => getIt<AuthCubit>(),
                   child: const ForgotPasswordVerificationView(),
                 ));
       case Routes.resetPasswordScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider<AuthCubit>(
-            create: (context) => getIt<AuthCubit>(),
+          builder: (_) => BlocProvider<AuthCubit>(
+            create: (_) => getIt<AuthCubit>(),
             child: const ResetPasswordView(),
           ),
         );
 
       case Routes.signUpScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider<AuthCubit>(
-            create: (context) => getIt<AuthCubit>(),
+          builder: (_) => BlocProvider<AuthCubit>(
+            create: (_) => getIt<AuthCubit>(),
             child: const SignUpView(),
           ),
         );
@@ -63,24 +63,24 @@ class AppRoutes {
         final authCubit = settings.arguments as AuthCubit;
 
         return MaterialPageRoute(
-          builder: (context) => BlocProvider.value(
+          builder: (_) => BlocProvider.value(
             value: authCubit,
             child: const SignUpVerificationView(),
           ),
         );
       //* App Screens
       case Routes.mainPageScreen:
-        return MaterialPageRoute(builder: (context) => const MainPageView());
+        return MaterialPageRoute(builder: (_) => const MainPageView());
 
       case Routes.createPublicationScreen:
         return MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
+          builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) => getIt<PublicationCubit>(),
+                create: (_) => getIt<PublicationCubit>(),
               ),
               BlocProvider(
-                create: (context) => getIt<CategoryCubit>(),
+                create: (_) => getIt<CategoryCubit>(),
               ),
             ],
             child: const CreatePublicationView(),
@@ -90,12 +90,18 @@ class AppRoutes {
       case Routes.publicationByIdScreen:
         final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (context) => BlocProvider<PublicationCubit>.value(
+            builder: (_) => BlocProvider<PublicationCubit>.value(
                   value: args['cubit'] as PublicationCubit,
                   child: PublicationByIdView(
                       publicationId: args['publicationId'] as String),
                 ));
 
+      case Routes.userProfileScreen:
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => getIt<PublicationCubit>(),
+                  child: const UserProfileView(),
+                ));
       default:
         return null;
     }

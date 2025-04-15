@@ -17,6 +17,8 @@ final class UserProfileFailedState extends UserProfileInitial {
 
 final class UserProfileEditLoadedState extends UserProfileInitial {}
 
+final class UserProfileEditLoadingState extends UserProfileInitial {}
+
 final class UserProfileEditFailedState extends UserProfileInitial {
   final String errMsg;
 

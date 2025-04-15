@@ -20,18 +20,14 @@ class Collabry extends StatelessWidget {
         }
         return cubit;
       },
-      child: BlocBuilder<UserProfileCubit, UserProfileState>(
-        builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            onGenerateRoute: appRoutes.getAppRoutes,
-            initialRoute: isFirstTime
-                ? Routes.onBoardingScreen
-                : isLoggedIn
-                    ? Routes.mainPageScreen
-                    : Routes.logInScreen,
-          );
-        },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: appRoutes.getAppRoutes,
+        initialRoute: isFirstTime
+            ? Routes.onBoardingScreen
+            : isLoggedIn
+                ? Routes.mainPageScreen
+                : Routes.logInScreen,
       ),
     );
   }

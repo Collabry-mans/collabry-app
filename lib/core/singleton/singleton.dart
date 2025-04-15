@@ -7,7 +7,7 @@ import 'package:collabry/core/database/secure_storage.dart';
 import 'package:collabry/features/authentication/data/repository/auth_repository.dart';
 import 'package:collabry/features/home_page/data/repository/category_repository.dart';
 import 'package:collabry/features/home_page/data/repository/publication_repository.dart';
-import 'package:collabry/features/home_page/data/repository/user_profile_repository.dart';
+import 'package:collabry/features/profile/data/repository/user_profile_repository.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.I;
