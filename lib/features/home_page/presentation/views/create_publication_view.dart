@@ -189,8 +189,12 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
           if (state is PublicationCreationLoadedState) {
             FlushBarUtils.flushBarSuccess(
                 'Publication is created successfully', context);
-            Future.delayed(const Duration(seconds: 3));
-            Navigator.pop(context);
+            Future.delayed(const Duration(seconds: 3), () {
+              // Make sure the context is still valid before popping
+              if (mounted) {
+                Navigator.pop(context);
+              }
+            });
           } else if (state is PublicationCreationFailedState) {
             FlushBarUtils.flushBarError(state.errMsg, context);
           }

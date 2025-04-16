@@ -86,21 +86,8 @@ class _PostTileState extends State<PostTile> {
 
   Future<void> _changePublicationStatus(
       BuildContext context, String newStatus) async {
-    try {
-      await BlocProvider.of<PublicationCubit>(context)
-          .changePublicationStatus(widget.publication.publicationId, newStatus);
-
-      // If you need to refresh the publication list after status change
-      if (widget.isForUser) {
-        BlocProvider.of<PublicationCubit>(context).getAllUserPublications();
-      } else {
-        BlocProvider.of<PublicationCubit>(context).getAllPublications();
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to change status: ${e.toString()}')),
-      );
-    }
+    await BlocProvider.of<PublicationCubit>(context)
+        .changePublicationStatus(widget.publication.publicationId, newStatus);
   }
 
 //* publicationInfo
@@ -247,11 +234,11 @@ class _PostTileState extends State<PostTile> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '132 likes . 65 comments',
+          '2 likes . 0 comments',
           style: AppTextStyles.belanosimaSize14Grey,
         ),
         Text(
-          '35 Shares',
+          '0 Shares',
           style: AppTextStyles.belanosimaSize14Grey,
         )
       ],
@@ -263,8 +250,9 @@ class _PostTileState extends State<PostTile> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _publicationOption(
-            icon: Icon(FontAwesomeIcons.heart,
-                color: widget.publication.isLiked ? Colors.red : Colors.grey),
+            icon: widget.publication.isLiked
+                ? const Icon(Icons.favorite_outlined, color: Colors.red)
+                : const Icon(Icons.favorite_outline, color: Colors.grey),
             text: AppStrings.like,
             onTap: () => setState(() =>
                 widget.publication.isLiked = !widget.publication.isLiked)),
