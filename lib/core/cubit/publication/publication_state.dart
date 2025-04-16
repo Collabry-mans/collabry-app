@@ -43,3 +43,11 @@ final class PublicationByIdFailedState extends PublicationState {
   final String errMsg;
   PublicationByIdFailedState({required this.errMsg});
 }
+
+//* user publication change status
+final class UserPublicationStateFailed extends PublicationState {
+  final String errMsg;
+  UserPublicationStateFailed({required this.errMsg});
+}
+
+final class UserPublicationStateSuccess extends PublicationState {}

@@ -13,9 +13,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PostTile extends StatefulWidget {
   const PostTile(
-      {super.key, required this.publication, this.isDetailed = false});
+      {super.key,
+      required this.publication,
+      this.isDetailed = false,
+      this.isForUser = false});
   final Publication publication;
   final bool isDetailed;
+  final bool isForUser;
 
   @override
   State<PostTile> createState() => _PostTileState();
@@ -57,9 +61,46 @@ class _PostTileState extends State<PostTile> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(child: _publicationInfo(context)),
-        const Icon(Icons.more_horiz_outlined)
+        if (widget.isForUser) // Only show for user's publications
+          _statusDropdownMenu(context)
+        else
+          const Icon(Icons.more_horiz_outlined),
       ],
     );
+  }
+
+  Widget _statusDropdownMenu(BuildContext context) {
+    return PopupMenuButton<String>(
+      icon: const Icon(Icons.more_vert),
+      onSelected: (String newStatus) {
+        _changePublicationStatus(context, newStatus);
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+        const PopupMenuItem<String>(
+          value: 'PUBLISHED',
+          child: Text('Publish'),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _changePublicationStatus(
+      BuildContext context, String newStatus) async {
+    try {
+      await BlocProvider.of<PublicationCubit>(context)
+          .changePublicationStatus(widget.publication.publicationId, newStatus);
+
+      // If you need to refresh the publication list after status change
+      if (widget.isForUser) {
+        BlocProvider.of<PublicationCubit>(context).getAllUserPublications();
+      } else {
+        BlocProvider.of<PublicationCubit>(context).getAllPublications();
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to change status: ${e.toString()}')),
+      );
+    }
   }
 
 //* publicationInfo
@@ -159,7 +200,7 @@ class _PostTileState extends State<PostTile> {
               widget.publication.description,
               style: AppTextStyles.barlowSize14W600Grey,
             ),
-            const SizedBox(width: 5),
+            const SizedBox(width: 1),
             widget.isDetailed
                 ? Container()
                 : GestureDetector(
@@ -170,6 +211,7 @@ class _PostTileState extends State<PostTile> {
                         arguments: {
                           'cubit': context.read<PublicationCubit>(),
                           'publicationId': widget.publication.publicationId,
+                          'isUserSpecific': widget.isForUser,
                         },
                       );
                     },

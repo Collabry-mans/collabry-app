@@ -20,6 +20,7 @@ class EndPoints {
   static const String publicationById = 'publications/';
   static const String userPublications = 'publications/user';
   static const String userPublicationById = 'publications/publication/';
+  static const String userPublicationStatus = 'publications/author/status/';
 
   //* user Profile
   static const String userProfile = 'profiles/profile';

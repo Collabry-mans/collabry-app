@@ -89,12 +89,19 @@ class AppRoutes {
 
       case Routes.publicationByIdScreen:
         final args = settings.arguments as Map<String, dynamic>;
+        final isUserSpecific =
+            args['isUserSpecific'] as bool? ?? false; // Default to false
+
         return MaterialPageRoute(
-            builder: (_) => BlocProvider<PublicationCubit>.value(
-                  value: args['cubit'] as PublicationCubit,
-                  child: PublicationByIdView(
-                      publicationId: args['publicationId'] as String),
-                ));
+          builder: (_) => BlocProvider<PublicationCubit>.value(
+            value: args['cubit'] as PublicationCubit,
+            child: isUserSpecific
+                ? PublicationByIdView.userSpecific(
+                    publicationId: args['publicationId'] as String)
+                : PublicationByIdView.standard(
+                    publicationId: args['publicationId'] as String),
+          ),
+        );
 
       case Routes.userProfileScreen:
         return MaterialPageRoute(

@@ -13,10 +13,10 @@ class PublicationDetails extends StatefulWidget {
 class _PublicationDetailsState extends State<PublicationDetails> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        PostTile(publication: widget.publication, isDetailed: true),
-      ],
-    );
+    return CustomScrollView(slivers: [
+      SliverToBoxAdapter(
+          child: PostTile(publication: widget.publication, isDetailed: true)),
+      const SliverToBoxAdapter(child: SizedBox(height: 20))
+    ]);
   }
 }

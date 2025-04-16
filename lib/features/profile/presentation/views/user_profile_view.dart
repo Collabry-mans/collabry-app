@@ -144,113 +144,119 @@ class _UserProfileViewState extends State<UserProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.homeBgColor,
-      body: BlocConsumer<UserProfileCubit, UserProfileState>(
-        listener: _handleListenerStates,
-        builder: (context, state) {
-          if (state is UserProfileLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return RefreshIndicator(
+      onRefresh: _loadUserPublication,
+      child: Scaffold(
+        backgroundColor: AppColors.homeBgColor,
+        body: BlocConsumer<UserProfileCubit, UserProfileState>(
+          listener: _handleListenerStates,
+          builder: (context, state) {
+            if (state is UserProfileLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          return Padding(
-            padding: const EdgeInsets.all(10),
-            child: CustomScrollView(slivers: [
-              _profileAppBar(context),
-              SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Profile Image with edit option
-                    Center(child: _userProfileImage()),
-                    const SizedBox(height: 20),
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomScrollView(slivers: [
+                _profileAppBar(context),
+                SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Profile Image with edit option
+                      Center(child: _userProfileImage()),
+                      const SizedBox(height: 20),
 
-                    // Name Field
-                    _buildEditableField(
-                      label: 'Name',
-                      controller: nameController,
-                      isEditing: isEditing,
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Bio Field
-                    _buildEditableField(
-                      label: 'Bio',
-                      controller: bioController,
-                      isEditing: isEditing,
-                      maxLines: 3,
-                    ),
-                    const SizedBox(height: 16),
-
-                    // LinkedIn Field
-                    _buildEditableField(
-                      label: 'LinkedIn',
-                      controller: linkedInController,
-                      isEditing: isEditing,
-                      prefixText: 'linkedin.com/in/',
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Email (read-only)
-                    TextField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 16),
-                        hintText: userCubit.user!.email,
-                        enabled: false,
-                        hintStyle: AppTextStyles.belanosimaSize14Grey,
-                        border: outLineInputBorder(5),
+                      // Name Field
+                      _buildEditableField(
+                        label: 'Name',
+                        controller: nameController,
+                        isEditing: isEditing,
                       ),
-                      style: AppTextStyles.belanosimaSize14Grey,
-                    ),
-                    const SizedBox(height: 16),
+                      const SizedBox(height: 16),
 
-                    // Expertise Section
-                    _buildTagsSection(
-                      controller: expertiseController,
-                      label: 'Expertise',
-                      tags: expertise,
-                      isEditing: isEditing,
-                      onAdd: _addExpertise,
-                      onRemove: _removeExpertise,
-                    ),
-                    const SizedBox(height: 16),
+                      // Bio Field
+                      _buildEditableField(
+                        label: 'Bio',
+                        controller: bioController,
+                        isEditing: isEditing,
+                        maxLines: 3,
+                      ),
+                      const SizedBox(height: 16),
 
-                    // Languages Section
-                    _buildTagsSection(
-                      controller: languagesController,
-                      label: 'Languages',
-                      tags: languages,
-                      isEditing: isEditing,
-                      onAdd: _addLanguage,
-                      onRemove: _removeLanguage,
-                    ),
-                    const SizedBox(height: 16),
+                      // LinkedIn Field
+                      _buildEditableField(
+                        label: 'LinkedIn',
+                        controller: linkedInController,
+                        isEditing: isEditing,
+                        prefixText: 'linkedin.com/in/',
+                      ),
+                      const SizedBox(height: 16),
 
-                    Text(
-                      'Your publications',
-                      style: AppTextStyles.belanosimaSize14Grey
-                          .copyWith(color: AppColors.primaryColor),
-                    ),
-                  ],
+                      // Email (read-only)
+                      TextField(
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 16),
+                          hintText: userCubit.user!.email,
+                          enabled: false,
+                          hintStyle: AppTextStyles.belanosimaSize14Grey,
+                          border: outLineInputBorder(5),
+                        ),
+                        style: AppTextStyles.belanosimaSize14Grey,
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Expertise Section
+                      _buildTagsSection(
+                        controller: expertiseController,
+                        label: 'Expertise',
+                        tags: expertise,
+                        isEditing: isEditing,
+                        onAdd: _addExpertise,
+                        onRemove: _removeExpertise,
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Languages Section
+                      _buildTagsSection(
+                        controller: languagesController,
+                        label: 'Languages',
+                        tags: languages,
+                        isEditing: isEditing,
+                        onAdd: _addLanguage,
+                        onRemove: _removeLanguage,
+                      ),
+                      const SizedBox(height: 16),
+
+                      Text(
+                        'Your publications',
+                        style: AppTextStyles.belanosimaSize14Grey
+                            .copyWith(color: AppColors.primaryColor),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              BlocConsumer<PublicationCubit, PublicationState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  return state is PublicationLoadedState
-                      ? SliverList.builder(
-                          itemBuilder: (context, index) =>
-                              PostTile(publication: state.publications[index]),
-                          itemCount: state.publications.length,
-                        )
-                      : const SliverToBoxAdapter(
-                          child: Center(child: CircularProgressIndicator()));
-                },
-              ),
-            ]),
-          );
-        },
+                BlocConsumer<PublicationCubit, PublicationState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return state is PublicationLoadedState
+                        ? SliverList.builder(
+                            itemBuilder: (context, index) {
+                              final publication = state.publications[index];
+                              return PostTile(
+                                  publication: publication, isForUser: true);
+                            },
+                            itemCount: state.publications.length,
+                          )
+                        : const SliverToBoxAdapter(
+                            child: Center(child: CircularProgressIndicator()));
+                  },
+                ),
+              ]),
+            );
+          },
+        ),
       ),
     );
   }

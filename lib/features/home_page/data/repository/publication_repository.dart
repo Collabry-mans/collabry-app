@@ -17,6 +17,7 @@ abstract class PublicationRepoBase {
   Future<List<Publication>> getUserPublications();
   Future<Publication> getUserPublicationById(String userPublicationId);
   Future<Publication> getPublicationById(String publicationId);
+  Future<void> changePublicationStatus(String publicationId, String status);
 }
 
 class PublicationRepo implements PublicationRepoBase {
@@ -83,5 +84,13 @@ class PublicationRepo implements PublicationRepoBase {
     final List<dynamic> userPublications =
         await dio.get(EndPoints.userPublications);
     return userPublications.map((pub) => Publication.fromJson(pub)).toList();
+  }
+
+  @override
+  Future<void> changePublicationStatus(
+      String publicationId, String status) async {
+    await dio.patch('${EndPoints.userPublicationStatus}$publicationId',
+        queryParameters: {ApiKeys.id: publicationId},
+        data: {ApiKeys.type: status});
   }
 }

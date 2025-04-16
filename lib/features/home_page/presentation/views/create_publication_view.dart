@@ -2,7 +2,12 @@ import 'package:collabry/core/cubit/category/category_cubit.dart';
 import 'package:collabry/core/cubit/category/category_state.dart';
 import 'package:collabry/core/cubit/publication/publication_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/app_constants.dart';
+import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/core/utils/flush_bar_utils.dart';
+import 'package:collabry/core/widgets/profile_image.dart';
 import 'package:collabry/features/home_page/data/model/category_model.dart';
+import 'package:collabry/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,6 +24,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController contentController;
   late final TextEditingController keyWordsController;
+  late final TextEditingController titleController;
 
   String? _selectedVisibility;
   String? _selectedLanguage;
@@ -27,10 +33,6 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
   final List<String> _visibilityOptions = ['PRIVATE', 'PUBLIC'];
   final List<String> _languageOptions = ['en', 'ar'];
 
-  // Focus node to detect keyboard visibility
-  final FocusNode _contentFocusNode = FocusNode();
-  bool _isKeyboardVisible = false;
-
   @override
   void initState() {
     super.initState();
@@ -38,15 +40,6 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
     _initializeControllers();
     _selectedVisibility = _visibilityOptions[1]; // Default to PUBLIC
     _selectedLanguage = _languageOptions[0]; // Default to en
-
-    // Add listener to detect keyboard visibility
-    _contentFocusNode.addListener(_onFocusChange);
-  }
-
-  void _onFocusChange() {
-    setState(() {
-      _isKeyboardVisible = _contentFocusNode.hasFocus;
-    });
   }
 
   void _fetchCategories() {
@@ -56,12 +49,11 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
   void _initializeControllers() {
     contentController = TextEditingController();
     keyWordsController = TextEditingController();
+    titleController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _contentFocusNode.removeListener(_onFocusChange);
-    _contentFocusNode.dispose();
     _disposeControllers();
     super.dispose();
   }
@@ -88,16 +80,15 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
 
   void _submitPost() async {
     if (_formKey.currentState!.validate()) {
-      if (mounted) {
-        context.read<PublicationCubit>().createPublication(
-              title: '', // No separate title in new design
-              description: contentController.text,
-              keywords: _keywords,
-              categoryId: _selectedCategory!.id,
-              language: _selectedLanguage ?? 'en',
-              visibility: _selectedVisibility ?? 'PUBLIC',
-            );
-      }
+      final publicationCubit = context.read<PublicationCubit>();
+      publicationCubit.createPublication(
+        title: titleController.text,
+        description: contentController.text,
+        keywords: _keywords,
+        categoryId: _selectedCategory!.id,
+        language: _selectedLanguage ?? 'en',
+        visibility: _selectedVisibility ?? 'PUBLIC',
+      );
     }
   }
 
@@ -152,33 +143,37 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
   }
 
   void _showCategorySelector() {
+    final categoryCubit = context.read<CategoryCubit>();
     showModalBottomSheet(
       context: context,
-      builder: (context) => BlocBuilder<CategoryCubit, CategoryState>(
-        builder: (context, state) {
-          if (state is CategoriesLoadedState) {
-            return ListView.builder(
-              itemCount: state.categoriesList.length,
-              itemBuilder: (context, index) {
-                final category = state.categoriesList[index];
-                return ListTile(
-                  title: Text(category.name),
-                  leading: Radio<CategoryModel>(
-                    value: category,
-                    groupValue: _selectedCategory,
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedCategory = value;
-                      });
-                      Navigator.pop(context);
-                    },
-                  ),
-                );
-              },
-            );
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
+      builder: (context) => BlocProvider.value(
+        value: categoryCubit,
+        child: BlocBuilder<CategoryCubit, CategoryState>(
+          builder: (context, state) {
+            if (state is CategoriesLoadedState) {
+              return ListView.builder(
+                itemCount: state.categoriesList.length,
+                itemBuilder: (context, index) {
+                  final category = state.categoriesList[index];
+                  return ListTile(
+                    title: Text(category.name),
+                    leading: Radio<CategoryModel>(
+                      value: category,
+                      groupValue: _selectedCategory,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedCategory = value;
+                        });
+                        Navigator.pop(context);
+                      },
+                    ),
+                  );
+                },
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }
@@ -186,8 +181,22 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.bgColor,
+      resizeToAvoidBottomInset: false,
       appBar: _buildAppBar(),
-      body: _createPubBodyBuilder(),
+      body: BlocConsumer<PublicationCubit, PublicationState>(
+        listener: (context, state) {
+          if (state is PublicationCreationLoadedState) {
+            FlushBarUtils.flushBarSuccess(
+                'Publication is created successfully', context);
+            Future.delayed(const Duration(seconds: 3));
+            Navigator.pop(context);
+          } else if (state is PublicationCreationFailedState) {
+            FlushBarUtils.flushBarError(state.errMsg, context);
+          }
+        },
+        builder: (context, state) => _createPubBodyBuilder(),
+      ),
       bottomNavigationBar: _buildBottomBar(),
       floatingActionButton: _buildSpeedDial(),
     );
@@ -201,44 +210,30 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
       visible: true,
       curve: Curves.bounceIn,
       children: [
-        SpeedDialChild(
-          child: const Icon(Icons.note_alt_outlined),
-          backgroundColor: Colors.blue,
-          onTap: () {/* Handle document attachment */},
-          label: 'Document',
-          labelStyle: const TextStyle(fontWeight: FontWeight.w500),
-          labelBackgroundColor: Colors.white,
-        ),
-        SpeedDialChild(
-          child: const Icon(Icons.photo_outlined),
-          backgroundColor: Colors.green,
-          onTap: () {/* Handle photo attachment */},
-          label: 'Photo',
-          labelStyle: const TextStyle(fontWeight: FontWeight.w500),
-          labelBackgroundColor: Colors.white,
-        ),
-        SpeedDialChild(
-          child: const Icon(Icons.videocam_outlined),
-          backgroundColor: Colors.red,
-          onTap: () {/* Handle video attachment */},
-          label: 'Video',
-          labelStyle: const TextStyle(fontWeight: FontWeight.w500),
-          labelBackgroundColor: Colors.white,
-        ),
-        SpeedDialChild(
-          child: const Icon(Icons.tag),
-          backgroundColor: Colors.orange,
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => _buildKeywordInputSheet(),
-            );
-          },
+        _speedDialChild(icon: Icons.note_alt_outlined, label: 'Document'),
+        _speedDialChild(icon: Icons.photo_outlined, label: 'Photo'),
+        _speedDialChild(icon: Icons.videocam_outlined, label: 'Video'),
+        _speedDialChild(
+          icon: Icons.tag,
           label: 'Add Keywords',
-          labelStyle: const TextStyle(fontWeight: FontWeight.w500),
-          labelBackgroundColor: Colors.white,
+          onTap: () => showModalBottomSheet(
+            context: context,
+            builder: (context) => _buildKeywordInputSheet(),
+          ),
         ),
       ],
+    );
+  }
+
+  SpeedDialChild _speedDialChild(
+      {required IconData icon, void Function()? onTap, required String label}) {
+    return SpeedDialChild(
+      child: Icon(icon),
+      backgroundColor: AppColors.oAuthBorderColor,
+      onTap: onTap,
+      label: label,
+      labelStyle: const TextStyle(fontWeight: FontWeight.w500),
+      labelBackgroundColor: Colors.white,
     );
   }
 
@@ -255,7 +250,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               color: AppColors.selectedColor,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: const Text(
               'Post',
@@ -273,20 +268,11 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
   Widget _createPubBodyBuilder() {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Form(
-        key: _formKey,
-        child: BlocBuilder<CategoryCubit, CategoryState>(
-          builder: (context, state) {
-            return state is CategoriesLoadedState
-                ? _buildFormFields(state, state.categoriesList)
-                : const Center(child: CircularProgressIndicator());
-          },
-        ),
-      ),
+      child: Form(key: _formKey, child: _buildFormFields()),
     );
   }
 
-  Widget _buildFormFields(CategoryState state, List<CategoryModel> categories) {
+  Widget _buildFormFields() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -295,7 +281,11 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
         const SizedBox(height: 8),
 
         // Content TextField
-        _buildContentField(),
+        AbsorbPointer(
+          absorbing: context.read<PublicationCubit>().state
+              is PublicationCreationLoadingState,
+          child: _buildContentField(),
+        ),
       ],
     );
   }
@@ -304,13 +294,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
     return Row(
       children: [
         // User Avatar
-        CircleAvatar(
-          backgroundColor: Colors.purple[300],
-          child: const Text(
-            'OA',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
+        ProfileImage(image: userBox!.get(kUserAvatar)),
         const SizedBox(width: 12),
 
         // User Info and Metadata
@@ -318,9 +302,9 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Omar Ahmed',
-                style: TextStyle(
+              Text(
+                userBox?.get(kUserName) ?? 'user',
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -328,79 +312,22 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
               const SizedBox(height: 2),
               Row(
                 children: [
-                  // Visibility Chip (Drawable)
-                  GestureDetector(
-                    onTap: _showVisibilityDialog,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            _selectedVisibility?.toLowerCase() ?? 'public',
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[600]),
-                          ),
-                          const Icon(Icons.arrow_drop_down, size: 16),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Visibility Chip
+                  _publicationInfoSelector(
+                      onTap: _showVisibilityDialog,
+                      text: _selectedVisibility?.toLowerCase() ?? 'public'),
                   const SizedBox(width: 4),
 
-                  // Language Chip (Drawable)
-                  GestureDetector(
-                    onTap: _showLanguageDialog,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            _selectedLanguage ?? 'en',
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[600]),
-                          ),
-                          const Icon(Icons.arrow_drop_down, size: 16),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Language Chip
+                  _publicationInfoSelector(
+                      onTap: _showLanguageDialog,
+                      text: _selectedLanguage ?? 'en'),
                   const SizedBox(width: 4),
 
                   // Category Chip (Drawable)
-                  GestureDetector(
-                    onTap: _showCategorySelector,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            _selectedCategory?.name ?? 'Select Category',
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[600]),
-                          ),
-                          const Icon(Icons.arrow_drop_down, size: 16),
-                        ],
-                      ),
-                    ),
-                  ),
+                  _publicationInfoSelector(
+                      onTap: _showCategorySelector,
+                      text: _selectedCategory?.name ?? 'Select Category'),
                 ],
               ),
             ],
@@ -410,28 +337,69 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
     );
   }
 
-  Widget _buildContentField() {
-    return TextFormField(
-      controller: contentController,
-      focusNode: _contentFocusNode,
-      decoration: const InputDecoration(
-        hintText: "What's on your mind?",
-        border: InputBorder.none,
-        contentPadding: EdgeInsets.symmetric(vertical: 16),
+  Widget _publicationInfoSelector(
+      {void Function()? onTap, required String text}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              text,
+              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+            ),
+            const Icon(Icons.arrow_drop_down, size: 16),
+          ],
+        ),
       ),
-      maxLines: 10,
-      validator: (value) =>
-          value?.isEmpty ?? true ? 'Please enter content' : null,
+    );
+  }
+
+  Widget _buildContentField() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        TextFormField(
+          controller: titleController,
+          decoration: const InputDecoration(
+            hintText: "Title",
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.symmetric(vertical: 16),
+          ),
+          validator: (value) =>
+              value?.isEmpty ?? true ? 'Please enter title' : null,
+        ),
+        TextFormField(
+          controller: contentController,
+          decoration: const InputDecoration(
+            hintText: "What's on your mind?",
+            hintStyle: AppTextStyles.barlowSize14W600Grey,
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.symmetric(vertical: 16),
+          ),
+          style: AppTextStyles.barlowSize14W600Grey,
+          maxLines: 40,
+          validator: (value) =>
+              value?.isEmpty ?? true ? 'Please enter content' : null,
+        )
+      ],
     );
   }
 
   Widget _buildBottomBar() {
     // Only show bottom bar if keyboard is not visible
-    if (!_isKeyboardVisible && _keywords.isEmpty) {
+    if (_keywords.isEmpty) {
       return const SizedBox(height: 0);
     }
 
     return AnimatedContainer(
+      margin: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       duration: const Duration(milliseconds: 300),
       height: _keywords.isEmpty ? 0 : 50,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -510,13 +478,5 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
         ],
       ),
     );
-  }
-
-  String? _validateString(String? value, String fieldName) {
-    return value?.isEmpty ?? true ? 'Please enter $fieldName' : null;
-  }
-
-  String? _validateCategory(CategoryModel? value) {
-    return value == null ? 'Please select a category' : null;
   }
 }
