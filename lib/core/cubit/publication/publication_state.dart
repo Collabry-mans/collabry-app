@@ -51,3 +51,15 @@ final class UserPublicationStateFailed extends PublicationState {
 }
 
 final class UserPublicationStateSuccess extends PublicationState {}
+
+//* Publication editing states
+final class PublicationEditedSuccess extends PublicationState {
+  final Publication publication;
+
+  PublicationEditedSuccess({required this.publication});
+}
+
+final class PublicationEditedFailed extends PublicationState {
+  final String errMsg;
+  PublicationEditedFailed({required this.errMsg});
+}

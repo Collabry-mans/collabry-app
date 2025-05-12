@@ -1,6 +1,7 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/features/home_page/data/model/publication_model.dart';
+import 'package:dio/dio.dart';
 
 abstract class PublicationRepoBase {
   Future<void> createPublication(
@@ -18,6 +19,14 @@ abstract class PublicationRepoBase {
   Future<Publication> getUserPublicationById(String userPublicationId);
   Future<Publication> getPublicationById(String publicationId);
   Future<void> changePublicationStatus(String publicationId, String status);
+  Future<Publication> changePublicationData(
+      String publicationId,
+      String? title,
+      String? description,
+      String? language,
+      String? visibility,
+      String? categoryId,
+      List<String?>? keywords);
 }
 
 class PublicationRepo implements PublicationRepoBase {
@@ -92,5 +101,27 @@ class PublicationRepo implements PublicationRepoBase {
     await dio.patch('${EndPoints.userPublicationStatus}$publicationId',
         queryParameters: {ApiKeys.id: publicationId},
         data: {ApiKeys.type: status});
+  }
+
+  @override
+  Future<Publication> changePublicationData(
+      String publicationId,
+      String? title,
+      String? description,
+      String? language,
+      String? visibility,
+      String? categoryId,
+      List<String?>? keywords) async {
+    final Response response =
+        await dio.put('${EndPoints.userPublicationById}$publicationId', data: {
+      ApiKeys.title: title,
+      ApiKeys.abstract: description,
+      ApiKeys.keywords: keywords,
+      ApiKeys.language: language,
+      ApiKeys.visibility: visibility,
+      ApiKeys.categoryId: categoryId,
+    });
+    final editedPublication = Publication.fromJsonById(response.data);
+    return editedPublication;
   }
 }

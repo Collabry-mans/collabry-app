@@ -1,5 +1,6 @@
 import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
 import 'package:collabry/core/routes/app_routes.dart';
+import 'package:collabry/core/services/navigation_service.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/main.dart';
@@ -21,6 +22,7 @@ class Collabry extends StatelessWidget {
         return cubit;
       },
       child: MaterialApp(
+        navigatorKey: NavigationService.navigatorKey,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: appRoutes.getAppRoutes,
         initialRoute: isFirstTime

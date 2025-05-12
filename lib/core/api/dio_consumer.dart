@@ -1,6 +1,7 @@
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/api/auth_interceptor.dart';
 import 'package:collabry/core/errors/exception_handling.dart';
+import 'package:collabry/features/authentication/data/repository/refresh_token_repository.dart';
 import 'package:dio/dio.dart';
 
 class DioConsumer {
@@ -15,7 +16,10 @@ class DioConsumer {
 
   DioConsumer() {
     dio.options.baseUrl = EndPoints.baseUrl;
-    dio.interceptors.add(AuthInterceptor(dio));
+    dio.interceptors.add(AuthInterceptor(
+        dio,
+        RefreshTokenRepository(
+            dio))); // we can use the dio here bcz we are sepearating a new dio without interceptors in the repo itself
     dio.interceptors.add(
       LogInterceptor(
           request: true,

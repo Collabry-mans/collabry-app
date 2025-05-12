@@ -116,4 +116,25 @@ class PublicationCubit extends Cubit<PublicationState> {
           UserPublicationStateFailed(errMsg: e.errModel.getFormattedMessage()));
     }
   }
+
+  // edit publication data
+  Future<void> changePublicationData(
+      String publicationId,
+      String? title,
+      String? description,
+      String? language,
+      String? visibility,
+      String? categoryId,
+      List<String?>? keywords) async {
+    try {
+      final Publication editedPublication =
+          await repoPublication.changePublicationData(publicationId, title,
+              description, language, visibility, categoryId, keywords);
+      emit(PublicationEditedSuccess(publication: editedPublication));
+    } on DioException catch (e) {
+      handleDioExceptions(e);
+    } on ServerException catch (e) {
+      emit(PublicationEditedFailed(errMsg: e.errModel.getFormattedMessage()));
+    }
+  }
 }
