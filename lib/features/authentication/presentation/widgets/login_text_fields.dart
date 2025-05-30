@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/auth/auth_cubit.dart';
+import 'package:collabry/features/authentication/presentation/manager/auth_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';

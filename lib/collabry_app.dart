@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
+import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:collabry/core/routes/app_routes.dart';
 import 'package:collabry/core/services/navigation_service.dart';
 import 'package:collabry/core/singleton/singleton.dart';

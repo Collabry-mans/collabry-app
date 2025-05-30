@@ -1,5 +1,5 @@
-import 'package:collabry/core/cubit/category/category_cubit.dart';
-import 'package:collabry/core/cubit/category/category_state.dart';
+import 'package:collabry/features/home_page/presentation/manager/category/category_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/category/category_state.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/community/presentation/widgets/channel_tile.dart';
 import 'package:collabry/features/community/presentation/widgets/community_tile.dart';

@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/publication/publication_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_app_bar.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_drawer.dart';

@@ -1,6 +1,6 @@
-import 'package:collabry/core/cubit/auth/auth_cubit.dart';
-import 'package:collabry/core/cubit/category/category_cubit.dart';
-import 'package:collabry/core/cubit/publication/publication_cubit.dart';
+import 'package:collabry/features/authentication/presentation/manager/auth_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/category/category_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_verification_view.dart';

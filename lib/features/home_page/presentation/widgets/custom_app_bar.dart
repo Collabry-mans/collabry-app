@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
+import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/widgets/profile_image.dart';
 import 'package:flutter/material.dart';

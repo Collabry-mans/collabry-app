@@ -1,5 +1,5 @@
-import 'package:collabry/core/cubit/publication/publication_cubit.dart';
-import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
+import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:collabry/core/functions/functions.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';

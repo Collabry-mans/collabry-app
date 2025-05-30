@@ -1,5 +1,5 @@
-import 'package:collabry/core/cubit/auth/auth_states.dart';
-import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
+import 'package:collabry/features/authentication/presentation/manager/auth_states.dart';
+import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';

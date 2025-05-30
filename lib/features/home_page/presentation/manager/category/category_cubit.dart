@@ -1,4 +1,4 @@
-import 'package:collabry/core/cubit/category/category_state.dart';
+import 'package:collabry/features/home_page/presentation/manager/category/category_state.dart';
 import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:collabry/features/home_page/data/model/category_model.dart';
 import 'package:collabry/features/home_page/data/repository/category_repository.dart';

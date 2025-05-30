@@ -1,6 +1,6 @@
-import 'package:collabry/core/cubit/category/category_cubit.dart';
-import 'package:collabry/core/cubit/category/category_state.dart';
-import 'package:collabry/core/cubit/publication/publication_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/category/category_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/category/category_state.dart';
+import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';

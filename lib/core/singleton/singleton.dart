@@ -1,8 +1,8 @@
 import 'package:collabry/core/api/dio_consumer.dart';
-import 'package:collabry/core/cubit/auth/auth_cubit.dart';
-import 'package:collabry/core/cubit/category/category_cubit.dart';
-import 'package:collabry/core/cubit/publication/publication_cubit.dart';
-import 'package:collabry/core/cubit/user/user_profile_cubit.dart';
+import 'package:collabry/features/authentication/presentation/manager/auth_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/category/category_cubit.dart';
+import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
+import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:collabry/core/database/secure_storage.dart';
 import 'package:collabry/features/authentication/data/repository/auth_repository.dart';
 import 'package:collabry/features/home_page/data/repository/category_repository.dart';
