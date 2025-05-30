@@ -26,6 +26,7 @@ class PostTile extends StatefulWidget {
 }
 
 class _PostTileState extends State<PostTile> {
+  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,7 +42,9 @@ class _PostTileState extends State<PostTile> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _publicationHeader(context),
-        _publicationContributers(),
+        !(widget.publication.collaborators == null)
+            ? _publicationContributers()
+            : Container(),
         _publicationContent(context),
         const SizedBox(height: 10),
         _publicationReach(),
@@ -138,14 +141,14 @@ class _PostTileState extends State<PostTile> {
   }
 
   Widget _contributers() {
-    return widget.publication.collaborators.isEmpty
+    return widget.publication.collaborators!.isEmpty
         ? const Text(
             ' No contributors yet ',
             style: AppTextStyles.belanosimaSize14Grey,
           )
         : Stack(
             clipBehavior: Clip.none,
-            children: (widget.publication.collaborators
+            children: (widget.publication.collaborators!
                 .asMap()
                 .map(
                   (index, collaborator) => MapEntry(
@@ -220,7 +223,7 @@ class _PostTileState extends State<PostTile> {
       borderRadius: BorderRadius.circular(10),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.2),
+          color: Colors.black.withValues(alpha: 0.2),
           spreadRadius: 1,
           blurRadius: 5,
           offset: const Offset(0, 2),
@@ -250,12 +253,11 @@ class _PostTileState extends State<PostTile> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _publicationOption(
-            icon: widget.publication.isLiked
+            icon: isLiked
                 ? const Icon(Icons.favorite_outlined, color: Colors.red)
                 : const Icon(Icons.favorite_outline, color: Colors.grey),
             text: AppStrings.like,
-            onTap: () => setState(() =>
-                widget.publication.isLiked = !widget.publication.isLiked)),
+            onTap: () => setState(() => isLiked = !isLiked)),
         _publicationOption(
             icon: const Icon(FontAwesomeIcons.comment),
             text: AppStrings.comment),

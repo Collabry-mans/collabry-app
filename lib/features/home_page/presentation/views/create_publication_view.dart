@@ -36,14 +36,10 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
   @override
   void initState() {
     super.initState();
-    _fetchCategories();
-    _initializeControllers();
-    _selectedVisibility = _visibilityOptions[1]; // Default to PUBLIC
-    _selectedLanguage = _languageOptions[0]; // Default to en
-  }
-
-  void _fetchCategories() {
     context.read<CategoryCubit>().getAllCategories();
+    _initializeControllers();
+    _selectedVisibility = _visibilityOptions[1];
+    _selectedLanguage = _languageOptions[0];
   }
 
   void _initializeControllers() {
@@ -190,7 +186,6 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
             FlushBarUtils.flushBarSuccess(
                 'Publication is created successfully', context);
             Future.delayed(const Duration(seconds: 3), () {
-              // Make sure the context is still valid before popping
               if (mounted) {
                 Navigator.pop(context);
               }
@@ -411,7 +406,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey.withValues(alpha: 0.2),
             spreadRadius: 1,
             blurRadius: 3,
             offset: const Offset(0, -1),

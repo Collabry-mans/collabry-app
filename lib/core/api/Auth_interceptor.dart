@@ -55,7 +55,9 @@ class AuthInterceptor extends Interceptor {
     if ((err.response?.statusCode == 401 ||
             err.response?.statusCode == 403 ||
             err.response?.statusCode == 500) &&
-        !_isRefreshing) {
+        !_isRefreshing &&
+        err.response?.data['message']?.toString().contains('Unauthorized') ==
+            true) {
       debugPrint(
           'Auth error ${err.response?.statusCode}: ${err.response?.data}');
 
@@ -80,6 +82,8 @@ class AuthInterceptor extends Interceptor {
 
             final newTokens =
                 await refreshTokenRepo.refreshToken(refreshToken!);
+            debugPrint(
+                'After calling the refresh token repo -----------------');
 
             if (newTokens == null) {
               debugPrint('Refresh token repo returned null');

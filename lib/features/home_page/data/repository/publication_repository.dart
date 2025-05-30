@@ -68,7 +68,7 @@ class PublicationRepo implements PublicationRepoBase {
     final List<dynamic> publications =
         await dio.get('${EndPoints.publicationsByCategory}$categoryId');
     return publications
-        .map((pub) => Publication.fromJson(pub as Map<String, dynamic>))
+        .map((pub) => Publication.fromCategory(pub as Map<String, dynamic>))
         .toList();
   }
 

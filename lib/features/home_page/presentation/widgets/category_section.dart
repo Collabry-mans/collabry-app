@@ -78,7 +78,7 @@ class CategoryTile extends StatelessWidget {
           color: isSelected ? AppColors.selectedColor : AppColors.whiteColor,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               spreadRadius: 1,
               blurRadius: 5,
               offset: const Offset(0, 1),

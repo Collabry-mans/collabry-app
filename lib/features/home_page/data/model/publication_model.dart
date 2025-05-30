@@ -15,10 +15,10 @@ class Publication {
   String authorId;
   String? authorEmail;
   String? authorAvatar;
-  List<Collaborator> collaborators;
+  List<Collaborator>? collaborators;
   String createdAt;
   String updatedAt;
-  bool isLiked;
+  bool? isLiked;
 
   Publication({
     required this.publicationId,
@@ -35,10 +35,10 @@ class Publication {
     required this.authorId,
     this.authorEmail,
     this.authorAvatar,
-    required this.collaborators,
+    this.collaborators,
     required this.createdAt,
     required this.updatedAt,
-    required this.isLiked,
+    this.isLiked,
   });
 
   factory Publication.fromJson(Map<String, dynamic> json) {
@@ -61,6 +61,25 @@ class Publication {
       createdAt: json[ApiKeys.createdAt],
       updatedAt: json[ApiKeys.updatedAt],
       isLiked: json[ApiKeys.isLiked],
+    );
+  }
+
+  factory Publication.fromCategory(Map<String, dynamic> json) {
+    return Publication(
+      publicationId: json[ApiKeys.id],
+      title: json[ApiKeys.title],
+      description: json[ApiKeys.abstract],
+      keywords: json[ApiKeys.keywords],
+      language: json[ApiKeys.language],
+      visibility: json[ApiKeys.visibility],
+      status: json[ApiKeys.status],
+      categoryName: json[ApiKeys.categoryName],
+      categoryId: json[ApiKeys.categoryId],
+      authorName: json[ApiKeys.authorName],
+      authorId: json[ApiKeys.authorId],
+      authorAvatar: json[ApiKeys.authorAvatar],
+      createdAt: json[ApiKeys.createdAt],
+      updatedAt: json[ApiKeys.updatedAt],
     );
   }
 
