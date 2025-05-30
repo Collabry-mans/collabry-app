@@ -2,9 +2,7 @@ import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/functions/extensions.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
-import 'package:collabry/features/authentication/data/model/refresh_token_model.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class RefreshTokenRepository {
   final Dio dio;
@@ -12,19 +10,19 @@ class RefreshTokenRepository {
 
   Future<RefreshTokenModel?> refreshToken(String refreshToken) async {
     try {
-      // Create a new Dio instance without interceptors to avoid loops
-      final tokenDio = Dio(BaseOptions(
-        baseUrl: dio.options.baseUrl,
-        connectTimeout: dio.options.connectTimeout,
-        receiveTimeout: dio.options.receiveTimeout,
-      ));
-
-      final Response response = await tokenDio.post(
-        EndPoints.refreshToken,
-        data: {EndPoints.refreshToken: refreshToken},
+      // Create clean dio instance without interceptors
+      final tokenDio = Dio(
+        BaseOptions(
+          baseUrl: dio.options.baseUrl,
+          connectTimeout: dio.options.connectTimeout,
+          receiveTimeout: dio.options.receiveTimeout,
+        ),
       );
 
-      debugPrint('Refresh token response status: ${response.statusCode}');
+      final response = await tokenDio.post(
+        EndPoints.refreshToken,
+        data: {ApiKeys.refreshToken: refreshToken},
+      );
 
       if (response.statusCode != 200 && response.statusCode != 201) {
         return null;
@@ -32,24 +30,37 @@ class RefreshTokenRepository {
 
       final newTokens = RefreshTokenModel.fromJson(response.data);
 
+      // Validate tokens before saving
       if (newTokens.accessToken.isNullOrEmpty() ||
           newTokens.refreshToken.isNullOrEmpty()) {
-        debugPrint('Received invalid tokens from server');
         return null;
       }
 
-      await secureStorage.write(
-          key: accessTokenKey, value: newTokens.accessToken!);
-      await secureStorage.write(
-          key: refreshTokenKey, value: newTokens.refreshToken!);
-
-      debugPrint('New tokens stored successfully');
+      // Save new tokens
+      await Future.wait([
+        secureStorage.write(key: accessTokenKey, value: newTokens.accessToken!),
+        secureStorage.write(
+            key: refreshTokenKey, value: newTokens.refreshToken!),
+      ]);
 
       return newTokens;
     } catch (e) {
-      debugPrint('Error refreshing token: $e');
-      await secureStorage.deleteAll();
-      rethrow;
+      if (e is DioException && e.response?.statusCode == 400) {
+        await secureStorage.deleteAll();
+      }
+      return null; // Return null instead of rethrowing
     }
+  }
+}
+
+class RefreshTokenModel {
+  final String? refreshToken, accessToken;
+
+  RefreshTokenModel({required this.refreshToken, required this.accessToken});
+
+  factory RefreshTokenModel.fromJson(Map<String, dynamic> json) {
+    return RefreshTokenModel(
+        refreshToken: json[ApiKeys.refreshToken],
+        accessToken: json[ApiKeys.accessToken]);
   }
 }
