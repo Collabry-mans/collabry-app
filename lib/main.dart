@@ -2,7 +2,6 @@ import 'package:collabry/collabry_app.dart';
 import 'package:collabry/core/functions/extensions.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';

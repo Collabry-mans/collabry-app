@@ -5,7 +5,7 @@ import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/utils/flush_bar_utils.dart';
 import 'package:collabry/core/widgets/profile_image.dart';
-import 'package:collabry/features/home_page/presentation/widgets/post_tile.dart';
+import 'package:collabry/core/widgets/post_tile/post_tile.dart';
 import 'package:collabry/features/profile/presentation/widgets/tags_section_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,7 +89,9 @@ class _UserProfileViewState extends State<UserProfileView> {
                               itemBuilder: (context, index) {
                                 final publication = state.publications[index];
                                 return PostTile(
-                                    publication: publication, isForUser: true);
+                                  publication: publication,
+                                  type: PostTileType.userProfile,
+                                );
                               },
                               itemCount: state.publications.length,
                             )

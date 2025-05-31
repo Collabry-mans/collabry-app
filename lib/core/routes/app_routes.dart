@@ -12,6 +12,7 @@ import 'package:collabry/features/authentication/presentation/view/sign_up_view.
 import 'package:collabry/features/home_page/presentation/views/create_publication_view.dart';
 import 'package:collabry/features/home_page/presentation/views/main_page_view.dart';
 import 'package:collabry/features/home_page/presentation/views/publication_by_id_view.dart';
+import 'package:collabry/core/widgets/post_tile/post_tile.dart';
 import 'package:collabry/features/on_boarding/presentation/view/on_boarding_screen.dart';
 import 'package:collabry/features/profile/presentation/views/user_profile_view.dart';
 import 'package:flutter/material.dart';
@@ -59,15 +60,16 @@ class AppRoutes {
             child: const SignUpView(),
           ),
         );
+
       case Routes.signUpVerificationScreen:
         final authCubit = settings.arguments as AuthCubit;
-
         return MaterialPageRoute(
           builder: (_) => BlocProvider.value(
             value: authCubit,
             child: const SignUpVerificationView(),
           ),
         );
+
       //* App Screens
       case Routes.mainPageScreen:
         return MaterialPageRoute(builder: (_) => const MainPageView());
@@ -89,17 +91,14 @@ class AppRoutes {
 
       case Routes.publicationByIdScreen:
         final args = settings.arguments as Map<String, dynamic>;
-        final isUserSpecific =
-            args['isUserSpecific'] as bool? ?? false; // Default to false
+        final type = args['type'] as PostTileType;
+        final publicationId = args['publicationId'] as String;
 
         return MaterialPageRoute(
           builder: (_) => BlocProvider<PublicationCubit>.value(
             value: args['cubit'] as PublicationCubit,
-            child: isUserSpecific
-                ? PublicationByIdView.userSpecific(
-                    publicationId: args['publicationId'] as String)
-                : PublicationByIdView.standard(
-                    publicationId: args['publicationId'] as String),
+            child:
+                PublicationByIdView(publicationId: publicationId, type: type),
           ),
         );
 

@@ -8,13 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit(this.repoCategory) : super(CategoryInitial());
   final CategoryRepositoryBase repoCategory;
+  bool firstTimeLoad = true;
 
   //* Categories
   Future<void> getAllCategories() async {
+    if (!firstTimeLoad) return;
     emit(CategoriesLoadingState());
     try {
       final List<CategoryModel> categoriesList =
           await repoCategory.getCategories();
+
+      firstTimeLoad = false;
       emit(CategoriesLoadedState(categoriesList: categoriesList));
     } on DioException catch (error) {
       handleDioExceptions(error);

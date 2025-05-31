@@ -75,4 +75,6 @@ class AppStrings {
   static const String collaboration = 'Collaboration';
   static const String send = 'Send';
   static const String comment = 'Comment';
+  static const String share = 'Share';
+  static const String seeMore = 'see more';
 }

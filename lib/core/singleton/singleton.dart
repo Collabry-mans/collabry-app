@@ -34,7 +34,7 @@ Future<void> setupDependencies() async {
     () => PublicationRepo(dio: getIt<DioConsumer>()),
   );
 
-  // Register PublicationCubit as factory
+  // Register PublicationCubit
   getIt.registerFactory<PublicationCubit>(
     () => PublicationCubit(getIt<PublicationRepoBase>()),
   );
@@ -44,8 +44,8 @@ Future<void> setupDependencies() async {
     () => CategoryRepo(dio: getIt<DioConsumer>()),
   );
 
-  // Register CategoryCubit as factory
-  getIt.registerFactory<CategoryCubit>(
+  // Register CategoryCubit
+  getIt.registerLazySingleton<CategoryCubit>(
     () => CategoryCubit(getIt<CategoryRepositoryBase>()),
   );
 
@@ -54,7 +54,7 @@ Future<void> setupDependencies() async {
     () => UserProfileRepo(dio: getIt<DioConsumer>()),
   );
 
-  // Register userProfileCubit as factory
+  // Register userProfileCubit
   getIt.registerFactory<UserProfileCubit>(
     () => UserProfileCubit(getIt<UserProfileRepositoryBase>()),
   );

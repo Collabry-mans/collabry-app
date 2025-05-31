@@ -1,3 +1,4 @@
+import 'package:collabry/core/services/navigation_service.dart';
 import 'package:collabry/features/home_page/presentation/manager/category/category_cubit.dart';
 import 'package:collabry/features/home_page/presentation/manager/category/category_state.dart';
 import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
@@ -186,9 +187,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
             FlushBarUtils.flushBarSuccess(
                 'Publication is created successfully', context);
             Future.delayed(const Duration(seconds: 3), () {
-              if (mounted) {
-                Navigator.pop(context);
-              }
+              NavigationService.goBack();
             });
           } else if (state is PublicationCreationFailedState) {
             FlushBarUtils.flushBarError(state.errMsg, context);

@@ -2,6 +2,7 @@ import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/functions/extensions.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
+import 'package:collabry/features/authentication/data/model/refresh_token_model.dart';
 import 'package:dio/dio.dart';
 
 class RefreshTokenRepository {
@@ -50,17 +51,5 @@ class RefreshTokenRepository {
       }
       return null; // Return null instead of rethrowing
     }
-  }
-}
-
-class RefreshTokenModel {
-  final String? refreshToken, accessToken;
-
-  RefreshTokenModel({required this.refreshToken, required this.accessToken});
-
-  factory RefreshTokenModel.fromJson(Map<String, dynamic> json) {
-    return RefreshTokenModel(
-        refreshToken: json[ApiKeys.refreshToken],
-        accessToken: json[ApiKeys.accessToken]);
   }
 }
