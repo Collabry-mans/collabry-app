@@ -1,4 +1,6 @@
 import 'package:collabry/core/api/end_points.dart';
+import 'package:collabry/features/home_page/data/model/collaborator.dart';
+import 'package:collabry/features/home_page/data/model/section.dart';
 
 class Publication {
   String publicationId;
@@ -108,61 +110,5 @@ class Publication {
       updatedAt: json[ApiKeys.updatedAt],
       isLiked: json[ApiKeys.isLiked],
     );
-  }
-}
-
-class Section {
-  String title;
-  String orderIndex;
-  String type;
-  String content;
-  List<String> files;
-  String publicationId;
-  Section(
-      {required this.title,
-      required this.content,
-      required this.orderIndex,
-      required this.type,
-      required this.files,
-      required this.publicationId});
-
-  factory Section.fromJson(Map<String, dynamic> json) {
-    return Section(
-        title: json[ApiKeys.title],
-        content: json[ApiKeys.content],
-        orderIndex: json[ApiKeys.orderIndex],
-        type: json[ApiKeys.type],
-        files: json[ApiKeys.files],
-        publicationId: json[ApiKeys.publicationId]);
-  }
-}
-
-class Collaborator {
-  String collaboratorId;
-  User user;
-  Collaborator({required this.collaboratorId, required this.user});
-  factory Collaborator.fromJson(Map<String, dynamic> json) {
-    return Collaborator(
-        collaboratorId: json[ApiKeys.id], user: json[ApiKeys.user]);
-  }
-}
-
-class User {
-  String userId;
-  String name;
-  String role;
-  String profileImageUrl;
-  User(
-      {required this.userId,
-      required this.name,
-      required this.profileImageUrl,
-      required this.role});
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-        userId: json[ApiKeys.id],
-        name: json[ApiKeys.name],
-        profileImageUrl: json[ApiKeys.profileImageUrl],
-        role: json[ApiKeys.role]);
   }
 }

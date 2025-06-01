@@ -6,6 +6,7 @@ import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/utils/flush_bar_utils.dart';
 import 'package:collabry/core/widgets/profile_image.dart';
 import 'package:collabry/core/widgets/post_tile/post_tile.dart';
+import 'package:collabry/features/profile/presentation/widgets/editable_field.dart';
 import 'package:collabry/features/profile/presentation/widgets/tags_section_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -197,7 +198,7 @@ class _UserProfileViewState extends State<UserProfileView> {
         const SizedBox(height: 20),
 
         // Name Field
-        _buildEditableField(
+        EditableField(
           label: 'Name',
           controller: nameController,
           isEditing: isEditing,
@@ -205,20 +206,19 @@ class _UserProfileViewState extends State<UserProfileView> {
         const SizedBox(height: 16),
 
         // Bio Field
-        _buildEditableField(
-          label: 'Bio',
-          controller: bioController,
-          isEditing: isEditing,
-          maxLines: 3,
-        ),
+        EditableField(
+            label: 'Bio',
+            controller: bioController,
+            isEditing: isEditing,
+            maxLines: 3),
         const SizedBox(height: 16),
 
         // LinkedIn Field
-        _buildEditableField(
+        EditableField(
           label: 'LinkedIn',
           controller: linkedInController,
           isEditing: isEditing,
-          prefixText: 'linkedin.com/in/',
+          prefixText: userCubit.user?.profile.linkedIn ?? 'linkedin.com/in/',
         ),
         const SizedBox(height: 16),
 
@@ -328,40 +328,6 @@ class _UserProfileViewState extends State<UserProfileView> {
             icon: const Icon(Icons.save),
             onPressed: _saveChanges,
           ),
-      ],
-    );
-  }
-
-  Widget _buildEditableField({
-    required String label,
-    required TextEditingController controller,
-    required bool isEditing,
-    int maxLines = 1,
-    String? prefixText,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: AppTextStyles.belanosimaSize14Grey
-              .copyWith(color: AppColors.primaryColor),
-        ),
-        const SizedBox(height: 4),
-        TextField(
-          controller: controller,
-          enabled: isEditing,
-          maxLines: maxLines,
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            hintText: 'Enter your $label',
-            hintStyle: AppTextStyles.belanosimaSize14Grey,
-            border: outLineInputBorder(5),
-            prefixText: prefixText,
-          ),
-          style: AppTextStyles.belanosimaSize14Grey,
-        ),
       ],
     );
   }
