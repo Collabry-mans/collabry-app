@@ -77,4 +77,20 @@ class AppStrings {
   static const String comment = 'Comment';
   static const String share = 'Share';
   static const String seeMore = 'see more';
+  static const String publicationSettings = 'Publication Settings';
+  static const String privacy = 'Privacy';
+  static const String status = 'Status';
+  static const String category = 'Category';
+  static const String addFile = 'Add file';
+  static const String addPhoto = 'Add photo';
+  static const String rewriteWithAi = 'Rewrite with AI';
+  static const String enterUrTitle = 'Enter your title';
+  static const String enterUrAbstract = 'Enter your abstract';
+  static const String addUrTitle = 'Adds your title';
+  static const String enterUrContent = 'Enter your content';
+  static const String addNewGroup = 'Add new group';
+  static const String title = 'Title';
+  static const String abstract = 'Abstract';
+  static const String keyWords = 'Keywords';
+  static const String addKeywords = 'Add keyword';
 }

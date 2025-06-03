@@ -23,6 +23,10 @@ class Routes {
   static const String userProfileScreen = '/userProfileScreen';
 }
 
+//* keys
+const String kTitle = 'title';
+const String kContent = 'content';
+
 //* Boxes Stuff
 const String firstTimeBoxName = 'firstTimeBox';
 const String kFirstTime = 'firstTimeBoxKey';
@@ -59,3 +63,7 @@ List<OnBoardingModel> boardingScreens = [
       text: AppStrings.onBoard4Txt,
       title: AppStrings.liveAndConnect),
 ];
+
+List<String> categoriesList = ['AI', 'Barcelona', 'Nest.js', 'Electronics'];
+List<String> statusList = ['Draft', 'Published'];
+List<String> privacyList = ['Public', 'Private'];

@@ -80,4 +80,7 @@ class Assets {
   static const String imagesAIGeneratedIconUnselected =
       "assets/images/ai_generate_icon_unselected.png";
   static const String imagesChatAppBar = "assets/images/chatAppbarIcon.png";
+  static const String addFile = "assets/images/addFile.svg";
+  static const String addPhoto = "assets/images/addPhoto.svg";
+  static const String sparcle = "assets/images/sparcle.svg";
 }

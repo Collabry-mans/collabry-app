@@ -15,4 +15,5 @@ class AppColors {
   static const Color oAuthBorderColor = Color(0xff8ab7f4);
   static const Color blackColor = Colors.black;
   static const Color successedColor = Colors.green;
+  static const Color txtKeywordColor = Color(0xff9DB2CE);
 }
