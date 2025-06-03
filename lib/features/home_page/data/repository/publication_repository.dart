@@ -1,6 +1,6 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/api/end_points.dart';
-import 'package:collabry/features/home_page/data/model/publication_model.dart';
+import 'package:collabry/features/home_page/data/models/publication_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class PublicationRepoBase {

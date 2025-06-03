@@ -1,5 +1,5 @@
 import 'package:collabry/core/api/end_points.dart';
-import 'package:collabry/features/home_page/data/model/user.dart';
+import 'package:collabry/features/home_page/data/models/user.dart';
 
 class Collaborator {
   String collaboratorId;

@@ -3,7 +3,7 @@ import 'package:collabry/core/widgets/post_tile/post_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
-import 'package:collabry/features/home_page/data/model/publication_model.dart';
+import 'package:collabry/features/home_page/data/models/publication_model.dart';
 
 class PublicationContent extends StatelessWidget {
   const PublicationContent({

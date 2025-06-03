@@ -1,4 +1,4 @@
-import 'package:collabry/features/home_page/data/model/category_model.dart';
+import 'package:collabry/features/home_page/data/models/category_model.dart';
 
 sealed class CategoryState {}
 

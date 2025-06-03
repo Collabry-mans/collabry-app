@@ -1,6 +1,6 @@
 import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/api/end_points.dart';
-import 'package:collabry/features/home_page/data/model/category_model.dart';
+import 'package:collabry/features/home_page/data/models/category_model.dart';
 
 abstract class CategoryRepositoryBase {
   Future<List<CategoryModel>> getCategories();

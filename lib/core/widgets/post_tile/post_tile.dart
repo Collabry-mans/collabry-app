@@ -4,7 +4,7 @@ import 'package:collabry/core/widgets/post_tile/publication_header.dart';
 import 'package:collabry/core/widgets/post_tile/publication_reach.dart';
 import 'package:collabry/core/widgets/post_tile/publication_react.dart';
 import 'package:flutter/material.dart';
-import 'package:collabry/features/home_page/data/model/publication_model.dart';
+import 'package:collabry/features/home_page/data/models/publication_model.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 
 enum PostTileType {

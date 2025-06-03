@@ -1,6 +1,6 @@
 import 'package:collabry/core/api/end_points.dart';
-import 'package:collabry/features/home_page/data/model/collaborator.dart';
-import 'package:collabry/features/home_page/data/model/section.dart';
+import 'package:collabry/features/home_page/data/models/collaborator.dart';
+import 'package:collabry/features/home_page/data/models/section.dart';
 
 class Publication {
   String publicationId;

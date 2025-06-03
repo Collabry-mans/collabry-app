@@ -1,5 +1,5 @@
 import 'package:collabry/core/errors/exception_handling.dart';
-import 'package:collabry/features/home_page/data/model/publication_model.dart';
+import 'package:collabry/features/home_page/data/models/publication_model.dart';
 import 'package:collabry/features/home_page/data/repository/publication_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';

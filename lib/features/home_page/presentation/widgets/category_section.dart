@@ -1,6 +1,6 @@
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
-import 'package:collabry/features/home_page/data/model/category_model.dart';
+import 'package:collabry/features/home_page/data/models/category_model.dart';
 import 'package:flutter/material.dart';
 
 class CategorySection extends StatefulWidget {
