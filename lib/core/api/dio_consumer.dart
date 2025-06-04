@@ -14,12 +14,15 @@ class DioConsumer {
     ),
   );
 
+  // we can use the dio here bcz we are sepearating a new dio without interceptors in the repo itself
   DioConsumer() {
     dio.options.baseUrl = EndPoints.baseUrl;
-    dio.interceptors.add(AuthInterceptor(
+    dio.interceptors.add(
+      AuthInterceptor(
         dio,
-        RefreshTokenRepository(
-            dio))); // we can use the dio here bcz we are sepearating a new dio without interceptors in the repo itself
+        RefreshTokenRepository(),
+      ),
+    );
     dio.interceptors.add(
       LogInterceptor(
           request: true,

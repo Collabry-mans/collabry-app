@@ -6,18 +6,13 @@ import 'package:collabry/features/authentication/data/model/refresh_token_model.
 import 'package:dio/dio.dart';
 
 class RefreshTokenRepository {
-  final Dio dio;
-  RefreshTokenRepository(this.dio);
+  RefreshTokenRepository();
 
   Future<RefreshTokenModel?> refreshToken(String refreshToken) async {
     try {
       // Create clean dio instance without interceptors
       final tokenDio = Dio(
-        BaseOptions(
-          baseUrl: dio.options.baseUrl,
-          connectTimeout: dio.options.connectTimeout,
-          receiveTimeout: dio.options.receiveTimeout,
-        ),
+        BaseOptions(baseUrl: EndPoints.baseUrl),
       );
 
       final response = await tokenDio.post(
@@ -49,7 +44,7 @@ class RefreshTokenRepository {
       if (e is DioException && e.response?.statusCode == 400) {
         await secureStorage.deleteAll();
       }
-      return null; // Return null instead of rethrowing
+      return null;
     }
   }
 }
