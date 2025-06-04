@@ -1,10 +1,8 @@
 import 'package:collabry/features/authentication/presentation/manager/auth_states.dart';
 import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
-import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/data/repository/auth_repository.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,61 +34,63 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> signUp() async {
     emit(RegisterLoadingState());
-    try {
-      final user = await authRepo.signUp(
-        registerNameController.text,
-        registerEmailController.text.trim(),
-        registerPassController.text,
-      );
-      saveUserTokens(user.accessToken, user.refreshToken);
-
-      emit(RegisterLoadedState(signUp: user));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(RegisterFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result = await authRepo.signUp(
+      registerNameController.text,
+      registerEmailController.text.trim(),
+      registerPassController.text,
+    );
+    result.when(
+      onSuccess: (user) {
+        saveUserTokens(user.accessToken, user.refreshToken);
+        emit(RegisterLoadedState(signUp: user));
+      },
+      onFailure: (error) {
+        emit(RegisterFailedState(errModel: error));
+      },
+    );
   }
 
   Future<void> logIn() async {
     emit(LoginLoadingState());
-    try {
-      final user = await authRepo.logIn(
-        logInEmailController.text.trim(),
-        logInPassController.text,
-      );
-      saveUserTokens(user.accessToken, user.refreshToken);
-      final userProfileCubit = getIt<UserProfileCubit>();
-      userProfileCubit.getUserProfile();
-      emit(LoginLoadedState(logIn: user));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(LoginFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result = await authRepo.logIn(
+      logInEmailController.text.trim(),
+      logInPassController.text,
+    );
+    result.when(
+      onSuccess: (user) {
+        saveUserTokens(user.accessToken, user.refreshToken);
+        final userProfileCubit = getIt<UserProfileCubit>();
+        userProfileCubit.getUserProfile();
+        emit(LoginLoadedState(logIn: user));
+      },
+      onFailure: (error) {
+        emit(LoginFailedState(errModel: error));
+      },
+    );
   }
 
   Future<void> sendOTP() async {
-    try {
-      await authRepo.sendOtp(registerEmailController.text.trim());
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(VerifyOTPFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result = await authRepo.sendOtp(registerEmailController.text.trim());
+    result.when(
+      onSuccess: (_) {},
+      onFailure: (error) {
+        emit(VerifyOTPFailedState(errModel: error));
+      },
+    );
   }
 
   Future<void> verifyOTP(String otp) async {
-    try {
-      emit(VerifyOTPLoadingState());
-      await authRepo.verifyOtp(registerEmailController.text.trim(), otp);
-
-      emit(VerifyOTPSuccessedState(otpCode: otp));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(VerifyOTPFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    emit(VerifyOTPLoadingState());
+    final result =
+        await authRepo.verifyOtp(registerEmailController.text.trim(), otp);
+    result.when(
+      onSuccess: (_) {
+        emit(VerifyOTPSuccessedState(otpCode: otp));
+      },
+      onFailure: (error) {
+        emit(VerifyOTPFailedState(errModel: error));
+      },
+    );
   }
 }
 

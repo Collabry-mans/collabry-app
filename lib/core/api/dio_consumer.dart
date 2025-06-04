@@ -1,6 +1,5 @@
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/api/auth_interceptor.dart';
-import 'package:collabry/core/errors/exception_handling.dart';
 import 'package:collabry/features/authentication/data/repository/refresh_token_repository.dart';
 import 'package:dio/dio.dart';
 
@@ -14,7 +13,6 @@ class DioConsumer {
     ),
   );
 
-  // we can use the dio here bcz we are sepearating a new dio without interceptors in the repo itself
   DioConsumer() {
     dio.options.baseUrl = EndPoints.baseUrl;
     dio.interceptors.add(
@@ -37,16 +35,12 @@ class DioConsumer {
       {dynamic data,
       Map<String, dynamic>? queryParameters,
       bool isFormData = false}) async {
-    try {
-      final Response response = await dio.get(
-        path,
-        data: isFormData ? FormData.fromMap(data) : data,
-        queryParameters: queryParameters,
-      );
-      return response.data;
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    }
+    final Response response = await dio.get(
+      path,
+      data: isFormData ? FormData.fromMap(data) : data,
+      queryParameters: queryParameters,
+    );
+    return response.data;
   }
 
   Future post(
@@ -55,16 +49,12 @@ class DioConsumer {
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   }) async {
-    try {
-      final Response response = await dio.post(
-        path,
-        data: isFormData ? FormData.fromMap(data) : data,
-        queryParameters: queryParameters,
-      );
-      return response.data;
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    }
+    final Response response = await dio.post(
+      path,
+      data: isFormData ? FormData.fromMap(data) : data,
+      queryParameters: queryParameters,
+    );
+    return response.data;
   }
 
   Future delete(
@@ -73,14 +63,10 @@ class DioConsumer {
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   }) async {
-    try {
-      final response = await dio.delete(path,
-          data: isFormData ? FormData.fromMap(data) : data,
-          queryParameters: queryParameters);
-      return response.data;
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    }
+    final response = await dio.delete(path,
+        data: isFormData ? FormData.fromMap(data) : data,
+        queryParameters: queryParameters);
+    return response.data;
   }
 
   Future patch(
@@ -89,14 +75,10 @@ class DioConsumer {
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   }) async {
-    try {
-      final response = await dio.patch(path,
-          data: isFormData ? FormData.fromMap(data) : data,
-          queryParameters: queryParameters);
-      return response.data;
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    }
+    final response = await dio.patch(path,
+        data: isFormData ? FormData.fromMap(data) : data,
+        queryParameters: queryParameters);
+    return response.data;
   }
 
   Future put(
@@ -105,13 +87,9 @@ class DioConsumer {
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   }) async {
-    try {
-      final response = await dio.put(path,
-          data: isFormData ? FormData.fromMap(data) : data,
-          queryParameters: queryParameters);
-      return response.data;
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    }
+    final response = await dio.put(path,
+        data: isFormData ? FormData.fromMap(data) : data,
+        queryParameters: queryParameters);
+    return response.data;
   }
 }

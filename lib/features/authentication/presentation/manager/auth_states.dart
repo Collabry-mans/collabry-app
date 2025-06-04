@@ -1,5 +1,6 @@
 import 'package:collabry/features/authentication/data/model/log_in_model.dart';
 import 'package:collabry/features/authentication/data/model/sign_up_model.dart';
+import 'package:collabry/core/api/networking/api_error_model.dart';
 
 abstract class AuthState {}
 
@@ -14,8 +15,8 @@ class RegisterLoadedState extends AuthState {
 }
 
 class RegisterFailedState extends AuthState {
-  final String errMsg;
-  RegisterFailedState({required this.errMsg});
+  final ApiErrorModel errModel;
+  RegisterFailedState({required this.errModel});
 }
 
 //* Login States
@@ -27,19 +28,18 @@ class LoginLoadedState extends AuthState {
 }
 
 class LoginFailedState extends AuthState {
-  final String errMsg;
-  LoginFailedState({required this.errMsg});
+  final ApiErrorModel errModel;
+  LoginFailedState({required this.errModel});
 }
 
 //* OTP
 class VerifyOTPFailedState extends AuthState {
-  final String errMsg;
-  VerifyOTPFailedState({required this.errMsg});
+  final ApiErrorModel errModel;
+  VerifyOTPFailedState({required this.errModel});
 }
 
 class VerifyOTPSuccessedState extends AuthState {
   final String otpCode;
-
   VerifyOTPSuccessedState({required this.otpCode});
 }
 

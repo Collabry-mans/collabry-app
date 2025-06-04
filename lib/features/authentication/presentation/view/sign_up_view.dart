@@ -54,7 +54,8 @@ class SignUpView extends StatelessWidget {
                           context, Routes.signUpVerificationScreen,
                           arguments: context.read<AuthCubit>());
                     } else if (state is RegisterFailedState) {
-                      FlushBarUtils.flushBarError(state.errMsg, context);
+                      FlushBarUtils.flushBarError(
+                          state.errModel.message, context);
                     }
                   },
                   builder: (context, state) => Form(

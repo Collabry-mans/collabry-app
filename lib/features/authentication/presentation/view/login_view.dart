@@ -72,7 +72,8 @@ class _LogInViewState extends State<LogInView> {
                             FlushBarUtils.flushBarSuccess(
                                 AppStrings.welcomeBack, context);
                           } else if (state is LoginFailedState) {
-                            FlushBarUtils.flushBarError(state.errMsg, context);
+                            FlushBarUtils.flushBarError(
+                                state.errModel.message, context);
                           }
                         },
                         builder: (context, state) {

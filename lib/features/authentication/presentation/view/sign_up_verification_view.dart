@@ -26,7 +26,7 @@ class SignUpVerificationView extends StatelessWidget {
             Navigator.pushNamedAndRemoveUntil(
                 context, Routes.mainPageScreen, (route) => false);
           } else if (state is VerifyOTPFailedState) {
-            FlushBarUtils.flushBarError(state.errMsg, context);
+            FlushBarUtils.flushBarError(state.errModel.message, context);
           }
         },
         builder: (context, state) {
