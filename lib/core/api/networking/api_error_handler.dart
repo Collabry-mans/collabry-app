@@ -9,74 +9,87 @@ class ApiErrorHandler {
     if (error is Exception) {
       if (error is DioException) {
         return error.when(
-            connectionError: () => ApiErrorModel(
-                  message:
-                      "No internet connection. Please check your Wi-Fi or mobile data.",
-                  icon: Icons.wifi_off,
-                  statusCode: LocalStatuscode.connectionError,
-                ),
-            connectionTimeout: () => ApiErrorModel(
-                  message:
-                      "The connection took too long. Try checking your internet or try again later.",
-                  icon: Icons.timer_off,
-                  statusCode: LocalStatuscode.connectionTimeout,
-                ),
-            sendTimeout: () => ApiErrorModel(
-                  message:
-                      "Request timed out while sending data. Please try again.",
-                  icon: Icons.send,
-                  statusCode: LocalStatuscode.sendTimeout,
-                ),
-            receiveTimeout: () => ApiErrorModel(
-                  message:
-                      "Server took too long to respond. Please try again later.",
-                  icon: Icons.downloading,
-                  statusCode: LocalStatuscode.receiveTimeout,
-                ),
-            badCertificate: () => ApiErrorModel(
-                  message:
-                      "Security issue detected with the server. Connection not secure.",
-                  icon: Icons.security,
-                  statusCode: LocalStatuscode.badCertificate,
-                ),
-            badResponse: () {
-              final statusCode =
-                  error.response?.statusCode ?? LocalStatuscode.badResponse;
+          connectionError: () => ApiErrorModel(
+            message:
+                "No internet connection. Please check your Wi-Fi or mobile data.",
+            icon: Icons.wifi_off,
+            statusCode: LocalStatuscode.connectionError,
+          ),
+          connectionTimeout: () => ApiErrorModel(
+            message:
+                "The connection took too long. Try checking your internet or try again later.",
+            icon: Icons.timer_off,
+            statusCode: LocalStatuscode.connectionTimeout,
+          ),
+          sendTimeout: () => ApiErrorModel(
+            message: "Request timed out while sending data. Please try again.",
+            icon: Icons.send,
+            statusCode: LocalStatuscode.sendTimeout,
+          ),
+          receiveTimeout: () => ApiErrorModel(
+            message: "Server took too long to respond. Please try again later.",
+            icon: Icons.downloading,
+            statusCode: LocalStatuscode.receiveTimeout,
+          ),
+          badCertificate: () => ApiErrorModel(
+            message:
+                "Security issue detected with the server. Connection not secure.",
+            icon: Icons.security,
+            statusCode: LocalStatuscode.badCertificate,
+          ),
+          badResponse: () {
+            final statusCode =
+                error.response?.statusCode ?? LocalStatuscode.badResponse;
 
-              if (statusCode == 404) {
-                return ApiErrorModel(
-                  message: "You have reached the end. No more posts to load.",
-                  icon: Icons.info_outline,
-                  statusCode: statusCode,
-                  isLastPage: true,
-                );
-              }
+            // Special case for 404 (end of posts)
+            if (statusCode == 404) {
               return ApiErrorModel(
-                  message:
-                      "Server returned an unexpected response. Please try again.",
-                  icon: Icons.warning,
-                  statusCode: statusCode);
-            },
-            cancel: () => ApiErrorModel(
-                  message: "The request was cancelled. Please try again.",
-                  icon: Icons.cancel,
-                  statusCode: LocalStatuscode.cancel,
-                ),
-            unknown: () => ApiErrorModel(
-                  message:
-                      "Something went wrong. Please check your connection and try again.",
-                  icon: Icons.error_outline,
-                  statusCode: LocalStatuscode.unknown,
-                ));
+                message: "You have reached the end. No more posts to load.",
+                icon: Icons.info_outline,
+                statusCode: statusCode,
+                isLastPage: true,
+              );
+            }
+
+            // Parse API response error if available
+            if (error.response?.data != null &&
+                error.response?.data is Map<String, dynamic>) {
+              return ApiErrorModel.fromApiResponse(
+                  error.response!.data, statusCode);
+            }
+
+            // Fallback for bad response without structured data
+            return ApiErrorModel(
+              message:
+                  "Server returned an unexpected response. Please try again.",
+              errorMsg: error.response?.statusMessage,
+              icon: Icons.warning,
+              statusCode: statusCode,
+            );
+          },
+          cancel: () => ApiErrorModel(
+            message: "The request was cancelled. Please try again.",
+            icon: Icons.cancel,
+            statusCode: LocalStatuscode.cancel,
+          ),
+          unknown: () => ApiErrorModel(
+            message:
+                "Something went wrong. Please check your connection and try again.",
+            icon: Icons.error_outline,
+            statusCode: LocalStatuscode.unknown,
+          ),
+        );
       }
       return ApiErrorModel(
-          message: error.toString(),
-          icon: Icons.error_outline,
-          statusCode: LocalStatuscode.unknown);
-    }
-    return ApiErrorModel(
         message: error.toString(),
         icon: Icons.error_outline,
-        statusCode: LocalStatuscode.unknown);
+        statusCode: LocalStatuscode.unknown,
+      );
+    }
+    return ApiErrorModel(
+      message: error.toString(),
+      icon: Icons.error_outline,
+      statusCode: LocalStatuscode.unknown,
+    );
   }
 }

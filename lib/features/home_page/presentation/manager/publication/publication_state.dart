@@ -12,8 +12,8 @@ final class PublicationCreationLoadingState extends PublicationState {}
 final class PublicationCreationLoadedState extends PublicationState {}
 
 final class PublicationCreationFailedState extends PublicationState {
-  final String errMsg;
-  PublicationCreationFailedState({required this.errMsg});
+  final ApiErrorModel errModel;
+  PublicationCreationFailedState({required this.errModel});
 }
 
 //* publication get
@@ -26,8 +26,8 @@ final class PublicationLoadedState extends PublicationState {
 }
 
 final class PublicationFailedState extends PublicationState {
-  final String errMsg;
-  PublicationFailedState({required this.errMsg});
+  final ApiErrorModel errModel;
+  PublicationFailedState({required this.errModel});
 }
 
 //* publicationById states
@@ -40,14 +40,14 @@ final class PublicationByIdLoadedState extends PublicationState {
 }
 
 final class PublicationByIdFailedState extends PublicationState {
-  final String errMsg;
-  PublicationByIdFailedState({required this.errMsg});
+  final ApiErrorModel errModel;
+  PublicationByIdFailedState({required this.errModel});
 }
 
 //* user publication change status
 final class UserPublicationStateFailed extends PublicationState {
-  final String errMsg;
-  UserPublicationStateFailed({required this.errMsg});
+  final ApiErrorModel errModel;
+  UserPublicationStateFailed({required this.errModel});
 }
 
 final class UserPublicationStateSuccess extends PublicationState {}
@@ -60,6 +60,6 @@ final class PublicationEditedSuccess extends PublicationState {
 }
 
 final class PublicationEditedFailed extends PublicationState {
-  final String errMsg;
-  PublicationEditedFailed({required this.errMsg});
+  final ApiErrorModel errModel;
+  PublicationEditedFailed({required this.errModel});
 }

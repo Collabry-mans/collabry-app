@@ -1,7 +1,6 @@
-import 'package:collabry/core/errors/exception_handling.dart';
+import 'package:collabry/core/api/networking/api_error_model.dart';
 import 'package:collabry/features/home_page/data/models/publication_model.dart';
 import 'package:collabry/features/home_page/data/repository/publication_repository.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'publication_state.dart';
@@ -19,102 +18,103 @@ class PublicationCubit extends Cubit<PublicationState> {
       required String language,
       required String visibility,
       required String categoryId}) async {
-    try {
-      emit(PublicationCreationLoadingState());
-      await repoPublication.createPublication(
-          title, description, keywords, language, visibility, categoryId);
-      emit(PublicationCreationLoadedState());
-    } on DioException catch (error) {
-      handleDioExceptions(error);
-    } on ServerException catch (e) {
-      emit(PublicationCreationFailedState(
-          errMsg: e.errModel.getFormattedMessage()));
-    }
+    emit(PublicationCreationLoadingState());
+    final result = await repoPublication.createPublication(
+        title, description, keywords, language, visibility, categoryId);
+    result.when(
+      onSuccess: (_) {
+        emit(PublicationCreationLoadedState());
+      },
+      onFailure: (error) {
+        emit(PublicationCreationFailedState(errModel: error));
+      },
+    );
   }
 
-  // getpublication
+  // get all publications
   Future<void> getAllPublications() async {
     emit(PublicationLoadingState());
-    try {
-      final List<Publication> publicationsList =
-          await repoPublication.getPublications();
-      emit(PublicationLoadedState(publications: publicationsList));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(PublicationFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result = await repoPublication.getPublications();
+    result.when(
+      onSuccess: (publicationsList) {
+        emit(PublicationLoadedState(publications: publicationsList));
+      },
+      onFailure: (error) {
+        emit(PublicationFailedState(errModel: error));
+      },
+    );
   }
 
   // get publication by category
   Future<void> getPublicationsByCategory(String categoryId) async {
     emit(PublicationLoadingState());
-    try {
-      final List<Publication> publicationsList =
-          await repoPublication.getPublicationsByCategory(categoryId);
-      emit(PublicationLoadedState(publications: publicationsList));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(PublicationFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result = await repoPublication.getPublicationsByCategory(categoryId);
+    result.when(
+      onSuccess: (publicationsList) {
+        emit(PublicationLoadedState(publications: publicationsList));
+      },
+      onFailure: (error) {
+        emit(PublicationFailedState(errModel: error));
+      },
+    );
   }
 
   // get publication by id
   Future<void> getPublicationById(String publicationId) async {
     emit(PublicationByIdLoadingState());
-    try {
-      final Publication publication =
-          await repoPublication.getPublicationById(publicationId);
-      emit(PublicationByIdLoadedState(publication: publication));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(
-          PublicationByIdFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result = await repoPublication.getPublicationById(publicationId);
+    result.when(
+      onSuccess: (publication) {
+        emit(PublicationByIdLoadedState(publication: publication));
+      },
+      onFailure: (error) {
+        emit(PublicationByIdFailedState(errModel: error));
+      },
+    );
   }
 
   // get all user publications
   Future<void> getAllUserPublications() async {
     emit(PublicationLoadingState());
-    try {
-      final List<Publication> publicationsList =
-          await repoPublication.getUserPublications();
-      emit(PublicationLoadedState(publications: publicationsList));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(PublicationFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result = await repoPublication.getUserPublications();
+    result.when(
+      onSuccess: (publicationsList) {
+        emit(PublicationLoadedState(publications: publicationsList));
+      },
+      onFailure: (error) {
+        emit(PublicationFailedState(errModel: error));
+      },
+    );
   }
 
   // get user publication by id
   Future<void> getUserPublicationById(String userPublicationId) async {
     emit(PublicationByIdLoadingState());
-    try {
-      final Publication publication =
-          await repoPublication.getUserPublicationById(userPublicationId);
-      emit(PublicationByIdLoadedState(publication: publication));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(
-          PublicationByIdFailedState(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result =
+        await repoPublication.getUserPublicationById(userPublicationId);
+    result.when(
+      onSuccess: (publication) {
+        emit(PublicationByIdLoadedState(publication: publication));
+      },
+      onFailure: (error) {
+        emit(PublicationByIdFailedState(errModel: error));
+      },
+    );
   }
 
+  // change publication status
   Future<void> changePublicationStatus(
       String publicationId, String status) async {
-    try {
-      await repoPublication.changePublicationStatus(publicationId, status);
-      emit(UserPublicationStateSuccess());
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(
-          UserPublicationStateFailed(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result =
+        await repoPublication.changePublicationStatus(publicationId, status);
+    result.when(
+      onSuccess: (_) {
+        emit(UserPublicationStateSuccess());
+      },
+      onFailure: (error) {
+        emit(UserPublicationStateFailed(errModel: error));
+      },
+    );
   }
 
   // edit publication data
@@ -126,15 +126,15 @@ class PublicationCubit extends Cubit<PublicationState> {
       String? visibility,
       String? categoryId,
       List<String?>? keywords) async {
-    try {
-      final Publication editedPublication =
-          await repoPublication.changePublicationData(publicationId, title,
-              description, language, visibility, categoryId, keywords);
-      emit(PublicationEditedSuccess(publication: editedPublication));
-    } on DioException catch (e) {
-      handleDioExceptions(e);
-    } on ServerException catch (e) {
-      emit(PublicationEditedFailed(errMsg: e.errModel.getFormattedMessage()));
-    }
+    final result = await repoPublication.changePublicationData(publicationId,
+        title, description, language, visibility, categoryId, keywords);
+    result.when(
+      onSuccess: (editedPublication) {
+        emit(PublicationEditedSuccess(publication: editedPublication));
+      },
+      onFailure: (error) {
+        emit(PublicationEditedFailed(errModel: error));
+      },
+    );
   }
 }
