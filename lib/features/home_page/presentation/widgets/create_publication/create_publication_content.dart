@@ -2,33 +2,15 @@ import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/features/home_page/presentation/widgets/create_publication/create_publication_fields.dart';
 import 'package:flutter/material.dart';
 
-class CreatePublicationContent extends StatefulWidget {
+class CreatePublicationContent extends StatelessWidget {
   const CreatePublicationContent({
     super.key,
+    required this.titleController,
+    required this.abstractController,
   });
 
-  @override
-  State<CreatePublicationContent> createState() =>
-      _CreatePublicationContentState();
-}
-
-class _CreatePublicationContentState extends State<CreatePublicationContent> {
-  late final TextEditingController _titleController;
-  late final TextEditingController _abstractController;
-
-  @override
-  void initState() {
-    _titleController = TextEditingController();
-    _abstractController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _abstractController.dispose();
-    super.dispose();
-  }
+  final TextEditingController titleController;
+  final TextEditingController abstractController;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +18,13 @@ class _CreatePublicationContentState extends State<CreatePublicationContent> {
       children: [
         CreatePublicationTxtField(
           label: AppStrings.title,
-          controller: _titleController,
+          controller: titleController,
           hint: AppStrings.addUrTitle,
         ),
         SizedBox(height: 16.0),
         CreatePublicationTxtField(
           label: AppStrings.abstract,
-          controller: _abstractController,
+          controller: abstractController,
           hint: AppStrings.enterUrAbstract,
           maxLines: 3,
         ),

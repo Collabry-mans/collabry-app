@@ -11,13 +11,14 @@ class PublicationCubit extends Cubit<PublicationState> {
 
   //* publication
   // create publication
-  Future<void> createPublication(
-      {required String title,
-      required String description,
-      required List<String> keywords,
-      required String language,
-      required String visibility,
-      required String categoryId}) async {
+  Future<void> createPublication({
+    required String title,
+    required String description,
+    required List<String> keywords,
+    required String language,
+    required String visibility,
+    required String categoryId,
+  }) async {
     emit(PublicationCreationLoadingState());
     final result = await repoPublication.createPublication(
         title, description, keywords, language, visibility, categoryId);
@@ -27,6 +28,34 @@ class PublicationCubit extends Cubit<PublicationState> {
       },
       onFailure: (error) {
         emit(PublicationCreationFailedState(errModel: error));
+      },
+    );
+  }
+
+  // create section
+  Future<void> createSection({
+    required String title,
+    required String orderIndex,
+    required String type,
+    required String content,
+    required List<String> files,
+    required String publicationId,
+  }) async {
+    emit(SectionCreationLoadingState());
+    final result = await repoPublication.createSection(
+      title: title,
+      orderIndex: orderIndex,
+      type: type,
+      content: content,
+      files: files,
+      publicationId: publicationId,
+    );
+    result.when(
+      onSuccess: (_) {
+        emit(SectionCreationLoadedState());
+      },
+      onFailure: (error) {
+        emit(SectionCreationFailedState(errModel: error));
       },
     );
   }

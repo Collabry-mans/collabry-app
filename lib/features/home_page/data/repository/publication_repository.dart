@@ -14,6 +14,15 @@ abstract class PublicationRepoBase {
       String visibility,
       String categoryId);
 
+  Future<ApiResult<void>> createSection({
+    required String title,
+    required String orderIndex,
+    required String type,
+    required String content,
+    required List<String> files,
+    required String publicationId,
+  });
+
   Future<ApiResult<List<Publication>>> getPublications();
   Future<ApiResult<List<Publication>>> getPublicationsByCategory(
       String categoryId);
@@ -56,6 +65,33 @@ class PublicationRepo implements PublicationRepoBase {
           ApiKeys.language: language,
           ApiKeys.visibility: visibility,
           ApiKeys.categoryId: categoryId,
+        },
+      );
+      return ApiResult.success(null);
+    } catch (e) {
+      return ApiResult.failure(ApiErrorHandler.handle(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<void>> createSection({
+    required String title,
+    required String orderIndex,
+    required String type,
+    required String content,
+    required List<String> files,
+    required String publicationId,
+  }) async {
+    try {
+      await dio.post(
+        EndPoints.publicationsSectionsCreate,
+        data: {
+          ApiKeys.title: title,
+          ApiKeys.orderIndex: orderIndex,
+          ApiKeys.type: type,
+          ApiKeys.content: content,
+          ApiKeys.files: files,
+          ApiKeys.publicationId: publicationId,
         },
       );
       return ApiResult.success(null);

@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 class CreatePublicationSections extends StatefulWidget {
   const CreatePublicationSections({
     super.key,
+    required this.sections,
   });
+
+  final List<Map<String, TextEditingController>> sections;
 
   @override
   State<CreatePublicationSections> createState() =>
@@ -15,30 +18,9 @@ class CreatePublicationSections extends StatefulWidget {
 }
 
 class _CreatePublicationSectionsState extends State<CreatePublicationSections> {
-  late final List<Map<String, TextEditingController>> _sections;
-  @override
-  void initState() {
-    _sections = [
-      {
-        kTitle: TextEditingController(),
-        kContent: TextEditingController(),
-      }
-    ];
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    for (var section in _sections) {
-      section[kTitle]?.dispose();
-      section[kContent]?.dispose();
-    }
-    super.dispose();
-  }
-
   void _addSection() {
     setState(() {
-      _sections.add({
+      widget.sections.add({
         kTitle: TextEditingController(),
         kContent: TextEditingController(),
       });
@@ -47,9 +29,9 @@ class _CreatePublicationSectionsState extends State<CreatePublicationSections> {
 
   void _deleteSection(int index) {
     setState(() {
-      _sections[index][kTitle]!.dispose();
-      _sections[index][kContent]!.dispose();
-      _sections.removeAt(index);
+      widget.sections[index][kTitle]!.dispose();
+      widget.sections[index][kContent]!.dispose();
+      widget.sections.removeAt(index);
     });
   }
 
@@ -58,8 +40,8 @@ class _CreatePublicationSectionsState extends State<CreatePublicationSections> {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      final section = _sections.removeAt(oldIndex);
-      _sections.insert(newIndex, section);
+      final section = widget.sections.removeAt(oldIndex);
+      widget.sections.insert(newIndex, section);
     });
   }
 
@@ -71,7 +53,7 @@ class _CreatePublicationSectionsState extends State<CreatePublicationSections> {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           onReorder: _onReorder,
-          children: _sections.asMap().entries.map((entry) {
+          children: widget.sections.asMap().entries.map((entry) {
             int index = entry.key;
             return Container(
               key: Key('section_$index'),

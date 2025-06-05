@@ -55,7 +55,7 @@ class FieldsWrapper extends StatelessWidget {
   }
 }
 
-class DropDownField extends StatelessWidget {
+class DropDownField<T> extends StatelessWidget {
   const DropDownField({
     super.key,
     required this.label,
@@ -64,9 +64,9 @@ class DropDownField extends StatelessWidget {
     required this.onChanged,
   });
   final String label;
-  final String value;
-  final List<String> items;
-  final ValueChanged<String?> onChanged;
+  final T value;
+  final List<DropdownMenuItem<T>> items;
+  final ValueChanged<T?> onChanged;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -75,17 +75,11 @@ class DropDownField extends StatelessWidget {
         label: label,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10),
-          child: DropdownButtonFormField<String>(
+          child: DropdownButtonFormField<T>(
             borderRadius: BorderRadius.circular(20),
             dropdownColor: AppColors.whiteColor,
             value: value,
-            items: items
-                .map((String item) => DropdownMenuItem<String>(
-                      value: item,
-                      child:
-                          Text(item, style: AppTextStyles.belanosimaSize14Grey),
-                    ))
-                .toList(),
+            items: items,
             onChanged: onChanged,
             decoration: InputDecoration(
               border: OutlineInputBorder(

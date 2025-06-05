@@ -63,3 +63,13 @@ final class PublicationEditedFailed extends PublicationState {
   final ApiErrorModel errModel;
   PublicationEditedFailed({required this.errModel});
 }
+
+//* Publication sections
+final class SectionCreationLoadingState extends PublicationState {}
+
+final class SectionCreationLoadedState extends PublicationState {}
+
+final class SectionCreationFailedState extends PublicationState {
+  final ApiErrorModel errModel;
+  SectionCreationFailedState({required this.errModel});
+}

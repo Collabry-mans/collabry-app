@@ -22,6 +22,10 @@ class EndPoints {
   static const String userPublicationById = 'publications/publication/';
   static const String userPublicationStatus = 'publications/author/status/';
 
+  //* Section
+  static const String publicationsSectionsCreate =
+      'publications/section/create';
+
   //* user Profile
   static const String userProfile = 'profiles/profile';
   static const String userProfileAvatar = 'profiles/profile/avatar';

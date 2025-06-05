@@ -6,7 +6,10 @@ class CreatePublicationAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   const CreatePublicationAppBar({
     super.key,
+    required this.onPublish,
   });
+
+  final VoidCallback onPublish;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class CreatePublicationAppBar extends StatelessWidget
               ),
               SizedBox(width: 8.0),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: onPublish,
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.all(8),
                   shape: RoundedRectangleBorder(

@@ -13,8 +13,8 @@ class Collabry extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isFirstTime = firstTimeBox!.get(kFirstTime, defaultValue: true);
     AppRoutes appRoutes = AppRoutes();
-    return BlocProvider(
-      create: (context) {
+    return BlocProvider<UserProfileCubit>(
+      create: (_) {
         final cubit = getIt<UserProfileCubit>();
         if (isLoggedIn) {
           cubit.getUserProfile();

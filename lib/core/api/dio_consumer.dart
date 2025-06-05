@@ -49,7 +49,7 @@ class DioConsumer {
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   }) async {
-    final Response response = await dio.post(
+    final response = await dio.post(
       path,
       data: isFormData ? FormData.fromMap(data) : data,
       queryParameters: queryParameters,
