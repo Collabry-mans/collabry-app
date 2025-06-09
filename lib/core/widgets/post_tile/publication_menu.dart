@@ -1,6 +1,11 @@
+import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/utils/flush_bar_utils.dart';
 import 'package:collabry/core/widgets/post_tile/post_tile.dart';
+import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
+import 'package:collabry/features/profile/data/model/publication_status.dart';
 import 'package:flutter/material.dart';
 import 'package:collabry/features/home_page/data/models/publication_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PublicationMenu extends StatelessWidget {
   const PublicationMenu({
@@ -14,27 +19,42 @@ class PublicationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      onSelected: (value) => _handleMenuAction(context, value),
-      itemBuilder: (context) => _buildMenuItems(),
-      icon: const Icon(Icons.more_vert),
+    return BlocConsumer<PublicationCubit, PublicationState>(
+      listener: (context, state) {
+        if (state is UserPublicationStateSuccess) {
+          FlushBarUtils.flushBarSuccess(
+              'Publication is published, successfuly', context);
+          context.read<PublicationCubit>().getAllUserPublications();
+        } else if (state is UserPublicationStateFailed) {
+          FlushBarUtils.flushBarError(
+              'Failed to change publication status', context);
+        } else if (state is UserPublicationStateLoading) {
+          FlushBarUtils.flushBarMsg('Changing publication status...', context);
+        }
+      },
+      builder: (context, state) {
+        return PopupMenuButton<String>(
+          color: AppColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          onSelected: (value) =>
+              _handleMenuAction(context, value, publication: publication),
+          itemBuilder: (context) => _buildMenuItems(),
+          icon: const Icon(Icons.more_vert),
+        );
+      },
     );
   }
 
   List<PopupMenuEntry<String>> _buildMenuItems() {
     final items = <PopupMenuEntry<String>>[];
 
-    // Common options for all types
-    items.addAll([
-      const PopupMenuItem(value: 'share', child: Text('Share')),
-      const PopupMenuItem(value: 'report', child: Text('Report')),
-    ]);
-
-    // User-specific options based on type
     if (_shouldShowUserOptions()) {
       items.addAll([
-        const PopupMenuDivider(),
-        const PopupMenuItem(value: 'publish', child: Text('Publish')),
+        if (type == PostTileType.draftedPost)
+          {const PopupMenuItem(value: 'publish', child: Text('Publish'))}
+              .single,
         const PopupMenuItem(value: 'edit', child: Text('Edit')),
         const PopupMenuItem(
           value: 'delete',
@@ -47,21 +67,16 @@ class PublicationMenu extends StatelessWidget {
   }
 
   bool _shouldShowUserOptions() {
-    // Show user options for userProfile and detailedFromUserProfile
     return type == PostTileType.userProfile ||
-        type == PostTileType.detailedFromUserProfile;
+        type == PostTileType.detailedFromUserProfile ||
+        type == PostTileType.draftedPost;
   }
 
-  void _handleMenuAction(BuildContext context, String action) {
+  void _handleMenuAction(BuildContext context, String action,
+      {required Publication publication}) {
     switch (action) {
-      case 'share':
-        _handleShare(context);
-        break;
-      case 'report':
-        _handleReport(context);
-        break;
       case 'publish':
-        _handlePublish(context);
+        _handlePublish(context, publicationId: publication.publicationId);
         break;
       case 'edit':
         _handleEdit(context);
@@ -72,23 +87,9 @@ class PublicationMenu extends StatelessWidget {
     }
   }
 
-  // Action handlers remain the same...
-  void _handleShare(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Share functionality')),
-    );
-  }
-
-  void _handleReport(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Report functionality')),
-    );
-  }
-
-  void _handlePublish(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Publish functionality')),
-    );
+  void _handlePublish(BuildContext context, {required String publicationId}) {
+    context.read<PublicationCubit>().changePublicationStatus(
+        publicationId, PublicationStatus.published.value);
   }
 
   void _handleEdit(BuildContext context) {
