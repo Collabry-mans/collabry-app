@@ -20,7 +20,7 @@ class SignupTextFields extends StatelessWidget {
           txtController: authCubit.registerNameController,
           text: AppStrings.name,
           icon: Icons.account_circle_outlined,
-          color: AppColors.txtColor,
+          color: AppColors.lightGray,
           validationFun: (value) {
             if (value == null || value.isEmpty) {
               return 'U should enter a name';
@@ -33,7 +33,7 @@ class SignupTextFields extends StatelessWidget {
           txtController: authCubit.registerEmailController,
           text: AppStrings.email,
           icon: Icons.email,
-          color: AppColors.txtColor,
+          color: AppColors.lightGray,
           validationFun: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter your email';
@@ -48,7 +48,7 @@ class SignupTextFields extends StatelessWidget {
           txtController: authCubit.registerPassController,
           text: AppStrings.pass,
           icon: Icons.lock_outline_rounded,
-          color: AppColors.txtColor,
+          color: AppColors.lightGray,
           isPass: true,
           validationFun: (String? msg) {
             if (msg == null || msg.isEmpty) {
@@ -65,7 +65,7 @@ class SignupTextFields extends StatelessWidget {
           isPass: true,
           text: AppStrings.confirmPassword,
           icon: Icons.lock_outline_rounded,
-          color: AppColors.txtColor,
+          color: AppColors.lightGray,
           validationFun: (value) {
             if (value == null || value.isEmpty) {
               return 'Please enter your password';

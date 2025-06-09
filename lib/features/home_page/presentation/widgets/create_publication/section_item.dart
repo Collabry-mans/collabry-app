@@ -31,18 +31,18 @@ class SectionItem extends StatelessWidget {
                 style: AppTextStyles.belanosimaSize16BlackBold,
               ),
               IconButton(
-                icon: Icon(Icons.close, color: AppColors.txtColor),
+                icon: Icon(Icons.close, color: AppColors.lightGray),
                 onPressed: onDelete,
               ),
             ],
           ),
           SizedBox(height: 8.0),
-          CreatePublicationTxtField(
+          PTxtField(
             controller: section[kTitle]!,
             hint: AppStrings.enterUrTitle,
           ),
           SizedBox(height: 16.0),
-          CreatePublicationTxtField(
+          PTxtField(
             controller: section[kContent]!,
             hint: AppStrings.enterUrContent,
             maxLines: 5,
@@ -70,8 +70,8 @@ class SectionOptions extends StatelessWidget {
             OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: AppColors.selectedColor),
-                foregroundColor: AppColors.selectedColor,
+                side: BorderSide(color: AppColors.primary),
+                foregroundColor: AppColors.primary,
               ),
               child: Row(
                 children: [
@@ -85,8 +85,8 @@ class SectionOptions extends StatelessWidget {
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.selectedColor,
-                foregroundColor: AppColors.whiteColor,
+                backgroundColor: AppColors.primary,
+                foregroundColor: AppColors.white,
               ),
               child: Row(
                 children: [
@@ -102,8 +102,8 @@ class SectionOptions extends StatelessWidget {
         ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.selectedColor,
-            foregroundColor: AppColors.whiteColor,
+            backgroundColor: AppColors.primary,
+            foregroundColor: AppColors.white,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

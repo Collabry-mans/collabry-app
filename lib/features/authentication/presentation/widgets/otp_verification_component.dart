@@ -13,7 +13,7 @@ class OTPVerificationComponent extends StatelessWidget {
       height: 58,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: AppColors.textFieldBorder,
+        color: AppColors.ghostWhite,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextFormField(
@@ -34,7 +34,7 @@ class OTPVerificationComponent extends StatelessWidget {
         },
         decoration: InputDecoration(
           filled: true,
-          fillColor: AppColors.whiteColor,
+          fillColor: AppColors.white,
           enabledBorder: outLineInputBorder(5),
           focusedBorder: outLineInputBorder(5),
         ),

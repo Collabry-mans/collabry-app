@@ -27,7 +27,7 @@ class _LoginTextFieldsState extends State<LoginTextFields> {
             txtController: authCubit.logInEmailController,
             text: AppStrings.email,
             icon: Icons.mail_outlined,
-            color: AppColors.txtColor,
+            color: AppColors.lightGray,
             validationFun: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
@@ -41,7 +41,7 @@ class _LoginTextFieldsState extends State<LoginTextFields> {
           txtController: authCubit.logInPassController,
           text: AppStrings.pass,
           icon: FontAwesomeIcons.lock,
-          color: AppColors.txtColor,
+          color: AppColors.lightGray,
           isPass: true,
           validationFun: (value) {
             if (value == null || value.isEmpty) {

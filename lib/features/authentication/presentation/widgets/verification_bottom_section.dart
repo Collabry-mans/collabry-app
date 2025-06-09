@@ -41,7 +41,7 @@ class VerificationBottomSection extends StatelessWidget {
           onTap: onTap,
           text: AppStrings.verify,
           textStyle: AppTextStyles.belanosimaSize24W600Purple
-              .copyWith(color: AppColors.whiteColor),
+              .copyWith(color: AppColors.white),
         ),
         RichText(
           textAlign: TextAlign.center,

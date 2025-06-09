@@ -19,6 +19,7 @@ class PublicationHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       leading: ProfileImage(image: publication.authorAvatar ?? ''),
       title: Text(
         publication.authorName,

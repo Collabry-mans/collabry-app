@@ -22,18 +22,18 @@ class AuthBottomSection extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             const Expanded(
-                child: Divider(color: AppColors.txtColor, thickness: 1)),
+                child: Divider(color: AppColors.lightGray, thickness: 1)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 title,
                 style: const TextStyle(
-                  color: AppColors.txtColor,
+                  color: AppColors.lightGray,
                 ),
               ),
             ),
             const Expanded(
-              child: Divider(color: AppColors.txtColor, thickness: 1),
+              child: Divider(color: AppColors.lightGray, thickness: 1),
             ),
           ],
         ),

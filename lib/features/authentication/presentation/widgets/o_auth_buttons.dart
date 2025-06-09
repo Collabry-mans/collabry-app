@@ -10,12 +10,12 @@ class OAuthButtons extends StatefulWidget {
 }
 
 class _OAuthButtonsState extends State<OAuthButtons> {
-  Color iconColor = AppColors.oAuthColor;
+  Color iconColor = AppColors.oAuth;
   Color containerColor = Colors.transparent;
   void _updateColors(bool isPressed) {
     setState(() {
-      iconColor = isPressed ? AppColors.whiteColor : AppColors.oAuthColor;
-      containerColor = isPressed ? AppColors.oAuthColor : Colors.transparent;
+      iconColor = isPressed ? AppColors.white : AppColors.oAuth;
+      containerColor = isPressed ? AppColors.oAuth : Colors.transparent;
     });
   }
 
@@ -29,7 +29,7 @@ class _OAuthButtonsState extends State<OAuthButtons> {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: containerColor,
-          border: Border.all(color: AppColors.oAuthBorderColor),
+          border: Border.all(color: AppColors.oAuthBorder),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Center(

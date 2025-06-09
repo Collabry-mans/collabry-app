@@ -66,7 +66,7 @@ class _CreatePublicationSectionsState extends State<CreatePublicationSections> {
                     offset: Offset(0, 2),
                   ),
                 ],
-                color: AppColors.whiteColor,
+                color: AppColors.white,
                 borderRadius: BorderRadius.circular(24),
               ),
               child: IntrinsicHeight(
@@ -79,7 +79,7 @@ class _CreatePublicationSectionsState extends State<CreatePublicationSections> {
                         index: index,
                         child: Icon(
                           Icons.drag_handle,
-                          color: AppColors.txtColor,
+                          color: AppColors.lightGray,
                         ),
                       ),
                     ),

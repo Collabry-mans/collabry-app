@@ -16,7 +16,7 @@ class ForgotPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.selectedColor,
+      backgroundColor: AppColors.primary,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -31,7 +31,7 @@ class ForgotPasswordView extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
               decoration: const BoxDecoration(
-                color: AppColors.bgColor,
+                color: AppColors.surfaceBackground,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(50),
                   topLeft: Radius.circular(50),
@@ -67,7 +67,7 @@ class ForgotPasswordView extends StatelessWidget {
                         context.read<AuthCubit>().forgotpassEmailController,
                     text: AppStrings.email,
                     icon: Icons.email_outlined,
-                    color: AppColors.txtColor,
+                    color: AppColors.lightGray,
                   ),
                   const SizedBox(height: 70),
                   CustomButton(
@@ -75,7 +75,7 @@ class ForgotPasswordView extends StatelessWidget {
                         context, Routes.forgotPasswordVerificationScreen),
                     text: AppStrings.submit,
                     textStyle: AppTextStyles.belanosimaSize24W600Purple
-                        .copyWith(color: AppColors.whiteColor),
+                        .copyWith(color: AppColors.white),
                   ),
                   const Expanded(child: SizedBox()),
                 ],

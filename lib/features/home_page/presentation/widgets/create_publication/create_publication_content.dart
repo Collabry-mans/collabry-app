@@ -16,13 +16,13 @@ class CreatePublicationContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CreatePublicationTxtField(
+        PTxtField(
           label: AppStrings.title,
           controller: titleController,
           hint: AppStrings.addUrTitle,
         ),
         SizedBox(height: 16.0),
-        CreatePublicationTxtField(
+        PTxtField(
           label: AppStrings.abstract,
           controller: abstractController,
           hint: AppStrings.enterUrAbstract,

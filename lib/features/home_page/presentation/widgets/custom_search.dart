@@ -16,19 +16,18 @@ class CustomSearch extends StatelessWidget {
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
             filled: true,
-            fillColor: AppColors.whiteColor,
+            fillColor: AppColors.white,
             enabledBorder: outLineInputBorder(10),
             focusedBorder: outLineInputBorder(10),
             hintText: AppStrings.search,
             hintStyle: AppTextStyles.belanosimaSize14Grey,
-            prefixIcon:
-                const Icon(Icons.search, color: AppColors.selectedColor),
+            prefixIcon: const Icon(Icons.search, color: AppColors.primary),
             suffixIcon: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.mic, color: AppColors.selectedColor),
+                Icon(Icons.mic, color: AppColors.primary),
                 SizedBox(width: 10),
-                Icon(Icons.filter_list, color: AppColors.selectedColor),
+                Icon(Icons.filter_list, color: AppColors.primary),
                 SizedBox(width: 10),
               ],
             ),

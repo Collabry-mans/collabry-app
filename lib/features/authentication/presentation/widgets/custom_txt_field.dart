@@ -37,7 +37,7 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: AppColors.textFieldBorder,
+        color: AppColors.ghostWhite,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextFormField(
@@ -60,7 +60,7 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const VerticalDivider(
-                        color: AppColors.txtColor,
+                        color: AppColors.lightGray,
                         thickness: 0.5,
                         width: 1,
                         endIndent: 7,
@@ -71,7 +71,7 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
                         onTap: () => setState(() => obscure = !obscure),
                         child: Icon(
                           obscure ? Icons.visibility_off : Icons.visibility,
-                          color: AppColors.txtColor,
+                          color: AppColors.lightGray,
                           size: 30,
                         ),
                       ),
@@ -80,7 +80,7 @@ class _CustomTxtFieldState extends State<CustomTxtField> {
                 )
               : null,
           filled: true,
-          fillColor: AppColors.whiteColor,
+          fillColor: AppColors.white,
           enabledBorder: outLineInputBorder(20),
           focusedBorder: outLineInputBorder(20),
         ),

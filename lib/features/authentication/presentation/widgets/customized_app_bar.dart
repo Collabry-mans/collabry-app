@@ -14,7 +14,7 @@ class CustomizedAppBar extends StatelessWidget {
         onTap: () => Navigator.pop(context),
         child: Row(
           children: [
-            const Icon(Icons.arrow_back, color: AppColors.selectedColor),
+            const Icon(Icons.arrow_back, color: AppColors.primary),
             Text(
               AppStrings.backToLogin,
               style:

@@ -22,20 +22,20 @@ class AddSectionButton extends StatelessWidget {
             dashPattern: const [10, 5],
             strokeWidth: 2,
             padding: const EdgeInsets.all(10),
-            color: AppColors.txtColor,
+            color: AppColors.lightGray,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.add,
-                color: AppColors.txtColor,
+                color: AppColors.lightGray,
                 size: 32,
               ),
               Text(
                 AppStrings.addNewGroup,
                 style: AppTextStyles.belanosimaSize24W600Purple
-                    .copyWith(color: AppColors.txtColor),
+                    .copyWith(color: AppColors.lightGray),
               ),
             ],
           ),

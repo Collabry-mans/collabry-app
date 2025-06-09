@@ -24,7 +24,7 @@ class _LogInViewState extends State<LogInView> {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> logInFormKey = GlobalKey();
     return Scaffold(
-      backgroundColor: AppColors.selectedColor,
+      backgroundColor: AppColors.primary,
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.sizeOf(context).height,
@@ -58,7 +58,7 @@ class _LogInViewState extends State<LogInView> {
                       width: double.infinity,
                       padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
                       decoration: const BoxDecoration(
-                        color: AppColors.bgColor,
+                        color: AppColors.surfaceBackground,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(50),
                           topLeft: Radius.circular(50),
@@ -104,8 +104,7 @@ class _LogInViewState extends State<LogInView> {
                                         text: AppStrings.logIn,
                                         textStyle: AppTextStyles
                                             .belanosimaSize24W600Purple
-                                            .copyWith(
-                                                color: AppColors.whiteColor),
+                                            .copyWith(color: AppColors.white),
                                       ),
                                 const SizedBox(height: 50),
                                 const Expanded(

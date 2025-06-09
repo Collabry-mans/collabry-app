@@ -21,7 +21,7 @@ class PublicationCreatedDate extends StatelessWidget {
         const Icon(
           Icons.public_outlined,
           size: 16,
-          color: AppColors.txtColor,
+          color: AppColors.lightGray,
         ),
       ],
     );

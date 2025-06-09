@@ -25,7 +25,7 @@ class EditableField extends StatelessWidget {
         Text(
           label,
           style: AppTextStyles.belanosimaSize14Grey
-              .copyWith(color: AppColors.primaryColor),
+              .copyWith(color: AppColors.secondary),
         ),
         const SizedBox(height: 4),
         TextField(

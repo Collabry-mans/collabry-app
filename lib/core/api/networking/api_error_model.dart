@@ -32,7 +32,7 @@ class ApiErrorModel {
     return ApiErrorModel(
       message:
           getFormattedMessage(json[ApiKeys.message]) ?? 'Server error occurred',
-      errorMsg: json[ApiKeys.error] as String?,
+      errorMsg: json[ApiKeys.error],
       icon: Icons.warning,
       statusCode: statusCode,
       isLastPage: false,

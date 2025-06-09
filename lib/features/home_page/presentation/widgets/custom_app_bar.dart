@@ -36,7 +36,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       },
       child: AppBar(
         surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.homeBgColor,
+        backgroundColor: AppColors.homeBackground,
         leading: Builder(builder: (context) {
           return IconButton(
             onPressed: () {
@@ -53,11 +53,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     padding: const EdgeInsets.all(1),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.selectedColor,
+                      color: AppColors.primary,
                     ),
                     child: const Icon(
                       Icons.menu,
-                      color: AppColors.whiteColor,
+                      color: AppColors.white,
                       size: 12,
                     ),
                   ),
@@ -72,11 +72,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
             padding: const EdgeInsets.all(5),
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.selectedColor,
+              color: AppColors.primary,
             ),
             child: const Icon(
               Icons.chat,
-              color: AppColors.whiteColor,
+              color: AppColors.white,
             ),
           ),
           Container(
@@ -84,9 +84,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
             padding: const EdgeInsets.all(5),
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: AppColors.selectedColor,
+              color: AppColors.primary,
             ),
-            child: const Icon(Icons.notifications, color: AppColors.whiteColor),
+            child: const Icon(Icons.notifications, color: AppColors.white),
           ),
         ],
       ),

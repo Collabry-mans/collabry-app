@@ -20,7 +20,7 @@ class ForgotPasswordVerificationView extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: AppColors.selectedColor,
+          backgroundColor: AppColors.primary,
           body: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.sizeOf(context).height,
@@ -38,7 +38,7 @@ class ForgotPasswordVerificationView extends StatelessWidget {
                       width: double.infinity,
                       padding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
                       decoration: const BoxDecoration(
-                        color: AppColors.bgColor,
+                        color: AppColors.surfaceBackground,
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(50),
                           topLeft: Radius.circular(50),

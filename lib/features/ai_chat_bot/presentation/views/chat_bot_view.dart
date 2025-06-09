@@ -24,7 +24,7 @@ class _ChatBotViewState extends State<ChatBotView> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: AppColors.whiteColor,
+              color: AppColors.white,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(

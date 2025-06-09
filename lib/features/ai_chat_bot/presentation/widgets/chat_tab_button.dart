@@ -35,9 +35,7 @@ class _ChatTabButtonState extends State<ChatTabButton> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(
-          color: widget.pageCondition
-              ? AppColors.selectedColor
-              : Colors.transparent,
+          color: widget.pageCondition ? AppColors.primary : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -58,7 +56,7 @@ class _ChatTabButtonState extends State<ChatTabButton> {
               style: widget.pageCondition
                   ? AppTextStyles.belanosimaSize12White
                   : AppTextStyles.belanosimaSize12White
-                      .copyWith(color: AppColors.selectedColor),
+                      .copyWith(color: AppColors.primary),
             )
           ],
         ),

@@ -19,7 +19,7 @@ class _PagesCardState extends State<PagesCard> {
       padding: const EdgeInsets.fromLTRB(5, 1, 5, 10),
       width: 160,
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -41,7 +41,7 @@ class _PagesCardState extends State<PagesCard> {
               child: const Icon(
                 Icons.close,
                 size: 20,
-                color: AppColors.txtColor,
+                color: AppColors.lightGray,
               ),
             ),
           ),
@@ -71,9 +71,7 @@ class _PagesCardState extends State<PagesCard> {
               padding: const EdgeInsets.symmetric(vertical: 3),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: isFollowed
-                    ? AppColors.primaryColor
-                    : AppColors.selectedColor,
+                color: isFollowed ? AppColors.secondary : AppColors.primary,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Center(

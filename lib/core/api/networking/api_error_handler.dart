@@ -41,16 +41,6 @@ class ApiErrorHandler {
             final statusCode =
                 error.response?.statusCode ?? LocalStatuscode.badResponse;
 
-            // Special case for 404 (end of posts)
-            if (statusCode == 404) {
-              return ApiErrorModel(
-                message: "You have reached the end. No more posts to load.",
-                icon: Icons.info_outline,
-                statusCode: statusCode,
-                isLastPage: true,
-              );
-            }
-
             // Parse API response error if available
             if (error.response?.data != null &&
                 error.response?.data is Map<String, dynamic>) {

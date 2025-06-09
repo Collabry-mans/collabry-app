@@ -51,13 +51,13 @@ class _PublicationKeyWordsSectionState
           children: _keywords
               .map((keyword) => Chip(
                     label: Text(keyword,
-                        style: TextStyle(color: AppColors.txtKeywordColor)),
-                    backgroundColor: AppColors.homeBgColor,
+                        style: TextStyle(color: AppColors.steelBlue)),
+                    backgroundColor: AppColors.homeBackground,
                     onDeleted: () => _deleteKeyword(keyword),
                   ))
               .toList(),
         ),
-        CreatePublicationTxtField(
+        PTxtField(
           controller: _keywordController,
           label: AppStrings.keyWords,
           hint: AppStrings.addKeywords,
@@ -77,7 +77,7 @@ class AddKeywordButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: AppColors.selectedColor,
+        color: AppColors.primary,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(4),
         boxShadow: [
@@ -90,7 +90,7 @@ class AddKeywordButton extends StatelessWidget {
       ),
       child: IconButton(
         padding: EdgeInsets.zero,
-        icon: Icon(Icons.add, color: AppColors.whiteColor),
+        icon: Icon(Icons.add, color: AppColors.white),
         onPressed: onPressed,
       ),
     );

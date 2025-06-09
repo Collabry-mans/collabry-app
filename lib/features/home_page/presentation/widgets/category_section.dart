@@ -75,7 +75,7 @@ class CategoryTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(26),
-          color: isSelected ? AppColors.selectedColor : AppColors.whiteColor,
+          color: isSelected ? AppColors.primary : AppColors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.1),
@@ -89,8 +89,7 @@ class CategoryTile extends StatelessWidget {
           child: Text(
             title,
             style: AppTextStyles.belanosimaSize14Grey.copyWith(
-              color:
-                  isSelected ? AppColors.whiteColor : AppColors.selectedColor,
+              color: isSelected ? AppColors.white : AppColors.primary,
             ),
           ),
         ),

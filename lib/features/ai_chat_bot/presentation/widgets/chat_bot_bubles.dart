@@ -9,13 +9,13 @@ class ChatBotBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.whiteColor.withValues(alpha: 0.5),
+        color: AppColors.white.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
         '“What are the trending topics among researchers and writers, and can you share related discussions or events?”',
         style: AppTextStyles.belanosimaSize12White
-            .copyWith(color: AppColors.onBoardinTxtColor),
+            .copyWith(color: AppColors.onBoardingText),
         textAlign: TextAlign.center,
       ),
     );

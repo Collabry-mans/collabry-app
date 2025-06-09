@@ -26,9 +26,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return ConvexAppBar(
       initialActiveIndex: widget.index,
       height: 60,
-      backgroundColor: AppColors.whiteColor,
-      color: AppColors.txtColor,
-      activeColor: AppColors.oAuthColor,
+      backgroundColor: AppColors.white,
+      color: AppColors.lightGray,
+      activeColor: AppColors.oAuth,
       onTap: (int index) {
         widget.pageController.animateToPage(index >= 2 ? index - 1 : index,
             duration: const Duration(milliseconds: 500),
@@ -50,12 +50,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           icon: SpeedDial(
             gradientBoxShape: BoxShape.circle,
             overlayOpacity: 0.4,
-            backgroundColor: AppColors.selectedColor,
-            activeBackgroundColor: AppColors.oAuthBorderColor,
+            backgroundColor: AppColors.primary,
+            activeBackgroundColor: AppColors.oAuthBorder,
             icon: Icons.add,
             activeIcon: Icons.close,
-            foregroundColor: AppColors.whiteColor,
-            activeForegroundColor: AppColors.whiteColor,
+            foregroundColor: AppColors.white,
+            activeForegroundColor: AppColors.white,
             children: [
               SpeedDialChild(
                 backgroundColor: Colors.transparent,
@@ -87,7 +87,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         TabItem(
           icon: Image.asset(Assets.imagesCommunityUnselected),
           activeIcon: Image.asset(Assets.imagesCommunitySelected),
-          title: AppStrings.community,
+          title: AppStrings.communities,
         ),
         TabItem(
           icon: Image.asset(Assets.imagesLiveUnselected),

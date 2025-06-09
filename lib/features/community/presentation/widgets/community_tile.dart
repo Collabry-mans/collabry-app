@@ -12,7 +12,7 @@ class CommunityTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(5),
         boxShadow: [
           BoxShadow(
@@ -115,7 +115,7 @@ class CommunityContent extends StatelessWidget {
         const Expanded(child: SizedBox()),
         Text(time,
             style: AppTextStyles.belanosimaSize12Black
-                .copyWith(color: AppColors.txtColor)),
+                .copyWith(color: AppColors.lightGray)),
       ],
     );
   }

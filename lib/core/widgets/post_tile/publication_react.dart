@@ -1,4 +1,3 @@
-import 'package:collabry/core/widgets/post_tile/post_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:collabry/core/utils/app_strings.dart';
@@ -8,13 +7,11 @@ import 'package:collabry/features/home_page/data/models/publication_model.dart';
 class PublicationReact extends StatelessWidget {
   const PublicationReact({
     super.key,
-    required this.type,
     required this.isLiked,
     required this.onLikeToggle,
     required this.publication,
   });
 
-  final PostTileType type;
   final bool isLiked;
   final VoidCallback onLikeToggle;
   final Publication publication;

@@ -25,7 +25,7 @@ class _ChatViewState extends State<ChatView> {
                 height: MediaQuery.sizeOf(context).width / 2),
             Text('Hello Zash!',
                 style: AppTextStyles.belanosimaSize24W600Purple
-                    .copyWith(color: AppColors.headerColor)),
+                    .copyWith(color: AppColors.appHeader)),
             const Text(AppStrings.howCanIHelpU,
                 style: AppTextStyles.belanosimaSize14Grey)
           ],

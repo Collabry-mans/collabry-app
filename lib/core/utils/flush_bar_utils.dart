@@ -12,10 +12,10 @@ class FlushBarUtils {
       icon: const Icon(
         Icons.info_outline,
         size: 28.0,
-        color: AppColors.primaryColor,
+        color: AppColors.secondary,
       ),
       duration: const Duration(seconds: 3),
-      leftBarIndicatorColor: AppColors.primaryColor,
+      leftBarIndicatorColor: AppColors.secondary,
     ).show(context);
   }
 
@@ -31,7 +31,7 @@ class FlushBarUtils {
         color: AppColors.successedColor,
       ),
       duration: const Duration(seconds: 3),
-      leftBarIndicatorColor: AppColors.primaryColor,
+      leftBarIndicatorColor: AppColors.secondary,
     ).show(context);
   }
 
@@ -42,7 +42,7 @@ class FlushBarUtils {
       flushbarStyle: FlushbarStyle.FLOATING,
       message: msg,
       duration: const Duration(seconds: 3),
-      leftBarIndicatorColor: AppColors.primaryColor,
+      leftBarIndicatorColor: AppColors.secondary,
     ).show(context);
   }
 }

@@ -24,7 +24,7 @@ class FieldsWrapper extends StatelessWidget {
               SizedBox(height: 12),
               Container(
                 decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(12.0),
                   boxShadow: [
                     BoxShadow(
@@ -77,7 +77,7 @@ class DropDownField<T> extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 10),
           child: DropdownButtonFormField<T>(
             borderRadius: BorderRadius.circular(20),
-            dropdownColor: AppColors.whiteColor,
+            dropdownColor: AppColors.white,
             value: value,
             items: items,
             onChanged: onChanged,
@@ -96,8 +96,8 @@ class DropDownField<T> extends StatelessWidget {
   }
 }
 
-class CreatePublicationTxtField extends StatelessWidget {
-  const CreatePublicationTxtField({
+class PTxtField extends StatelessWidget {
+  const PTxtField({
     super.key,
     required this.controller,
     this.label,
@@ -113,7 +113,7 @@ class CreatePublicationTxtField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: FieldsWrapper(
         label: label,
         child: TextField(
@@ -123,7 +123,7 @@ class CreatePublicationTxtField extends StatelessWidget {
               .copyWith(color: Colors.black54),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: AppColors.txtColor),
+            hintStyle: TextStyle(color: AppColors.lightGray),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(18.0),
               borderSide: BorderSide.none,

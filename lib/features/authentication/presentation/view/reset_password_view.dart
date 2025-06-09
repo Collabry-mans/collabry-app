@@ -16,7 +16,7 @@ class ResetPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.selectedColor,
+      backgroundColor: AppColors.primary,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -31,7 +31,7 @@ class ResetPasswordView extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
               decoration: const BoxDecoration(
-                color: AppColors.bgColor,
+                color: AppColors.surfaceBackground,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(50),
                   topLeft: Radius.circular(50),
@@ -61,7 +61,7 @@ class ResetPasswordView extends StatelessWidget {
                         context.read<AuthCubit>().resetpassNewPassController,
                     text: AppStrings.newPass,
                     icon: Icons.lock_outline_rounded,
-                    color: AppColors.txtColor,
+                    color: AppColors.lightGray,
                     isPass: true,
                   ),
                   const SizedBox(height: 10),
@@ -71,7 +71,7 @@ class ResetPasswordView extends StatelessWidget {
                         .resetpassConfirmPassController,
                     text: AppStrings.confirmPassword,
                     icon: Icons.lock_outline_rounded,
-                    color: AppColors.txtColor,
+                    color: AppColors.lightGray,
                     isPass: true,
                   ),
                   const SizedBox(height: 40),
@@ -82,7 +82,7 @@ class ResetPasswordView extends StatelessWidget {
                     },
                     text: AppStrings.resetPass,
                     textStyle: AppTextStyles.belanosimaSize24W600Purple
-                        .copyWith(color: AppColors.whiteColor),
+                        .copyWith(color: AppColors.white),
                   ),
                   const Expanded(child: SizedBox()),
                 ],

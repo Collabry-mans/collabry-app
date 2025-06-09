@@ -16,9 +16,9 @@ class CreatePublicationAppBar extends StatelessWidget
     return AppBar(
       shadowColor: Colors.black,
       surfaceTintColor: Colors.transparent,
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.white,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: AppColors.selectedColor),
+        icon: Icon(Icons.arrow_back, color: AppColors.primary),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -34,12 +34,12 @@ class CreatePublicationAppBar extends StatelessWidget
                   padding: EdgeInsets.all(8),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  backgroundColor: AppColors.homeBgColor,
+                  backgroundColor: AppColors.homeBackground,
                 ),
                 child: Text(
                   'Preview',
                   style: AppTextStyles.belanosimaSize16Purple
-                      .copyWith(color: AppColors.txtKeywordColor),
+                      .copyWith(color: AppColors.steelBlue),
                 ),
               ),
               SizedBox(width: 8.0),
@@ -49,13 +49,13 @@ class CreatePublicationAppBar extends StatelessWidget
                   padding: EdgeInsets.all(8),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  backgroundColor: AppColors.selectedColor,
-                  foregroundColor: AppColors.whiteColor,
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: AppColors.white,
                 ),
                 child: Text(
                   'Publish',
                   style: AppTextStyles.belanosimaSize16Purple
-                      .copyWith(color: AppColors.whiteColor),
+                      .copyWith(color: AppColors.white),
                 ),
               ),
             ],

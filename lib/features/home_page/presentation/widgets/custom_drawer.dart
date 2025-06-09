@@ -27,7 +27,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
       context.read<UserProfileCubit>().getUserProfile();
     }
     return Drawer(
-      backgroundColor: AppColors.whiteColor,
+      backgroundColor: AppColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

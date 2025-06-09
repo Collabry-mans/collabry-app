@@ -20,7 +20,7 @@ class PublicationContributors extends StatelessWidget {
         Text(
           AppStrings.contributors,
           style: AppTextStyles.belanosimaSize14Grey
-              .copyWith(color: AppColors.headerColor),
+              .copyWith(color: AppColors.appHeader),
         ),
         ContributorsList(collaborators: collaborators),
       ],

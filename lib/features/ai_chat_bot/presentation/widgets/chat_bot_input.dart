@@ -13,7 +13,7 @@ class ChatBotInput extends StatelessWidget {
         // Microphone Button
         Container(
           decoration: BoxDecoration(
-            color: AppColors.selectedColor, // Purple background
+            color: AppColors.primary, // Purple background
             borderRadius: BorderRadius.circular(8),
           ),
           child: IconButton(
@@ -37,12 +37,12 @@ class ChatBotInput extends StatelessWidget {
                 border: InputBorder.none,
                 prefixIcon: IconButton(
                   icon: const Icon(Icons.add_a_photo_outlined),
-                  color: AppColors.selectedColor,
+                  color: AppColors.primary,
                   onPressed: () {},
                 ),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.send),
-                  color: AppColors.selectedColor,
+                  color: AppColors.primary,
                   onPressed: () {},
                 ),
               ),

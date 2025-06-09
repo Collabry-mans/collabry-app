@@ -19,7 +19,7 @@ class SignUpVerificationView extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.selectedColor,
+      backgroundColor: AppColors.primary,
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is VerifyOTPSuccessedState) {
@@ -45,7 +45,7 @@ class SignUpVerificationView extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
                   decoration: const BoxDecoration(
-                    color: AppColors.bgColor,
+                    color: AppColors.surfaceBackground,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(50),
                       topLeft: Radius.circular(50),

@@ -37,7 +37,7 @@ class _PageIndicatorState extends State<PageIndicator> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: widget.isSelected
-                ? AppColors.selectedColor
+                ? AppColors.primary
                 : AppColors.unSelectedPageIndicator,
           ),
         ),

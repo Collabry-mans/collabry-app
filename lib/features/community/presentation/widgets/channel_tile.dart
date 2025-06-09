@@ -12,7 +12,7 @@ class ChannelTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
       padding: const EdgeInsets.fromLTRB(5, 15, 20, 10),
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(5),
         boxShadow: [
           BoxShadow(
@@ -54,7 +54,7 @@ class ChannelTile extends StatelessWidget {
                     Text(
                       'yesterday',
                       style: AppTextStyles.belanosimaSize14Grey
-                          .copyWith(color: AppColors.selectedColor),
+                          .copyWith(color: AppColors.primary),
                     ),
                   ],
                 ),
@@ -66,7 +66,7 @@ class ChannelTile extends StatelessWidget {
                       child: Text(
                         'The UX design goes through multiple challenges fokdokfokfoskkfspdj k ksfdk fdk[pk[p g[pkr[ ker[k ] ]]]]',
                         style: AppTextStyles.belanosimaSize12White
-                            .copyWith(color: AppColors.txtColor),
+                            .copyWith(color: AppColors.lightGray),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -76,7 +76,7 @@ class ChannelTile extends StatelessWidget {
                       height: 18,
                       width: 18,
                       decoration: const BoxDecoration(
-                        color: AppColors.selectedColor,
+                        color: AppColors.primary,
                         shape: BoxShape.circle,
                       ),
                     ),

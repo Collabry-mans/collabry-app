@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: AppColors.selectedColor,
+          color: AppColors.primary,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(20),
         ),
@@ -32,9 +32,7 @@ class CustomButton extends StatelessWidget {
               text,
               style: textStyle,
             ),
-            icon != null
-                ? Icon(icon, color: AppColors.whiteColor)
-                : Container(),
+            icon != null ? Icon(icon, color: AppColors.white) : Container(),
           ],
         ),
       ),

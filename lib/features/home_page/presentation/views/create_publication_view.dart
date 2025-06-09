@@ -82,13 +82,13 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-          backgroundColor: AppColors.homeBgColor,
+          backgroundColor: AppColors.homeBackground,
           appBar: CreatePublicationAppBar(onPublish: _publish),
           body: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.all(16.0),
               margin: const EdgeInsets.only(top: 10),
-              color: AppColors.whiteColor,
+              color: AppColors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

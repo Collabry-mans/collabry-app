@@ -29,7 +29,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
         Row(
           children: [
             Checkbox(
-              side: const BorderSide(color: AppColors.txtColor, width: 2),
+              side: const BorderSide(color: AppColors.lightGray, width: 2),
               value: isSelected,
               onChanged: (selectedStatus) =>
                   setState(() => isSelected = selectedStatus ?? false),

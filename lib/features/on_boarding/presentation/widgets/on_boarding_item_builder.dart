@@ -27,7 +27,7 @@ class OnBoardingItemBuilder extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: AppColors.headerColor,
+              color: AppColors.appHeader,
               fontFamily: 'Barlow_header',
               fontSize: title == AppStrings.unlimitedCollaboration ? 40 : 48,
               fontWeight: FontWeight.w900,
@@ -41,7 +41,7 @@ class OnBoardingItemBuilder extends StatelessWidget {
           child: Text(
             text,
             style: AppTextStyles.belanosimaSize16Purple
-                .copyWith(color: AppColors.onBoardinTxtColor),
+                .copyWith(color: AppColors.onBoardingText),
             textAlign: TextAlign.center,
           ),
         ),
