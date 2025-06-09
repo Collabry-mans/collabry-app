@@ -134,6 +134,7 @@ class PublicationCubit extends Cubit<PublicationState> {
   // change publication status
   Future<void> changePublicationStatus(
       String publicationId, String status) async {
+    emit(UserPublicationStateLoading());
     final result =
         await repoPublication.changePublicationStatus(publicationId, status);
     result.when(

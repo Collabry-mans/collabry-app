@@ -52,6 +52,8 @@ final class UserPublicationStateFailed extends PublicationState {
 
 final class UserPublicationStateSuccess extends PublicationState {}
 
+final class UserPublicationStateLoading extends PublicationState {}
+
 //* Publication editing states
 final class PublicationEditedSuccess extends PublicationState {
   final Publication publication;

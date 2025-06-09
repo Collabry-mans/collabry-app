@@ -10,6 +10,7 @@ import 'package:collabry/core/utils/app_colors.dart';
 enum PostTileType {
   homePage,
   userProfile,
+  draftedPost,
   detailedFromHomePage,
   detailedFromUserProfile,
 }
@@ -33,6 +34,7 @@ class _PostTileState extends State<PostTile> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDraft = widget.type == PostTileType.draftedPost;
     return Container(
       decoration: _buildDecoration(),
       margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -44,27 +46,33 @@ class _PostTileState extends State<PostTile> {
             publication: widget.publication,
             type: widget.type,
           ),
-          if (widget.publication.collaborators != null)
-            PublicationContributors(
-              collaborators: widget.publication.collaborators!,
-            ),
+          !isDraft
+              ? PublicationContributors(
+                  collaborators: widget.publication.collaborators!,
+                )
+              : SizedBox.shrink(),
           PublicationContent(
             publication: widget.publication,
             type: widget.type,
           ),
           const SizedBox(height: 10),
-          const PublicationReach(),
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width,
-            child: const Divider(height: 1, thickness: 1),
-          ),
-          const SizedBox(height: 5),
-          PublicationReact(
-            publication: widget.publication,
-            type: widget.type,
-            isLiked: isLiked,
-            onLikeToggle: () => setState(() => isLiked = !isLiked),
-          ),
+          !isDraft
+              ? Column(
+                  children: [
+                    const PublicationReach(),
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: const Divider(height: 1, thickness: 1),
+                    ),
+                    const SizedBox(height: 5),
+                    PublicationReact(
+                      publication: widget.publication,
+                      isLiked: isLiked,
+                      onLikeToggle: () => setState(() => isLiked = !isLiked),
+                    ),
+                  ],
+                )
+              : SizedBox.shrink(),
         ],
       ),
     );
@@ -72,7 +80,7 @@ class _PostTileState extends State<PostTile> {
 
   BoxDecoration _buildDecoration() {
     return BoxDecoration(
-      color: AppColors.whiteColor,
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(10),
       boxShadow: [
         BoxShadow(

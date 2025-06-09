@@ -19,6 +19,7 @@ class PublicationContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDetailed = type == PostTileType.detailedFromHomePage ||
         type == PostTileType.detailedFromUserProfile;
+    final isAbstracted = !isDetailed && type != PostTileType.draftedPost;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,7 +30,7 @@ class PublicationContent extends StatelessWidget {
         PublicationDescription(
           description: publication.description,
           publicationId: publication.publicationId,
-          isDetailed: isDetailed,
+          isAbstracted: isAbstracted,
           type: type,
         ),
       ],
@@ -53,9 +54,8 @@ class PublicationTitle extends StatelessWidget {
       title,
       style: isDetailed
           ? AppTextStyles.belanosimaSize24W600Purple
-              .copyWith(color: AppColors.blackColor)
-          : AppTextStyles.belanosimaSize14Grey
-              .copyWith(color: AppColors.blackColor),
+              .copyWith(color: AppColors.black)
+          : AppTextStyles.belanosimaSize16BlackBold,
     );
   }
 }
@@ -66,30 +66,33 @@ class PublicationDescription extends StatelessWidget {
     required this.description,
     required this.publicationId,
     required this.type,
-    required this.isDetailed,
+    required this.isAbstracted,
   });
 
   final String description;
   final String publicationId;
   final PostTileType type;
-  final bool isDetailed;
+  final bool isAbstracted;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        Text(
-          description,
-          maxLines: isDetailed ? null : 2,
-          overflow: isDetailed ? null : TextOverflow.ellipsis,
-          style: AppTextStyles.barlowSize14W600Grey,
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Text(
+            description,
+            maxLines: isAbstracted ? 2 : null,
+            overflow: isAbstracted ? TextOverflow.ellipsis : null,
+            style: AppTextStyles.barlowSize14W600Grey,
+          ),
         ),
-        const SizedBox(width: 1),
-        if (!isDetailed)
+        if (isAbstracted) ...[
           SeeMoreButton(
             publicationId: publicationId,
             type: type,
-          ),
+          )
+        ]
       ],
     );
   }

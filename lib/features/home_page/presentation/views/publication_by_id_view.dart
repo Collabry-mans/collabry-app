@@ -1,3 +1,4 @@
+import 'package:collabry/core/widgets/error_display.dart';
 import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/features/home_page/presentation/widgets/custom_app_bar.dart';
@@ -37,20 +38,36 @@ class _PublicationByIdViewState extends State<PublicationByIdView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.homeBgColor,
+        backgroundColor: AppColors.homeBackground,
         appBar: const CustomAppBar(),
         drawer: const CustomDrawer(),
         body: BlocConsumer<PublicationCubit, PublicationState>(
           builder: (context, state) {
-            return state is PublicationByIdLoadedState
-                ? Center(
-                    child: SingleChildScrollView(
-                    child: PostTile(
-                      publication: state.publication,
-                      type: widget.type,
-                    ),
-                  ))
-                : const Center(child: CircularProgressIndicator());
+            if (state is PublicationByIdLoadedState) {
+              return SingleChildScrollView(
+                child: PostTile(
+                  publication: state.publication,
+                  type: widget.type,
+                ),
+              );
+            } else if (state is PublicationByIdFailedState) {
+              return Center(
+                child: ErrorDisplay(
+                  message: state.errModel.message,
+                  icon: state.errModel.icon,
+                  onRetry: () {
+                    BlocProvider.of<PublicationCubit>(context)
+                        .getPublicationById(widget.publicationId);
+                  },
+                ),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.secondary,
+                ),
+              );
+            }
           },
           listener: (BuildContext context, PublicationState state) {},
         ),

@@ -37,13 +37,14 @@ class _MainPageViewState extends State<MainPageView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.homeBgColor,
+        backgroundColor: AppColors.homeBackground,
         appBar: const CustomAppBar(),
         drawer: const CustomDrawer(),
         body: Column(
           children: [
             Expanded(
               child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: mainPageController,
                 onPageChanged: (index) => setState(() => currentIndex = index),
                 children: [
