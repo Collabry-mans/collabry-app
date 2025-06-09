@@ -1,34 +1,43 @@
 part of 'user_profile_cubit.dart';
 
-@immutable
 sealed class UserProfileState {}
 
 final class UserProfileInitial extends UserProfileState {}
 
 final class UserProfileLoadingState extends UserProfileInitial {}
 
-final class UserProfileLoadedState extends UserProfileInitial {}
+final class UserProfileLoadedState extends UserProfileInitial {
+  final UserProfile user;
 
-final class UserProfileFailedState extends UserProfileInitial {
-  final String errMsg;
-
-  UserProfileFailedState({required this.errMsg});
+  UserProfileLoadedState({required this.user});
 }
 
-final class UserProfileEditLoadedState extends UserProfileInitial {}
+final class UserProfileFailedState extends UserProfileInitial {
+  final ApiErrorModel errModel;
+
+  UserProfileFailedState({required this.errModel});
+}
+
+final class UserProfileEditLoadedState extends UserProfileInitial {
+  final UserProfile user;
+
+  UserProfileEditLoadedState({required this.user});
+}
 
 final class UserProfileEditLoadingState extends UserProfileInitial {}
 
 final class UserProfileEditFailedState extends UserProfileInitial {
-  final String errMsg;
+  final ApiErrorModel errModel;
 
-  UserProfileEditFailedState({required this.errMsg});
+  UserProfileEditFailedState({required this.errModel});
 }
 
 final class UserProfileAvatarLoadedState extends UserProfileInitial {}
 
-final class UserProfileAvatarFailedState extends UserProfileInitial {
-  final String errMsg;
+final class UserProfileAvatarLoadingState extends UserProfileInitial {}
 
-  UserProfileAvatarFailedState({required this.errMsg});
+final class UserProfileAvatarFailedState extends UserProfileInitial {
+  final ApiErrorModel errModel;
+
+  UserProfileAvatarFailedState({required this.errModel});
 }
