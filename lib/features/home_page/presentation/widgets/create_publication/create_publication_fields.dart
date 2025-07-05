@@ -19,8 +19,7 @@ class FieldsWrapper extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(label!,
-                  style: AppTextStyles.belanosimaSize12Black
-                      .copyWith(fontSize: 14)),
+                  style: AppTextStyles.belanosimaSize12.copyWith(fontSize: 14)),
               SizedBox(height: 12),
               Container(
                 decoration: BoxDecoration(
@@ -119,8 +118,7 @@ class PTxtField extends StatelessWidget {
         child: TextField(
           controller: controller,
           maxLines: maxLines,
-          style: AppTextStyles.belanosimaSize16Purple
-              .copyWith(color: Colors.black54),
+          style: AppTextStyles.belanosimaSize16.copyWith(color: Colors.black54),
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(color: AppColors.lightGray),

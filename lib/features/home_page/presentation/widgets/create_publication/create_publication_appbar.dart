@@ -16,7 +16,6 @@ class CreatePublicationAppBar extends StatelessWidget
     return AppBar(
       shadowColor: Colors.black,
       surfaceTintColor: Colors.transparent,
-      backgroundColor: AppColors.white,
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: AppColors.primary),
         onPressed: () {
@@ -38,7 +37,7 @@ class CreatePublicationAppBar extends StatelessWidget
                 ),
                 child: Text(
                   'Preview',
-                  style: AppTextStyles.belanosimaSize16Purple
+                  style: AppTextStyles.belanosimaSize16
                       .copyWith(color: AppColors.steelBlue),
                 ),
               ),
@@ -54,7 +53,7 @@ class CreatePublicationAppBar extends StatelessWidget
                 ),
                 child: Text(
                   'Publish',
-                  style: AppTextStyles.belanosimaSize16Purple
+                  style: AppTextStyles.belanosimaSize16
                       .copyWith(color: AppColors.white),
                 ),
               ),

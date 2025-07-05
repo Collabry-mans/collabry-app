@@ -37,8 +37,7 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
 
-  static const TextStyle belanosimaSize12Black = TextStyle(
-    color: AppColors.black,
+  static const TextStyle belanosimaSize12 = TextStyle(
     fontSize: 12,
     fontFamily: fontBelanosima,
   );
@@ -54,8 +53,7 @@ class AppTextStyles {
     fontFamily: fontBelanosima,
     fontSize: 14,
   );
-  static const TextStyle belanosimaSize16Purple = TextStyle(
-    color: AppColors.primary,
+  static const TextStyle belanosimaSize16 = TextStyle(
     fontFamily: fontBelanosima,
     fontSize: 16,
   );

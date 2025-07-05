@@ -47,13 +47,11 @@ class _UserProfileViewState extends State<UserProfileView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.homeBackground,
       appBar: AppBar(
         leading: InkWell(
           onTap: () => Navigator.pop(context),
           child: Icon(Icons.arrow_back, color: AppColors.primary, size: 30),
         ),
-        backgroundColor: AppColors.white,
       ),
       body: RefreshIndicator(
         onRefresh: context.read<UserProfileCubit>().getUserProfile,

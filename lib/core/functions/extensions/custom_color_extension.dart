@@ -3,20 +3,25 @@ import 'package:flutter/material.dart';
 
 class CustomColors {
   const CustomColors._(
-      {required this.secondaryColor, required this.bottomNavBarColor});
+      {required this.secondaryColor,
+      required this.bottomNavBarColor,
+      required this.purpleTextColor});
   final Color secondaryColor;
   final Color bottomNavBarColor;
+  final Color purpleTextColor;
 
   factory CustomColors._light() {
     return const CustomColors._(
         secondaryColor: AppColors.ghostWhite,
-        bottomNavBarColor: AppColors.ghostWhite);
+        bottomNavBarColor: AppColors.ghostWhite,
+        purpleTextColor: AppColors.primary);
   }
 
   factory CustomColors._dark() {
     return const CustomColors._(
         secondaryColor: AppColors.black,
-        bottomNavBarColor: AppColors.darkThemePrimary);
+        bottomNavBarColor: AppColors.darkThemePrimary,
+        purpleTextColor: AppColors.secondary);
   }
 }
 

@@ -34,41 +34,43 @@ class _MainPageViewState extends State<MainPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(),
-      drawer: const CustomDrawer(),
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: mainPageController,
-              onPageChanged: (index) => setState(() => currentIndex = index),
-              children: [
-                MultiBlocProvider(
-                  providers: [
-                    BlocProvider(
-                      create: (context) => getIt<PublicationCubit>(),
-                    ),
-                    BlocProvider(
-                      create: (context) => getIt<CategoryCubit>(),
-                    ),
-                  ],
-                  child: const HomePageView(),
-                ),
-                const ChatBotView(),
-                BlocProvider(
-                  create: (context) => getIt<CategoryCubit>(),
-                  child: const CommunityView(),
-                ),
-                const ChatBotView(),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: const CustomAppBar(),
+        drawer: const CustomDrawer(),
+        body: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: mainPageController,
+                onPageChanged: (index) => setState(() => currentIndex = index),
+                children: [
+                  MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => getIt<PublicationCubit>(),
+                      ),
+                      BlocProvider(
+                        create: (context) => getIt<CategoryCubit>(),
+                      ),
+                    ],
+                    child: const HomePageView(),
+                  ),
+                  const ChatBotView(),
+                  BlocProvider(
+                    create: (context) => getIt<CategoryCubit>(),
+                    child: const CommunityView(),
+                  ),
+                  const ChatBotView(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        bottomNavigationBar: CustomBottomNavigationBar(
+            pageController: mainPageController, index: currentIndex),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-          pageController: mainPageController, index: currentIndex),
     );
   }
 }

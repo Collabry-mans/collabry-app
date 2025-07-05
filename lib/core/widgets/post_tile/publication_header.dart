@@ -1,3 +1,4 @@
+import 'package:collabry/core/functions/extensions/theme_extension.dart';
 import 'package:collabry/core/widgets/post_tile/publication_menu.dart';
 import 'package:collabry/core/widgets/post_tile/post_tile.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,8 @@ class PublicationHeader extends StatelessWidget {
       leading: ProfileImage(image: publication.authorAvatar ?? ''),
       title: Text(
         publication.authorName,
-        style: AppTextStyles.belanosimaSize16Purple,
+        style: AppTextStyles.belanosimaSize16
+            .copyWith(color: context.customColors.purpleTextColor),
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

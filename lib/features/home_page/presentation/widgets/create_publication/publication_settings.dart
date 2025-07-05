@@ -45,7 +45,7 @@ class _PublicationSettingsState extends State<PublicationSettings> {
       children: [
         Text(
           AppStrings.publicationSettings,
-          style: AppTextStyles.belanosimaSize12Black.copyWith(fontSize: 24),
+          style: AppTextStyles.belanosimaSize12.copyWith(fontSize: 24),
         ),
         const SizedBox(height: 8.0),
         DropDownField(

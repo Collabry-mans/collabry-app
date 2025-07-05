@@ -1,3 +1,4 @@
+import 'package:collabry/core/functions/extensions/theme_extension.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/widgets/post_tile/post_tile.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,11 @@ class SeeMoreButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _navigateToDetailed(context),
-      child: const Text(
+      child: Text(
         AppStrings.seeMore,
-        style: AppTextStyles.belanosimaSize16Purple,
+        style: AppTextStyles.barlowSize14W600Grey.copyWith(
+          color: context.customColors.purpleTextColor,
+        ),
       ),
     );
   }

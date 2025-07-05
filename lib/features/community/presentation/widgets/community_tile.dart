@@ -69,7 +69,7 @@ class CommunityTile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Text(name, style: AppTextStyles.belanosimaSize12Black),
+          Text(name, style: AppTextStyles.belanosimaSize12),
         ],
       ),
     );
@@ -104,7 +104,7 @@ class CommunityContent extends StatelessWidget {
           children: [
             Text(
               title,
-              style: AppTextStyles.belanosimaSize12Black,
+              style: AppTextStyles.belanosimaSize12,
             ),
             Text(
               text,
@@ -114,7 +114,7 @@ class CommunityContent extends StatelessWidget {
         ),
         const Expanded(child: SizedBox()),
         Text(time,
-            style: AppTextStyles.belanosimaSize12Black
+            style: AppTextStyles.belanosimaSize12
                 .copyWith(color: AppColors.lightGray)),
       ],
     );

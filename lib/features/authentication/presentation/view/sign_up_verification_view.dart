@@ -66,7 +66,7 @@ class SignUpVerificationView extends StatelessWidget {
                       const SizedBox(height: 20),
                       Text(
                         AppStrings.verification,
-                        style: AppTextStyles.belanosimaSize16Purple
+                        style: AppTextStyles.belanosimaSize16
                             .copyWith(fontSize: 24),
                       ),
                       const SizedBox(height: 20),

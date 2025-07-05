@@ -17,8 +17,7 @@ class CustomizedAppBar extends StatelessWidget {
             const Icon(Icons.arrow_back, color: AppColors.primary),
             Text(
               AppStrings.backToLogin,
-              style:
-                  AppTextStyles.belanosimaSize16Purple.copyWith(fontSize: 14),
+              style: AppTextStyles.belanosimaSize16.copyWith(fontSize: 14),
             ),
           ],
         ),

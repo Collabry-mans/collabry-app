@@ -1,5 +1,5 @@
+import 'package:collabry/core/functions/extensions/theme_extension.dart';
 import 'package:collabry/core/services/navigation_service.dart';
-import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/utils/flush_bar_utils.dart';
@@ -82,13 +82,12 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-          backgroundColor: AppColors.homeBackground,
           appBar: CreatePublicationAppBar(onPublish: _publish),
           body: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.all(16.0),
               margin: const EdgeInsets.only(top: 10),
-              color: AppColors.white,
+              color: context.customColors.bottomNavBarColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -151,7 +150,7 @@ class UserInfo extends StatelessWidget {
         const SizedBox(width: 16),
         Text(
           userName,
-          style: AppTextStyles.belanosimaSize12Black.copyWith(fontSize: 24),
+          style: AppTextStyles.belanosimaSize12.copyWith(fontSize: 24),
         ),
       ],
     );

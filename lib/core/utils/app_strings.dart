@@ -76,7 +76,7 @@ class AppStrings {
   static const String send = 'Send';
   static const String comment = 'Comment';
   static const String share = 'Share';
-  static const String seeMore = 'see more';
+  static const String seeMore = '...see more';
   static const String publicationSettings = 'Publication Settings';
   static const String privacy = 'Privacy';
   static const String status = 'Status';

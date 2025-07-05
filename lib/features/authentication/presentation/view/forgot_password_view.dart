@@ -52,8 +52,8 @@ class ForgotPasswordView extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     AppStrings.forgotPassword,
-                    style: AppTextStyles.belanosimaSize16Purple
-                        .copyWith(fontSize: 24),
+                    style:
+                        AppTextStyles.belanosimaSize16.copyWith(fontSize: 24),
                   ),
                   const SizedBox(height: 20),
                   Text(

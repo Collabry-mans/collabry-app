@@ -1,3 +1,4 @@
+import 'package:collabry/core/functions/extensions/theme_extension.dart';
 import 'package:collabry/core/functions/functions.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/widgets/error_display.dart';
@@ -29,7 +30,7 @@ class ProfileHeader extends StatelessWidget {
 
           return Container(
             padding: const EdgeInsets.all(20),
-            color: AppColors.white,
+            color: context.customColors.bottomNavBarColor,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -55,7 +56,6 @@ class ProfileHeader extends StatelessWidget {
                         child: const Text(
                           'Edit profile',
                           style: TextStyle(
-                            color: AppColors.white,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -75,7 +75,6 @@ class ProfileHeader extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
                         ),
                       ),
                       const SizedBox(height: 5),
@@ -160,8 +159,8 @@ class ProfileHeader extends StatelessWidget {
           );
         } else if (state is UserProfileLoadingState) {
           return Container(
-            height: 300,
-            color: Colors.white,
+            height: 350,
+            color: context.customColors.bottomNavBarColor,
             child: Center(
               child: CircularProgressIndicator(
                 color: AppColors.primary,
@@ -170,8 +169,8 @@ class ProfileHeader extends StatelessWidget {
           );
         } else if (state is UserProfileFailedState) {
           return Container(
-            height: 300,
-            color: Colors.white,
+            height: 350,
+            color: context.customColors.bottomNavBarColor,
             child: Center(
               child: ErrorDisplay(
                 message: state.errModel.message,
