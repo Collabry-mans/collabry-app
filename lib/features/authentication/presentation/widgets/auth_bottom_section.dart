@@ -53,7 +53,7 @@ class AuthBottomSection extends StatelessWidget {
           children: [
             Text(
               '$text ',
-              style: AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 12),
+              style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 12),
             ),
             InkWell(
               onTap: () => Navigator.pushNamed(context, screen),

@@ -42,7 +42,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
                 onPressed: widget.onPressed,
                 child: Text(
                   widget.textButtonText!,
-                  style: AppTextStyles.belanosimaSize16Purple,
+                  style: AppTextStyles.belanosimaSize16,
                 ),
               )
             : Container(),

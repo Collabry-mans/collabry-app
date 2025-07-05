@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 class PublicationContributors extends StatelessWidget {
   const PublicationContributors({
     super.key,
-    required this.collaborators,
+    this.collaborators,
   });
 
-  final List<dynamic> collaborators;
+  final List<dynamic>? collaborators;
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +19,10 @@ class PublicationContributors extends StatelessWidget {
       children: [
         Text(
           AppStrings.contributors,
-          style: AppTextStyles.belanosimaSize14Grey
+          style: AppTextStyles.belanosimaSize14
               .copyWith(color: AppColors.appHeader),
         ),
-        ContributorsList(collaborators: collaborators),
+        ContributorsList(collaborators: collaborators ?? []),
       ],
     );
   }
@@ -41,7 +41,7 @@ class ContributorsList extends StatelessWidget {
     if (collaborators.isEmpty) {
       return const Text(
         ' No contributors yet ',
-        style: AppTextStyles.belanosimaSize14Grey,
+        style: AppTextStyles.belanosimaSize14,
       );
     }
 

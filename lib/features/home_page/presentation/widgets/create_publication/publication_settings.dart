@@ -45,7 +45,7 @@ class _PublicationSettingsState extends State<PublicationSettings> {
       children: [
         Text(
           AppStrings.publicationSettings,
-          style: AppTextStyles.belanosimaSize12Black.copyWith(fontSize: 24),
+          style: AppTextStyles.belanosimaSize12.copyWith(fontSize: 24),
         ),
         const SizedBox(height: 8.0),
         DropDownField(
@@ -53,8 +53,7 @@ class _PublicationSettingsState extends State<PublicationSettings> {
           items: privacyList
               .map((privacy) => DropdownMenuItem<String>(
                     value: privacy,
-                    child: Text(privacy,
-                        style: AppTextStyles.belanosimaSize14Grey),
+                    child: Text(privacy, style: AppTextStyles.belanosimaSize14),
                   ))
               .toList(),
           onChanged: (value) {
@@ -69,8 +68,7 @@ class _PublicationSettingsState extends State<PublicationSettings> {
           items: statusList
               .map((status) => DropdownMenuItem<String>(
                     value: status,
-                    child:
-                        Text(status, style: AppTextStyles.belanosimaSize14Grey),
+                    child: Text(status, style: AppTextStyles.belanosimaSize14),
                   ))
               .toList(),
           onChanged: (value) {
@@ -86,7 +84,7 @@ class _PublicationSettingsState extends State<PublicationSettings> {
               .map((category) => DropdownMenuItem<String>(
                     value: category.id,
                     child: Text(category.name,
-                        style: AppTextStyles.belanosimaSize14Grey),
+                        style: AppTextStyles.belanosimaSize14),
                   ))
               .toList(),
           onChanged: (String? newValue) {

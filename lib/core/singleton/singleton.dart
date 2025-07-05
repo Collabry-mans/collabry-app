@@ -1,4 +1,6 @@
 import 'package:collabry/core/api/dio_consumer.dart';
+import 'package:collabry/core/theme/cubit/theme_cubit.dart';
+import 'package:collabry/core/theme/data/theme_service.dart';
 import 'package:collabry/features/authentication/presentation/manager/auth_cubit.dart';
 import 'package:collabry/features/home_page/presentation/manager/category/category_cubit.dart';
 import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
@@ -57,6 +59,11 @@ Future<void> setupDependencies() async {
   // Register userProfileCubit
   getIt.registerFactory<UserProfileCubit>(
     () => UserProfileCubit(getIt<UserProfileRepositoryBase>()),
+  );
+
+  getIt.registerLazySingleton<ThemeService>(() => ThemeService());
+  getIt.registerLazySingleton<ThemeCubit>(
+    () => ThemeCubit(getIt<ThemeService>()),
   );
 }
 

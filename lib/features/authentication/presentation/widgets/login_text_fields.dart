@@ -55,7 +55,7 @@ class _LoginTextFieldsState extends State<LoginTextFields> {
         CustomCheckBox(
           text: const Text(
             AppStrings.rememberMe,
-            style: AppTextStyles.belanosimaSize14Grey,
+            style: AppTextStyles.belanosimaSize14,
           ),
           textButton: true,
           textButtonText: AppStrings.forgotPassword,

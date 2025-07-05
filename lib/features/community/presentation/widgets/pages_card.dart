@@ -59,7 +59,7 @@ class _PagesCardState extends State<PagesCard> {
           //* Page name
           Text(
             'Unity',
-            style: AppTextStyles.belanosimaSize14Grey
+            style: AppTextStyles.belanosimaSize14
                 .copyWith(color: Colors.black, fontWeight: FontWeight.w500),
           ),
 

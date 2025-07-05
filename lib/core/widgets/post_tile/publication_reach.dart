@@ -11,11 +11,11 @@ class PublicationReach extends StatelessWidget {
       children: [
         Text(
           '2 likes . 0 comments',
-          style: AppTextStyles.belanosimaSize14Grey,
+          style: AppTextStyles.belanosimaSize14,
         ),
         Text(
           '0 Shares',
-          style: AppTextStyles.belanosimaSize14Grey,
+          style: AppTextStyles.belanosimaSize14,
         ),
       ],
     );

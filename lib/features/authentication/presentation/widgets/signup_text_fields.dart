@@ -79,7 +79,7 @@ class SignupTextFields extends StatelessWidget {
         const CustomCheckBox(
           text: Text(
             AppStrings.checkingBoxTerms,
-            style: AppTextStyles.belanosimaSize14Grey,
+            style: AppTextStyles.belanosimaSize14,
           ),
         ),
       ],

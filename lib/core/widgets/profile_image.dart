@@ -16,6 +16,7 @@ class ProfileImage extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: image,
           height: 2 * radius,
+          width: 2 * radius,
           fit: BoxFit.cover,
           errorWidget: (context, url, error) => Image.asset(
             Assets.imagesProfileAvatar,

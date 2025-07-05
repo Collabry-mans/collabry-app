@@ -27,7 +27,7 @@ class _ChatViewState extends State<ChatView> {
                 style: AppTextStyles.belanosimaSize24W600Purple
                     .copyWith(color: AppColors.appHeader)),
             const Text(AppStrings.howCanIHelpU,
-                style: AppTextStyles.belanosimaSize14Grey)
+                style: AppTextStyles.belanosimaSize14)
           ],
         ),
         const Expanded(child: SizedBox()),

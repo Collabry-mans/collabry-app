@@ -49,8 +49,7 @@ class VerificationBottomSection extends StatelessWidget {
             children: [
               TextSpan(
                 text: AppStrings.didntReceiveAnyCode,
-                style:
-                    AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 11),
+                style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 11),
               ),
               TextSpan(
                 text: '${AppStrings.resendAgain}\n',
@@ -61,8 +60,7 @@ class VerificationBottomSection extends StatelessWidget {
               ),
               TextSpan(
                 text: '${AppStrings.requestNewCodeIn} 00:30s',
-                style:
-                    AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 11),
+                style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 11),
               ),
             ],
           ),

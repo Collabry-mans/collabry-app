@@ -1,5 +1,5 @@
 // widgets/profile_tabs.dart
-import 'package:collabry/core/utils/app_colors.dart';
+import 'package:collabry/core/functions/extensions/theme_extension.dart';
 import 'package:collabry/core/widgets/error_display.dart';
 import 'package:collabry/core/widgets/post_tile/post_tile.dart';
 import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
@@ -21,12 +21,12 @@ class ProfileTabs extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: AppColors.white,
+            color: context.customColors.bottomNavBarColor,
             child: TabBar(
               controller: tabController,
-              labelColor: AppColors.primary,
+              labelColor: context.customColors.purpleTextColor,
               unselectedLabelColor: Colors.grey[500],
-              indicatorColor: AppColors.primary,
+              indicatorColor: context.customColors.purpleTextColor,
               indicatorWeight: 5,
               tabs: const [
                 Tab(text: 'Posts'),
@@ -120,9 +120,7 @@ class _FilteredPublicationTabState extends State<FilteredPublicationTab> {
             );
           } else if (state is PublicationLoadingState) {
             return Center(
-              child: CircularProgressIndicator(
-                color: AppColors.secondary,
-              ),
+              child: CircularProgressIndicator(),
             );
           } else {
             return const SizedBox.shrink();

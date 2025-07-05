@@ -2,7 +2,6 @@ import 'package:collabry/features/home_page/presentation/manager/category/catego
 import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
 import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:collabry/core/singleton/singleton.dart';
-import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/features/ai_chat_bot/presentation/views/chat_bot_view.dart';
 import 'package:collabry/features/community/presentation/views/community_view.dart';
 import 'package:collabry/features/home_page/presentation/views/home_page_view.dart';
@@ -37,7 +36,6 @@ class _MainPageViewState extends State<MainPageView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.homeBackground,
         appBar: const CustomAppBar(),
         drawer: const CustomDrawer(),
         body: Column(

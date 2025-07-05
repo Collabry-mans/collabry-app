@@ -52,8 +52,8 @@ class ResetPasswordView extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     AppStrings.resetPass,
-                    style: AppTextStyles.belanosimaSize16Purple
-                        .copyWith(fontSize: 24),
+                    style:
+                        AppTextStyles.belanosimaSize16.copyWith(fontSize: 24),
                   ),
                   const SizedBox(height: 40),
                   CustomTxtField(

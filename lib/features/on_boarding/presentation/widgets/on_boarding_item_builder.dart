@@ -40,7 +40,7 @@ class OnBoardingItemBuilder extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Text(
             text,
-            style: AppTextStyles.belanosimaSize16Purple
+            style: AppTextStyles.belanosimaSize16
                 .copyWith(color: AppColors.onBoardingText),
             textAlign: TextAlign.center,
           ),

@@ -27,7 +27,7 @@ class TagsSectionBuilder extends StatelessWidget {
       children: [
         Text(
           label,
-          style: AppTextStyles.belanosimaSize14Grey
+          style: AppTextStyles.belanosimaSize14
               .copyWith(color: AppColors.secondary),
         ),
         const SizedBox(height: 4),
@@ -54,10 +54,10 @@ class TagsSectionBuilder extends StatelessWidget {
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 16),
                     hintText: 'Add new $label',
-                    hintStyle: AppTextStyles.belanosimaSize14Grey,
+                    hintStyle: AppTextStyles.belanosimaSize14,
                     border: outLineInputBorder(5),
                   ),
-                  style: AppTextStyles.belanosimaSize14Grey,
+                  style: AppTextStyles.belanosimaSize14,
                   onSubmitted: (_) => onAdd(),
                 ),
               ),

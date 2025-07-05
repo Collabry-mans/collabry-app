@@ -59,7 +59,7 @@ class ForgotPasswordVerificationView extends StatelessWidget {
                           const SizedBox(height: 20),
                           Text(
                             AppStrings.forgotPassword,
-                            style: AppTextStyles.belanosimaSize16Purple
+                            style: AppTextStyles.belanosimaSize16
                                 .copyWith(fontSize: 24),
                           ),
                           const SizedBox(height: 20),
@@ -68,7 +68,7 @@ class ForgotPasswordVerificationView extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text: AppStrings.verificationMsg,
-                                  style: AppTextStyles.belanosimaSize14Grey
+                                  style: AppTextStyles.belanosimaSize14
                                       .copyWith(fontSize: 11),
                                 ),
                                 TextSpan(
@@ -79,7 +79,7 @@ class ForgotPasswordVerificationView extends StatelessWidget {
                                 ),
                                 TextSpan(
                                   text: AppStrings.forVerification,
-                                  style: AppTextStyles.belanosimaSize14Grey
+                                  style: AppTextStyles.belanosimaSize14
                                       .copyWith(fontSize: 11),
                                 )
                               ],

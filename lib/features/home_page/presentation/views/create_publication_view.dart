@@ -1,5 +1,5 @@
+import 'package:collabry/core/functions/extensions/theme_extension.dart';
 import 'package:collabry/core/services/navigation_service.dart';
-import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/utils/flush_bar_utils.dart';
@@ -75,26 +75,25 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
               Duration(seconds: 5), () => NavigationService.goBack());
         } else if (state is PublicationCreationFailedState) {
           FlushBarUtils.flushBarError(
-              'Creation Publication is Failed: ${state.errModel.message}',
+              'Publication Creation is Failed: ${state.errModel.message}',
               context);
         }
       },
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-          backgroundColor: AppColors.homeBackground,
           appBar: CreatePublicationAppBar(onPublish: _publish),
           body: SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.all(16.0),
               margin: const EdgeInsets.only(top: 10),
-              color: AppColors.white,
+              color: context.customColors.bottomNavBarColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   UserInfo(
-                      image: userBox?.get(kUserAvatar),
-                      userName: userBox?.get(kUserName)),
+                      image: userBox?.get(HiveKeys.kUserAvatar),
+                      userName: userBox?.get(HiveKeys.kUserName)),
                   const SizedBox(height: 32.0),
                   CreatePublicationContent(
                     titleController: _titleController,
@@ -151,7 +150,7 @@ class UserInfo extends StatelessWidget {
         const SizedBox(width: 16),
         Text(
           userName,
-          style: AppTextStyles.belanosimaSize12Black.copyWith(fontSize: 24),
+          style: AppTextStyles.belanosimaSize12.copyWith(fontSize: 24),
         ),
       ],
     );

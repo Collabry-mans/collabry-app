@@ -28,15 +28,22 @@ const String kTitle = 'title';
 const String kContent = 'content';
 
 //* Boxes Stuff
-const String firstTimeBoxName = 'firstTimeBox';
-const String kFirstTime = 'firstTimeBoxKey';
+class HiveBoxes {
+  static const String firstTimeBox = 'firstTimeBox';
+  static const String userBox = 'userBox';
+  static const String themeBox = 'themeBox';
+}
+
+class HiveKeys {
+  static const String kFirstTime = 'firstTimeBoxKey';
+  static const String kUserName = 'userName';
+  static const String kUserEmail = 'userEmail';
+  static const String kUserAvatar = 'userAvatar';
+  static const String kTheme = 'theme';
+}
+
 const String accessTokenKey = 'accessTokenKey';
 const String refreshTokenKey = 'refreshTokenKey';
-
-const String userBoxName = 'userBox';
-const String kUserName = 'userName';
-const String kUserEmail = 'userEmail';
-const String kUserAvatar = 'userAvatar';
 
 //* Fonts
 const String fontABeeZee = 'ABeeZee_button';

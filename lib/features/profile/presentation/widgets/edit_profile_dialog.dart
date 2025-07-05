@@ -379,8 +379,7 @@ class _ImageSourceOption extends StatelessWidget {
             Icon(icon, size: 32, color: AppColors.primary),
             const SizedBox(height: 8),
             Text(label,
-                style:
-                    AppTextStyles.belanosimaSize12Black.copyWith(fontSize: 14)),
+                style: AppTextStyles.belanosimaSize12.copyWith(fontSize: 14)),
           ],
         ),
       ),

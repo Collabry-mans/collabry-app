@@ -1,6 +1,6 @@
 import 'package:collabry/core/utils/app_colors.dart';
-import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
+import 'package:collabry/core/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class CustomizedAppBar extends StatelessWidget {
@@ -17,8 +17,7 @@ class CustomizedAppBar extends StatelessWidget {
             const Icon(Icons.arrow_back, color: AppColors.primary),
             Text(
               AppStrings.backToLogin,
-              style:
-                  AppTextStyles.belanosimaSize16Purple.copyWith(fontSize: 14),
+              style: AppTextStyles.belanosimaSize16.copyWith(fontSize: 14),
             ),
           ],
         ),
