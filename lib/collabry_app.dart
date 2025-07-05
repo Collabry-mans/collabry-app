@@ -1,3 +1,6 @@
+import 'package:collabry/core/theme/cubit/theme_cubit.dart';
+import 'package:collabry/core/theme/presentation/theme_data_dark.dart';
+import 'package:collabry/core/theme/presentation/theme_data_light.dart';
 import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:collabry/core/routes/app_routes.dart';
 import 'package:collabry/core/services/navigation_service.dart';
@@ -11,26 +14,42 @@ class Collabry extends StatelessWidget {
   const Collabry({super.key});
   @override
   Widget build(BuildContext context) {
-    bool isFirstTime = firstTimeBox!.get(kFirstTime, defaultValue: true);
     AppRoutes appRoutes = AppRoutes();
-    return BlocProvider<UserProfileCubit>(
-      create: (_) {
-        final cubit = getIt<UserProfileCubit>();
-        if (isLoggedIn) {
-          cubit.getUserProfile();
-        }
-        return cubit;
-      },
-      child: MaterialApp(
-        navigatorKey: NavigationService.navigatorKey,
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: appRoutes.getAppRoutes,
-        initialRoute: isFirstTime
-            ? Routes.onBoardingScreen
-            : isLoggedIn
-                ? Routes.mainPageScreen
-                : Routes.logInScreen,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UserProfileCubit>(
+          create: (_) {
+            final cubit = getIt<UserProfileCubit>();
+            if (isLoggedIn) {
+              cubit.getUserProfile();
+            }
+            return cubit;
+          },
+        ),
+        BlocProvider<ThemeCubit>(create: (_) => getIt<ThemeCubit>())
+      ],
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (_, newTheme) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            navigatorKey: NavigationService.navigatorKey,
+            theme: getLightTheme(),
+            darkTheme: getDarkTheme(),
+            themeMode: newTheme,
+            onGenerateRoute: appRoutes.getAppRoutes,
+            initialRoute: initialPage(),
+          );
+        },
       ),
     );
   }
+}
+
+String initialPage() {
+  bool isFirstTime = firstTimeBox!.get(HiveKeys.kFirstTime, defaultValue: true);
+  return isFirstTime
+      ? Routes.onBoardingScreen
+      : isLoggedIn
+          ? Routes.mainPageScreen
+          : Routes.logInScreen;
 }

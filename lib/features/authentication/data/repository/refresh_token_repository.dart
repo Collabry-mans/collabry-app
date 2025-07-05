@@ -1,5 +1,5 @@
 import 'package:collabry/core/api/end_points.dart';
-import 'package:collabry/core/functions/extensions.dart';
+import 'package:collabry/core/functions/extensions/string_extension.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/data/model/refresh_token_model.dart';

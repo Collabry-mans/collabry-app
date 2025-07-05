@@ -108,7 +108,7 @@ class CommunityContent extends StatelessWidget {
             ),
             Text(
               text,
-              style: AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 8),
+              style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 8),
             ),
           ],
         ),

@@ -44,9 +44,12 @@ class UserProfileRepo implements UserProfileRepositoryBase {
 
   @override
   Future<void> saveUserProfile({String? name, email, image}) async {
-    await userBox!.put(kUserName, name ?? userBox!.get(kUserName));
-    await userBox!.put(kUserEmail, email ?? userBox!.get(kUserEmail));
-    await userBox!.put(kUserAvatar, image ?? userBox!.get(kUserAvatar));
+    await userBox!
+        .put(HiveKeys.kUserName, name ?? userBox!.get(HiveKeys.kUserName));
+    await userBox!
+        .put(HiveKeys.kUserEmail, email ?? userBox!.get(HiveKeys.kUserEmail));
+    await userBox!
+        .put(HiveKeys.kUserAvatar, image ?? userBox!.get(HiveKeys.kUserAvatar));
   }
 
   @override
@@ -85,7 +88,7 @@ class UserProfileRepo implements UserProfileRepositoryBase {
         },
         isFormData: true,
       );
-      await userBox!.put(kUserAvatar, profileImage);
+      await userBox!.put(HiveKeys.kUserAvatar, profileImage);
 
       return ApiResult.success(null);
     } catch (e) {

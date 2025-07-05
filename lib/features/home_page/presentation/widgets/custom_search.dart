@@ -20,7 +20,7 @@ class CustomSearch extends StatelessWidget {
             enabledBorder: outLineInputBorder(10),
             focusedBorder: outLineInputBorder(10),
             hintText: AppStrings.search,
-            hintStyle: AppTextStyles.belanosimaSize14Grey,
+            hintStyle: AppTextStyles.belanosimaSize14,
             prefixIcon: const Icon(Icons.search, color: AppColors.primary),
             suffixIcon: const Row(
               mainAxisSize: MainAxisSize.min,

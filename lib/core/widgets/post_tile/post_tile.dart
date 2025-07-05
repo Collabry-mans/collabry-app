@@ -1,3 +1,4 @@
+import 'package:collabry/core/functions/extensions/theme_extension.dart';
 import 'package:collabry/core/widgets/post_tile/publication_content.dart';
 import 'package:collabry/core/widgets/post_tile/publication_contributers.dart';
 import 'package:collabry/core/widgets/post_tile/publication_header.dart';
@@ -5,7 +6,6 @@ import 'package:collabry/core/widgets/post_tile/publication_reach.dart';
 import 'package:collabry/core/widgets/post_tile/publication_react.dart';
 import 'package:flutter/material.dart';
 import 'package:collabry/features/home_page/data/models/publication_model.dart';
-import 'package:collabry/core/utils/app_colors.dart';
 
 enum PostTileType {
   homePage,
@@ -48,7 +48,7 @@ class _PostTileState extends State<PostTile> {
           ),
           !isDraft
               ? PublicationContributors(
-                  collaborators: widget.publication.collaborators!,
+                  collaborators: widget.publication.collaborators,
                 )
               : SizedBox.shrink(),
           PublicationContent(
@@ -80,7 +80,7 @@ class _PostTileState extends State<PostTile> {
 
   BoxDecoration _buildDecoration() {
     return BoxDecoration(
-      color: AppColors.white,
+      color: context.customColors.secondaryColor,
       borderRadius: BorderRadius.circular(10),
       boxShadow: [
         BoxShadow(

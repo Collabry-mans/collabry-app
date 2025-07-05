@@ -88,7 +88,7 @@ class CategoryTile extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: AppTextStyles.belanosimaSize14Grey.copyWith(
+            style: AppTextStyles.belanosimaSize14.copyWith(
               color: isSelected ? AppColors.white : AppColors.primary,
             ),
           ),

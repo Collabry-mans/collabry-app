@@ -1,5 +1,5 @@
 import 'package:collabry/collabry_app.dart';
-import 'package:collabry/core/functions/extensions.dart';
+import 'package:collabry/core/functions/extensions/string_extension.dart';
 import 'package:collabry/core/services/simple_bloc_observer.dart';
 import 'package:collabry/core/singleton/singleton.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -15,8 +15,8 @@ Box? firstTimeBox, userBox;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupDependencies();
-  firstTimeBox = await openHiveBox(firstTimeBoxName);
-  userBox = await openHiveBox(userBoxName);
+  firstTimeBox = await openHiveBox(HiveBoxes.firstTimeBox);
+  userBox = await openHiveBox(HiveBoxes.userBox);
   await isLoggedInChecker();
   Bloc.observer = SimpleBlocObserver();
 
@@ -33,7 +33,6 @@ void main() async {
 
 Future<void> isLoggedInChecker() async {
   String? token = await secureStorage.read(key: accessTokenKey);
-
   !token.isNullOrEmpty() ? isLoggedIn = true : isLoggedIn = false;
 }
 

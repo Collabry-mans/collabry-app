@@ -1,6 +1,7 @@
+import 'package:collabry/core/theme/cubit/theme_cubit.dart';
+import 'package:collabry/features/home_page/presentation/widgets/drawer_menu_item.dart';
+import 'package:collabry/features/home_page/presentation/widgets/logout_alert_dialog.dart';
 import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
-import 'package:collabry/core/singleton/singleton.dart';
-import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
@@ -17,9 +18,9 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  final String userName = userBox?.get(kUserName) ?? '';
-  final String userEmail = userBox?.get(kUserEmail) ?? '';
-  final String userAvatar = userBox?.get(kUserAvatar) ?? '';
+  final String userName = userBox?.get(HiveKeys.kUserName) ?? '';
+  final String userEmail = userBox?.get(HiveKeys.kUserEmail) ?? '';
+  final String userAvatar = userBox?.get(HiveKeys.kUserAvatar) ?? '';
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<UserProfileCubit>();
@@ -27,7 +28,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
       context.read<UserProfileCubit>().getUserProfile();
     }
     return Drawer(
-      backgroundColor: AppColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,14 +35,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
             leading: ProfileImage(image: userAvatar),
             title: Text(
               userName,
-              style: AppTextStyles.belanosimaSize14Grey
-                  .copyWith(color: Colors.black, fontSize: 18),
+              style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 18),
             ),
-            subtitle:
-                Text(userEmail, style: AppTextStyles.belanosimaSize14Grey),
+            subtitle: Text(userEmail, style: AppTextStyles.belanosimaSize14),
           ),
           const Divider(height: 1),
-          _buildMenuItem(
+          DrawerMenuItem(
             icon: Icons.account_circle_outlined,
             title: AppStrings.viewProfile,
             onTap: () {
@@ -50,13 +48,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
             },
           ),
 
-          _buildMenuItem(
+          DrawerMenuItem(
             icon: Icons.people_outline,
             title: AppStrings.myCommunity,
             onTap: () {},
           ),
 
-          _buildMenuItem(
+          DrawerMenuItem(
             icon: Icons.bookmark_border,
             title: AppStrings.savedPosts,
             onTap: () {},
@@ -65,25 +63,34 @@ class _CustomDrawerState extends State<CustomDrawer> {
           const Divider(height: 1),
 
           // Settings Items
-          _buildMenuItem(
-            icon: Icons.dark_mode_outlined,
-            title: AppStrings.darkMode,
-            onTap: () {},
-            trailing: Switch(
-              value: false,
-              onChanged: (value) {
-                value = !value;
-              },
-            ),
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (_, themeMode) {
+              bool isDark = themeMode == ThemeMode.dark;
+              return DrawerMenuItem(
+                icon: Icons.dark_mode_outlined,
+                title: AppStrings.darkMode,
+                onTap: () {
+                  final theme = isDark ? ThemeMode.light : ThemeMode.dark;
+                  context.read<ThemeCubit>().toggleTheme(theme);
+                },
+                trailing: Switch(
+                  value: isDark,
+                  onChanged: (value) {
+                    final theme = value ? ThemeMode.dark : ThemeMode.light;
+                    context.read<ThemeCubit>().toggleTheme(theme);
+                  },
+                ),
+              );
+            },
           ),
 
-          _buildMenuItem(
+          DrawerMenuItem(
             icon: Icons.help_outline,
             title: AppStrings.helpCenter,
             onTap: () {},
           ),
 
-          _buildMenuItem(
+          DrawerMenuItem(
             icon: Icons.settings_outlined,
             title: AppStrings.settings,
             onTap: () {},
@@ -94,65 +101,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
           const Divider(height: 1),
 
           // Logout Button
-          _buildMenuItem(
+          DrawerMenuItem(
             icon: Icons.logout_outlined,
             title: AppStrings.logout,
             onTap: () {
               showDialog(
                 context: context,
-                builder: (BuildContext dialogContext) {
-                  return AlertDialog(
-                    title: const Text('Confirm Logout'),
-                    content: const Text('Are you sure you want to logout?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(dialogContext).pop(); // Close dialog
-                        },
-                        child: const Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () async {
-                          await secureStorage.deleteAll().then((_) {
-                            if (context.mounted) {
-                              Navigator.of(context)
-                                  .pushReplacementNamed(Routes.logInScreen);
-                            }
-                          });
-                        },
-                        child: const Text(AppStrings.logout),
-                      ),
-                    ],
-                  );
+                builder: (context) {
+                  return LogoutAlertDialog(dialogContext: context);
                 },
               );
             },
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildMenuItem({
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-    Widget? trailing,
-  }) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.grey[700]),
-      title: Text(
-        title,
-        style: TextStyle(
-          fontSize: 14,
-          color: Colors.grey[800],
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      trailing: trailing,
-      onTap: onTap,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-      minLeadingWidth: 20,
     );
   }
 }

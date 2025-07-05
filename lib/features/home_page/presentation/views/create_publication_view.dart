@@ -75,7 +75,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
               Duration(seconds: 5), () => NavigationService.goBack());
         } else if (state is PublicationCreationFailedState) {
           FlushBarUtils.flushBarError(
-              'Creation Publication is Failed: ${state.errModel.message}',
+              'Publication Creation is Failed: ${state.errModel.message}',
               context);
         }
       },
@@ -93,8 +93,8 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   UserInfo(
-                      image: userBox?.get(kUserAvatar),
-                      userName: userBox?.get(kUserName)),
+                      image: userBox?.get(HiveKeys.kUserAvatar),
+                      userName: userBox?.get(HiveKeys.kUserName)),
                   const SizedBox(height: 32.0),
                   CreatePublicationContent(
                     titleController: _titleController,

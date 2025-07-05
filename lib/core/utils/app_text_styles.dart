@@ -3,6 +3,7 @@ import 'package:collabry/core/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
+  AppTextStyles._();
   static const TextStyle barlowSize52BoldWhite = TextStyle(
     color: AppColors.white,
     fontSize: 52,
@@ -49,8 +50,7 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
   );
 
-  static const TextStyle belanosimaSize14Grey = TextStyle(
-    color: AppColors.lightGray,
+  static const TextStyle belanosimaSize14 = TextStyle(
     fontFamily: fontBelanosima,
     fontSize: 14,
   );

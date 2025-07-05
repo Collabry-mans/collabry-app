@@ -1,3 +1,4 @@
+import 'package:collabry/core/functions/functions.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/widgets/error_display.dart';
 import 'package:collabry/core/widgets/profile_image.dart';
@@ -128,17 +129,20 @@ class ProfileHeader extends StatelessWidget {
                     ],
                   ),
                 if (user.profile.linkedIn != null &&
-                    user.profile.linkedIn!.isNotEmpty)
+                    user.profile.linkedIn!.isNotEmpty) ...[
                   const SizedBox(height: 10),
-                if (user.profile.linkedIn != null &&
-                    user.profile.linkedIn!.isNotEmpty)
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: InfoChip(
-                      icon: Icons.link,
-                      text: 'LinkedIn',
+                  GestureDetector(
+                    onTap: () =>
+                        openSocialMedia(null, user.profile.linkedIn ?? ''),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: InfoChip(
+                        icon: Icons.link,
+                        text: 'LinkedIn',
+                      ),
                     ),
-                  ),
+                  )
+                ],
                 const SizedBox(height: 15),
                 // Email
                 Align(

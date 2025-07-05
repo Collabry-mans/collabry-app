@@ -18,15 +18,14 @@ class ViewHeader extends StatelessWidget {
           children: [
             Text(
               title,
-              style: AppTextStyles.belanosimaSize14Grey
+              style: AppTextStyles.belanosimaSize14
                   .copyWith(color: AppColors.appHeader, fontSize: 16),
             ),
             GestureDetector(
               onTap: () {},
               child: Text(
                 AppStrings.viewMore,
-                style:
-                    AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 10),
+                style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 10),
               ),
             )
           ],

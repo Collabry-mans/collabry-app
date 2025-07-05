@@ -38,7 +38,6 @@ class _PublicationByIdViewState extends State<PublicationByIdView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.homeBackground,
         appBar: const CustomAppBar(),
         drawer: const CustomDrawer(),
         body: BlocConsumer<PublicationCubit, PublicationState>(

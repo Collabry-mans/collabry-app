@@ -68,7 +68,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     setState(() {
                       index == 3
                           ? {
-                              firstTimeBox!.put(kFirstTime, false),
+                              firstTimeBox!.put(HiveKeys.kFirstTime, false),
                               Navigator.pushNamedAndRemoveUntil(
                                   context, Routes.logInScreen, (route) => false)
                             }

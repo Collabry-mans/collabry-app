@@ -36,7 +36,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
       },
       child: AppBar(
         surfaceTintColor: Colors.transparent,
-        backgroundColor: AppColors.homeBackground,
         leading: Builder(builder: (context) {
           return IconButton(
             onPressed: () {

@@ -30,7 +30,7 @@ class PublicationHeader extends StatelessWidget {
         children: [
           Text(
             _getSubtitleText(),
-            style: AppTextStyles.belanosimaSize14Grey,
+            style: AppTextStyles.belanosimaSize14,
           ),
           PublicationCreatedDate(createdAt: publication.createdAt),
         ],

@@ -1,4 +1,4 @@
-import 'package:collabry/core/functions/extensions.dart';
+import 'package:collabry/core/functions/extensions/string_extension.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';

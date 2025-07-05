@@ -85,7 +85,7 @@ class PublicationOption extends StatelessWidget {
         IconButton(onPressed: onTap, icon: icon),
         Text(
           text,
-          style: AppTextStyles.belanosimaSize14Grey.copyWith(fontSize: 10),
+          style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 10),
         ),
       ],
     );

@@ -16,7 +16,7 @@ class PublicationCreatedDate extends StatelessWidget {
       children: [
         Text(
           '${createdAt.split('T').first} . ',
-          style: AppTextStyles.belanosimaSize14Grey,
+          style: AppTextStyles.belanosimaSize14,
         ),
         const Icon(
           Icons.public_outlined,

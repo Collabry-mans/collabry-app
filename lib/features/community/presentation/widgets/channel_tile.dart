@@ -48,12 +48,12 @@ class ChannelTile extends StatelessWidget {
                   children: [
                     Text(
                       'UI/UX Challenges',
-                      style: AppTextStyles.belanosimaSize14Grey
+                      style: AppTextStyles.belanosimaSize14
                           .copyWith(color: Colors.black),
                     ),
                     Text(
                       'yesterday',
-                      style: AppTextStyles.belanosimaSize14Grey
+                      style: AppTextStyles.belanosimaSize14
                           .copyWith(color: AppColors.primary),
                     ),
                   ],

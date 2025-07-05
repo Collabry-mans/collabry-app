@@ -1,3 +1,4 @@
+import 'package:collabry/core/functions/extensions/theme_extension.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -26,7 +27,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return ConvexAppBar(
       initialActiveIndex: widget.index,
       height: 60,
-      backgroundColor: AppColors.white,
+      backgroundColor: context.customColors.bottomNavBarColor,
       color: AppColors.lightGray,
       activeColor: AppColors.oAuth,
       onTap: (int index) {

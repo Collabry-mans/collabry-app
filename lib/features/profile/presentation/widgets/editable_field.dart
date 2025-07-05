@@ -24,7 +24,7 @@ class EditableField extends StatelessWidget {
       children: [
         Text(
           label,
-          style: AppTextStyles.belanosimaSize14Grey
+          style: AppTextStyles.belanosimaSize14
               .copyWith(color: AppColors.secondary),
         ),
         const SizedBox(height: 4),
@@ -36,11 +36,11 @@ class EditableField extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
             hintText: 'Enter your $label',
-            hintStyle: AppTextStyles.belanosimaSize14Grey,
+            hintStyle: AppTextStyles.belanosimaSize14,
             border: outLineInputBorder(5),
             prefixText: prefixText,
           ),
-          style: AppTextStyles.belanosimaSize14Grey,
+          style: AppTextStyles.belanosimaSize14,
         ),
       ],
     );
