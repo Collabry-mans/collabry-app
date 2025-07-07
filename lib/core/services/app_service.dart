@@ -17,8 +17,7 @@ class AppService {
 
   Future<void> initialize() async {
     try {
-      await setupDependencies();
-
+      await HiveService.init();
       _firstTimeBox = await HiveService.openHiveBox(HiveBoxes.firstTimeBox);
       _userBox = await HiveService.openHiveBox(HiveBoxes.userBox);
 

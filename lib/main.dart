@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await setupDependencies();
+
   await appService.initialize();
   Bloc.observer = SimpleBlocObserver();
 

@@ -20,16 +20,12 @@ class CustomDrawer extends StatefulWidget {
 class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<UserProfileCubit>();
-    if (cubit.state is! UserProfileAvatarLoadedState) {
-      context.read<UserProfileCubit>().getUserProfile();
-    }
-    return BlocBuilder<UserProfileCubit, UserProfileState>(
-      builder: (_, state) {
-        if (state is UserProfileLoadedState) {
-          final user = state.user;
-          return Drawer(
-            child: Column(
+    return Drawer(
+      child: BlocBuilder<UserProfileCubit, UserProfileState>(
+        builder: (_, state) {
+          if (state is UserProfileLoadedState) {
+            final user = state.user;
+            return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
@@ -118,26 +114,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   },
                 ),
               ],
-            ),
-          );
-        } else if (state is UserProfileFailedState) {
-          return Center(
-            child: ErrorDisplay(
-              message: AppStrings.errorLoadingProfile,
-              onRetry: () {
-                context.read<UserProfileCubit>().getUserProfile();
-              },
-            ),
-          );
-        } else {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-      },
+            );
+          } else if (state is UserProfileFailedState) {
+            return Center(
+              child: ErrorDisplay(
+                message: AppStrings.errorLoadingProfile,
+                onRetry: () {
+                  context.read<UserProfileCubit>().getUserProfile();
+                },
+              ),
+            );
+          } else {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

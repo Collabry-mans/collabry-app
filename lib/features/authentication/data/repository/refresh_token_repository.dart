@@ -1,13 +1,10 @@
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/functions/extensions/string_extension.dart';
-import 'package:collabry/core/singleton/singleton.dart';
-import 'package:collabry/core/utils/app_constants.dart';
+import 'package:collabry/core/di/di.dart';
 import 'package:collabry/features/authentication/data/model/refresh_token_model.dart';
 import 'package:dio/dio.dart';
 
 class RefreshTokenRepository {
-  RefreshTokenRepository();
-
   Future<RefreshTokenModel?> refreshToken(String refreshToken) async {
     try {
       // Create clean dio instance without interceptors
@@ -32,16 +29,10 @@ class RefreshTokenRepository {
         return null;
       }
 
-      // Save new tokens
-      await Future.wait([
-        secureStorage.write(key: accessTokenKey, value: newTokens.accessToken!),
-        secureStorage.write(
-            key: refreshTokenKey, value: newTokens.refreshToken!),
-      ]);
-
       return newTokens;
     } catch (e) {
-      if (e is DioException && e.response?.statusCode == 400) {
+      if (e is DioException &&
+          (e.response?.statusCode == 400 || e.response?.statusCode == 500)) {
         await secureStorage.deleteAll();
       }
       return null;
