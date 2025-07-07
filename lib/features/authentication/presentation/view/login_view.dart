@@ -20,6 +20,22 @@ class LogInView extends StatefulWidget {
 }
 
 class _LogInViewState extends State<LogInView> {
+  late TextEditingController emailController;
+  late TextEditingController passController;
+  @override
+  initState() {
+    emailController = TextEditingController();
+    passController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> logInFormKey = GlobalKey();
@@ -88,7 +104,9 @@ class _LogInViewState extends State<LogInView> {
                                   style: AppTextStyles.barlowSize42BoldPurple,
                                 ),
                                 const SizedBox(height: 20),
-                                const LoginTextFields(),
+                                LoginTextFields(
+                                    emailController: emailController,
+                                    passController: passController),
                                 const SizedBox(height: 30),
                                 state is LoginLoadingState
                                     ? const Center(
@@ -98,7 +116,9 @@ class _LogInViewState extends State<LogInView> {
                                           if (logInFormKey.currentState
                                                   ?.validate() ??
                                               false) {
-                                            context.read<AuthCubit>().logIn();
+                                            context.read<AuthCubit>().logIn(
+                                                emailController.text,
+                                                passController.text);
                                           }
                                         },
                                         text: AppStrings.logIn,

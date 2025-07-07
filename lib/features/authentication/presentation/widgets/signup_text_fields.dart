@@ -1,23 +1,41 @@
-import 'package:collabry/features/authentication/presentation/manager/auth_cubit.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_strings.dart';
 import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_check_box.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignupTextFields extends StatelessWidget {
-  const SignupTextFields({super.key});
+class SignupTextFields extends StatefulWidget {
+  const SignupTextFields(
+      {super.key, required this.name, required this.email, required this.pass});
+  final TextEditingController name, email, pass;
+
+  @override
+  State<SignupTextFields> createState() => _SignupTextFieldsState();
+}
+
+class _SignupTextFieldsState extends State<SignupTextFields> {
+  late TextEditingController confirmPassController;
+
+  @override
+  void initState() {
+    super.initState();
+    confirmPassController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    confirmPassController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = context.read<AuthCubit>();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTxtField(
-          txtController: authCubit.registerNameController,
+          txtController: widget.name,
           text: AppStrings.name,
           icon: Icons.account_circle_outlined,
           color: AppColors.lightGray,
@@ -30,7 +48,7 @@ class SignupTextFields extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         CustomTxtField(
-          txtController: authCubit.registerEmailController,
+          txtController: widget.email,
           text: AppStrings.email,
           icon: Icons.email,
           color: AppColors.lightGray,
@@ -45,7 +63,7 @@ class SignupTextFields extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         CustomTxtField(
-          txtController: authCubit.registerPassController,
+          txtController: widget.pass,
           text: AppStrings.pass,
           icon: Icons.lock_outline_rounded,
           color: AppColors.lightGray,
@@ -61,16 +79,13 @@ class SignupTextFields extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         CustomTxtField(
-          txtController: authCubit.registerConfirmPassController,
+          txtController: confirmPassController,
           isPass: true,
           text: AppStrings.confirmPassword,
           icon: Icons.lock_outline_rounded,
           color: AppColors.lightGray,
           validationFun: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter your password';
-            } else if (value !=
-                context.read<AuthCubit>().registerPassController.text) {
+            if (value != widget.pass.text) {
               return 'both passwords should be the same';
             }
             return null;

@@ -13,8 +13,33 @@ import 'package:collabry/features/authentication/presentation/widgets/signup_tex
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpView extends StatelessWidget {
+class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
+
+  @override
+  State<SignUpView> createState() => _SignUpViewState();
+}
+
+class _SignUpViewState extends State<SignUpView> {
+  late TextEditingController emailController;
+  late TextEditingController nameController;
+  late TextEditingController passController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    nameController = TextEditingController();
+    passController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    nameController.dispose();
+    passController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +77,7 @@ class SignUpView extends StatelessWidget {
                           context);
                       Navigator.pushNamed(
                           context, Routes.signUpVerificationScreen,
-                          arguments: context.read<AuthCubit>());
+                          arguments: emailController.text);
                     } else if (state is RegisterFailedState) {
                       FlushBarUtils.flushBarError(
                           state.errModel.message, context);
@@ -71,7 +96,10 @@ class SignUpView extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 20),
-                        const SignupTextFields(),
+                        SignupTextFields(
+                            name: nameController,
+                            email: emailController,
+                            pass: passController),
                         const SizedBox(height: 20),
                         state is RegisterLoadingState
                             ? const Center(child: CircularProgressIndicator())
@@ -80,7 +108,10 @@ class SignUpView extends StatelessWidget {
                                   if (registerFormKey.currentState
                                           ?.validate() ??
                                       false) {
-                                    context.read<AuthCubit>().signUp();
+                                    context.read<AuthCubit>().signUp(
+                                        name: nameController.text,
+                                        email: emailController.text,
+                                        password: passController.text);
                                   }
                                 },
                                 text: AppStrings.signUp,

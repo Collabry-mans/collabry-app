@@ -1,4 +1,3 @@
-import 'package:collabry/features/authentication/presentation/manager/auth_cubit.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -8,10 +7,27 @@ import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
 import 'package:collabry/features/authentication/presentation/widgets/customized_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ForgotPasswordView extends StatelessWidget {
+class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
+
+  @override
+  State<ForgotPasswordView> createState() => _ForgotPasswordViewState();
+}
+
+class _ForgotPasswordViewState extends State<ForgotPasswordView> {
+  late TextEditingController forgetPassController;
+  @override
+  void initState() {
+    forgetPassController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    forgetPassController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +79,7 @@ class ForgotPasswordView extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   CustomTxtField(
-                    txtController:
-                        context.read<AuthCubit>().forgotpassEmailController,
+                    txtController: forgetPassController,
                     text: AppStrings.email,
                     icon: Icons.email_outlined,
                     color: AppColors.lightGray,
