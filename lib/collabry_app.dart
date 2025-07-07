@@ -1,12 +1,10 @@
+import 'package:collabry/core/di/di.dart';
 import 'package:collabry/core/theme/cubit/theme_cubit.dart';
 import 'package:collabry/core/theme/presentation/theme_data_dark.dart';
 import 'package:collabry/core/theme/presentation/theme_data_light.dart';
 import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:collabry/core/routes/app_routes.dart';
 import 'package:collabry/core/services/navigation_service.dart';
-import 'package:collabry/core/singleton/singleton.dart';
-import 'package:collabry/core/utils/app_constants.dart';
-import 'package:collabry/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +18,7 @@ class Collabry extends StatelessWidget {
         BlocProvider<UserProfileCubit>(
           create: (_) {
             final cubit = getIt<UserProfileCubit>();
-            if (isLoggedIn) {
+            if (appService.isLoggedIn) {
               cubit.getUserProfile();
             }
             return cubit;
@@ -37,19 +35,10 @@ class Collabry extends StatelessWidget {
             darkTheme: getDarkTheme(),
             themeMode: newTheme,
             onGenerateRoute: appRoutes.getAppRoutes,
-            initialRoute: initialPage(),
+            initialRoute: appService.getInitialRoute(),
           );
         },
       ),
     );
   }
-}
-
-String initialPage() {
-  bool isFirstTime = firstTimeBox!.get(HiveKeys.kFirstTime, defaultValue: true);
-  return isFirstTime
-      ? Routes.onBoardingScreen
-      : isLoggedIn
-          ? Routes.mainPageScreen
-          : Routes.logInScreen;
 }

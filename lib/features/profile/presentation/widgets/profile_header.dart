@@ -37,12 +37,9 @@ class ProfileHeader extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: onEditProfile,
-                      child: ProfileImage(
-                        image: user.profile.profileImage,
-                        radius: 45,
-                      ),
+                    ProfileImage(
+                      image: user.profile.profileImage,
+                      radius: 45,
                     ),
                     GestureDetector(
                       onTap: onEditProfile,
@@ -57,6 +54,7 @@ class ProfileHeader extends StatelessWidget {
                           'Edit profile',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
+                            color: AppColors.white,
                           ),
                         ),
                       ),

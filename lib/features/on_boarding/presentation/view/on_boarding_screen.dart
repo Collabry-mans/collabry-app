@@ -1,3 +1,4 @@
+import 'package:collabry/core/di/di.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
@@ -5,7 +6,6 @@ import 'package:collabry/core/utils/app_text_styles.dart';
 import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/on_boarding/presentation/widgets/on_boarding_item_builder.dart';
 import 'package:collabry/features/on_boarding/presentation/widgets/page_indicator_builder.dart';
-import 'package:collabry/main.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -68,7 +68,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     setState(() {
                       index == 3
                           ? {
-                              firstTimeBox!.put(HiveKeys.kFirstTime, false),
+                              appService.firstTimeBox
+                                  .put(HiveKeys.kFirstTime, false),
                               Navigator.pushNamedAndRemoveUntil(
                                   context, Routes.logInScreen, (route) => false)
                             }

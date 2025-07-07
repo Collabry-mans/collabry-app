@@ -1,4 +1,4 @@
-import 'package:collabry/core/singleton/singleton.dart';
+import 'package:collabry/core/di/di.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/core/utils/app_strings.dart';
