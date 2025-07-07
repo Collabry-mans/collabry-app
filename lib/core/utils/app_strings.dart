@@ -93,4 +93,5 @@ class AppStrings {
   static const String abstract = 'Abstract';
   static const String keyWords = 'Keywords';
   static const String addKeywords = 'Add keyword';
+  static const String errorLoadingProfile = 'Error loading profile';
 }
