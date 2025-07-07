@@ -11,7 +11,7 @@ import 'package:collabry/features/home_page/presentation/widgets/create_publicat
 import 'package:collabry/features/home_page/presentation/widgets/create_publication/create_publication_content.dart';
 import 'package:collabry/features/home_page/presentation/widgets/create_publication/create_publication_sections.dart';
 import 'package:collabry/features/home_page/presentation/widgets/create_publication/publication_settings.dart';
-import 'package:collabry/main.dart';
+import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -91,9 +91,7 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  UserInfo(
-                      image: userBox?.get(HiveKeys.kUserAvatar),
-                      userName: userBox?.get(HiveKeys.kUserName)),
+                  UserInfo(),
                   const SizedBox(height: 32.0),
                   CreatePublicationContent(
                     titleController: _titleController,
@@ -139,20 +137,34 @@ class _CreatePublicationViewState extends State<CreatePublicationView> {
 }
 
 class UserInfo extends StatelessWidget {
-  const UserInfo({super.key, required this.image, required this.userName});
-  final String image, userName;
+  const UserInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ProfileImage(image: image),
-        const SizedBox(width: 16),
-        Text(
-          userName,
-          style: AppTextStyles.belanosimaSize12.copyWith(fontSize: 24),
-        ),
-      ],
+    return BlocBuilder<UserProfileCubit, UserProfileState>(
+      builder: (_, state) {
+        if (state is UserProfileLoadedState) {
+          final user = state.user;
+          return ListTile(
+            leading: ProfileImage(image: user.profile.profileImage),
+            title: Text(
+              user.name,
+              style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 18),
+            ),
+            subtitle: Text(user.email, style: AppTextStyles.belanosimaSize14),
+          );
+        } else if (state is UserProfileFailedState) {
+          return ListTile(
+            leading: ProfileImage(image: ''),
+            title: Text(
+              state.errModel.message,
+              style: AppTextStyles.belanosimaSize14.copyWith(fontSize: 18),
+            ),
+          );
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
     );
   }
 }

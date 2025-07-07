@@ -89,9 +89,11 @@ class ForgotPasswordVerificationView extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.sizeOf(context).height / 4,
                             child: VerificationBottomSection(
+                              formKey: forgetPassFormKey,
+                              otpControllers: [],
+                              email: '',
                               onTap: () => Navigator.pushReplacementNamed(
                                   context, Routes.resetPasswordScreen),
-                              formKey: forgetPassFormKey,
                             ),
                           ),
                           const Expanded(child: SizedBox()),

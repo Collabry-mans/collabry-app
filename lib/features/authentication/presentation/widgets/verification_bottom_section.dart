@@ -8,16 +8,26 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class VerificationBottomSection extends StatelessWidget {
+class VerificationBottomSection extends StatefulWidget {
   const VerificationBottomSection({
     super.key,
     required this.onTap,
     required this.formKey,
+    required this.otpControllers,
+    required this.email,
   });
 
   final VoidCallback onTap;
   final GlobalKey<FormState> formKey;
+  final List<TextEditingController> otpControllers;
+  final String email;
 
+  @override
+  State<VerificationBottomSection> createState() =>
+      _VerificationBottomSectionState();
+}
+
+class _VerificationBottomSectionState extends State<VerificationBottomSection> {
   @override
   Widget build(BuildContext context) {
     final authCubit = context.read<AuthCubit>();
@@ -26,19 +36,19 @@ class VerificationBottomSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Form(
-          key: formKey,
+          key: widget.formKey,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(
               6,
               (index) => OTPVerificationComponent(
-                controller: authCubit.otpControllers[index],
+                controller: widget.otpControllers[index],
               ),
             ),
           ),
         ),
         CustomButton(
-          onTap: onTap,
+          onTap: widget.onTap,
           text: AppStrings.verify,
           textStyle: AppTextStyles.belanosimaSize24W600Purple
               .copyWith(color: AppColors.white),
@@ -56,7 +66,7 @@ class VerificationBottomSection extends StatelessWidget {
                 style: AppTextStyles.belanosimaSize24W600Purple
                     .copyWith(fontSize: 11),
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => authCubit.sendOTP(),
+                  ..onTap = () => authCubit.sendOtpTo(email: widget.email),
               ),
               TextSpan(
                 text: '${AppStrings.requestNewCodeIn} 00:30s',

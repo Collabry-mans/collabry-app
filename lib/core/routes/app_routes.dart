@@ -1,7 +1,7 @@
 import 'package:collabry/features/authentication/presentation/manager/auth_cubit.dart';
 import 'package:collabry/features/home_page/presentation/manager/category/category_cubit.dart';
 import 'package:collabry/features/home_page/presentation/manager/publication/publication_cubit.dart';
-import 'package:collabry/core/singleton/singleton.dart';
+import 'package:collabry/core/di/di.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_verification_view.dart';
 import 'package:collabry/features/authentication/presentation/view/forgot_password_view.dart';
@@ -62,11 +62,11 @@ class AppRoutes {
         );
 
       case Routes.signUpVerificationScreen:
-        final authCubit = settings.arguments as AuthCubit;
+        final email = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: authCubit,
-            child: const SignUpVerificationView(),
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<AuthCubit>(),
+            child: SignUpVerificationView(email: email),
           ),
         );
 

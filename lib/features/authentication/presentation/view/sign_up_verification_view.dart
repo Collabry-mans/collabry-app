@@ -10,8 +10,31 @@ import 'package:collabry/features/authentication/presentation/widgets/verificati
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpVerificationView extends StatelessWidget {
-  const SignUpVerificationView({super.key});
+class SignUpVerificationView extends StatefulWidget {
+  const SignUpVerificationView({super.key, required this.email});
+
+  final String email;
+
+  @override
+  State<SignUpVerificationView> createState() => _SignUpVerificationViewState();
+}
+
+class _SignUpVerificationViewState extends State<SignUpVerificationView> {
+  late List<TextEditingController> otpControllers;
+
+  @override
+  void initState() {
+    super.initState();
+    otpControllers = List.generate(6, (index) => TextEditingController());
+  }
+
+  @override
+  void dispose() {
+    for (var controller in otpControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +102,7 @@ class SignUpVerificationView extends StatelessWidget {
                                   .copyWith(fontSize: 11),
                             ),
                             TextSpan(
-                              text: authCubit.registerEmailController.text,
+                              text: widget.email,
                               style: AppTextStyles.belanosimaSize24W600Purple
                                   .copyWith(fontSize: 14),
                             ),
@@ -97,16 +120,18 @@ class SignUpVerificationView extends StatelessWidget {
                         child: state is VerifyOTPLoadingState
                             ? const Center(child: CircularProgressIndicator())
                             : VerificationBottomSection(
+                                formKey: otpFormKey,
+                                otpControllers: otpControllers,
+                                email: widget.email,
                                 onTap: () {
                                   if (otpFormKey.currentState!.validate()) {
-                                    final String otpCode = authCubit
-                                        .otpControllers
+                                    final String otpCode = otpControllers
                                         .map((digit) => digit.text)
                                         .join();
-                                    authCubit.verifyOTP(otpCode);
+                                    authCubit.verifyOtpFor(otpCode,
+                                        email: widget.email, otp: otpCode);
                                   }
                                 },
-                                formKey: otpFormKey,
                               ),
                       ),
                       const Expanded(child: SizedBox()),

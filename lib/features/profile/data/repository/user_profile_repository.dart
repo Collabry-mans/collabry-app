@@ -2,9 +2,9 @@ import 'package:collabry/core/api/dio_consumer.dart';
 import 'package:collabry/core/api/end_points.dart';
 import 'package:collabry/core/api/networking/api_error_handler.dart';
 import 'package:collabry/core/api/networking/api_result.dart';
+import 'package:collabry/core/di/di.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/profile/data/model/user_profile_model.dart';
-import 'package:collabry/main.dart';
 import 'package:dio/dio.dart';
 
 abstract class UserProfileRepositoryBase {
@@ -44,12 +44,9 @@ class UserProfileRepo implements UserProfileRepositoryBase {
 
   @override
   Future<void> saveUserProfile({String? name, email, image}) async {
-    await userBox!
-        .put(HiveKeys.kUserName, name ?? userBox!.get(HiveKeys.kUserName));
-    await userBox!
-        .put(HiveKeys.kUserEmail, email ?? userBox!.get(HiveKeys.kUserEmail));
-    await userBox!
-        .put(HiveKeys.kUserAvatar, image ?? userBox!.get(HiveKeys.kUserAvatar));
+    await appService.userBox.put(HiveKeys.kUserName, name);
+    await appService.userBox.put(HiveKeys.kUserEmail, email);
+    await appService.userBox.put(HiveKeys.kUserAvatar, image);
   }
 
   @override
@@ -88,7 +85,7 @@ class UserProfileRepo implements UserProfileRepositoryBase {
         },
         isFormData: true,
       );
-      await userBox!.put(HiveKeys.kUserAvatar, profileImage);
+      await appService.userBox.put(HiveKeys.kUserAvatar, profileImage);
 
       return ApiResult.success(null);
     } catch (e) {

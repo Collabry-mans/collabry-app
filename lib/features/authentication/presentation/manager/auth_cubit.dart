@@ -1,44 +1,20 @@
 import 'package:collabry/features/authentication/presentation/manager/auth_states.dart';
-import 'package:collabry/features/profile/presentation/manager/user_profile_cubit.dart';
-import 'package:collabry/core/singleton/singleton.dart';
+import 'package:collabry/core/di/di.dart';
 import 'package:collabry/core/utils/app_constants.dart';
 import 'package:collabry/features/authentication/data/repository/auth_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepo) : super(AuthInitial());
 
   final BaseAuthRepository authRepo;
-  //* login txt controllers
-  TextEditingController logInEmailController = TextEditingController();
-  TextEditingController logInPassController = TextEditingController();
 
-  //* register txt controllers
-  TextEditingController registerEmailController = TextEditingController();
-  TextEditingController registerNameController = TextEditingController();
-  TextEditingController registerPassController = TextEditingController();
-  TextEditingController registerConfirmPassController = TextEditingController();
-
-//* Signup verification OTP
-  final List<TextEditingController> otpControllers =
-      List.generate(6, (_) => TextEditingController());
-
-  //* ForgotPassword controllers
-  TextEditingController forgotpassEmailController = TextEditingController();
-
-  //* ResetPassword controllers
-  TextEditingController resetpassNewPassController = TextEditingController();
-  TextEditingController resetpassConfirmPassController =
-      TextEditingController();
-
-  Future<void> signUp() async {
+  Future<void> signUp(
+      {required String name,
+      required String email,
+      required String password}) async {
     emit(RegisterLoadingState());
-    final result = await authRepo.signUp(
-      registerNameController.text,
-      registerEmailController.text.trim(),
-      registerPassController.text,
-    );
+    final result = await authRepo.signUp(name, email.trim(), password);
     result.when(
       onSuccess: (user) {
         saveUserTokens(user.accessToken, user.refreshToken);
@@ -50,17 +26,12 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> logIn() async {
+  Future<void> logIn(String email, String password) async {
     emit(LoginLoadingState());
-    final result = await authRepo.logIn(
-      logInEmailController.text.trim(),
-      logInPassController.text,
-    );
+    final result = await authRepo.logIn(email.trim(), password);
     result.when(
       onSuccess: (user) {
         saveUserTokens(user.accessToken, user.refreshToken);
-        final userProfileCubit = getIt<UserProfileCubit>();
-        userProfileCubit.getUserProfile();
         emit(LoginLoadedState(logIn: user));
       },
       onFailure: (error) {
@@ -69,8 +40,8 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> sendOTP() async {
-    final result = await authRepo.sendOtp(registerEmailController.text.trim());
+  Future<void> sendOtpTo({required String email}) async {
+    final result = await authRepo.sendOtp(email.trim());
     result.when(
       onSuccess: (_) {},
       onFailure: (error) {
@@ -79,10 +50,10 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  Future<void> verifyOTP(String otp) async {
+  Future<void> verifyOtpFor(String otpCode,
+      {required String email, required String otp}) async {
     emit(VerifyOTPLoadingState());
-    final result =
-        await authRepo.verifyOtp(registerEmailController.text.trim(), otp);
+    final result = await authRepo.verifyOtp(email.trim(), otp);
     result.when(
       onSuccess: (_) {
         emit(VerifyOTPSuccessedState(otpCode: otp));

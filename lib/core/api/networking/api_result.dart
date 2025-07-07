@@ -5,7 +5,7 @@ class ApiResult<T> {
   factory ApiResult.success(T data) = ApiSuccess<T>;
   factory ApiResult.failure(ApiErrorModel error) = ApiFailure<T>;
 
-  when({
+  dynamic when({
     required Function(T data) onSuccess,
     required Function(ApiErrorModel error) onFailure,
   }) {

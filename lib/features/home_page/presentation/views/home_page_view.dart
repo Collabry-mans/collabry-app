@@ -75,6 +75,15 @@ class _HomePageViewState extends State<HomePageView> {
             },
             itemCount: state.publications.length,
           );
+        } else if (state is PublicationFailedState) {
+          return SliverToBoxAdapter(
+            child: Center(
+              child: Text(
+                state.errModel.message,
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
+          );
         }
         return const SliverToBoxAdapter(
           child: Center(child: CircularProgressIndicator()),

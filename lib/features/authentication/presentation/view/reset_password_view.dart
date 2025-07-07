@@ -1,4 +1,3 @@
-import 'package:collabry/features/authentication/presentation/manager/auth_cubit.dart';
 import 'package:collabry/core/utils/app_assets.dart';
 import 'package:collabry/core/utils/app_colors.dart';
 import 'package:collabry/core/utils/app_constants.dart';
@@ -8,10 +7,31 @@ import 'package:collabry/core/widgets/custom_button.dart';
 import 'package:collabry/features/authentication/presentation/widgets/custom_txt_field.dart';
 import 'package:collabry/features/authentication/presentation/widgets/customized_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ResetPasswordView extends StatelessWidget {
+class ResetPasswordView extends StatefulWidget {
   const ResetPasswordView({super.key});
+
+  @override
+  State<ResetPasswordView> createState() => _ResetPasswordViewState();
+}
+
+class _ResetPasswordViewState extends State<ResetPasswordView> {
+  late TextEditingController newPassController;
+  late TextEditingController confirmPassController;
+
+  @override
+  void initState() {
+    super.initState();
+    newPassController = TextEditingController();
+    confirmPassController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    newPassController.dispose();
+    confirmPassController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +77,7 @@ class ResetPasswordView extends StatelessWidget {
                   ),
                   const SizedBox(height: 40),
                   CustomTxtField(
-                    txtController:
-                        context.read<AuthCubit>().resetpassNewPassController,
+                    txtController: newPassController,
                     text: AppStrings.newPass,
                     icon: Icons.lock_outline_rounded,
                     color: AppColors.lightGray,
@@ -66,9 +85,7 @@ class ResetPasswordView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   CustomTxtField(
-                    txtController: context
-                        .read<AuthCubit>()
-                        .resetpassConfirmPassController,
+                    txtController: confirmPassController,
                     text: AppStrings.confirmPassword,
                     icon: Icons.lock_outline_rounded,
                     color: AppColors.lightGray,
